@@ -9,27 +9,35 @@
 </head>
 <body>
     <div class="wrap">
+        <!--header-->
         <div class="header">
+            <!--blok logo-->
             <div class="header-logo">
                 <a href="https://www.ifnmu.edu.ua/uk/" alt="IFNMU"><img src="img/logo_ua.png"></a>
             </div>
+            <!--blok for login-->
             <div class="header-login">
+                <!--info user-->
                 <div class="info" id="demo-wrap"><i class='fas fa-user-check'></i><p id="demo"></p></div>
+                <!--button for enter-->
                 <div class="click">
+                    <!--inputs-->
                     <div class="click-login-close" id="send-login-close">
                         <input type="text" id="login" placeholder="Введіть логін">
                         <input type="text" id="password" placeholder="Введіть пароль">
                     </div>
+                    <!--button-->
                     <div id="click">
                         <div class="click-text" id="enter-open"></div>
-                        <div class="click-text" id="enter-close" style="display: none;"></div>
-                        <div class="click-text" id="enter-exit" style="display: none;"></div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!--content-->
         <div class="content" id="content">
             <div class="content-wrap">
+                <!--tabs header-->
                 <div class="tab-wrap">
                     <div class="tab1 activ" id="tab1">
             
@@ -38,6 +46,7 @@
             
                     </div>
                 </div>
+                <!--tabs content-->
                 <div class="tab-body-wrap">
                     <div class="tab-body1" id="tab-body1">
                         <h1>TAB11111</h1>
@@ -51,9 +60,10 @@
 
     </div>
     
-
+    <script src="js/view.js"></script>
     <script src="js/service.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/ajax.js"></script>
+    <script src="js/controller.js"></script>
 
 
 </body>
