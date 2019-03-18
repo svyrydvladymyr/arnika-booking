@@ -1,0 +1,232 @@
+:root{
+    --ol-1: 0px solid red;
+    --ol-2: 0px solid green;
+    --ol-3: 0px solid blue;
+}
+
+html{
+    padding: 0px;
+    margin: 0px;  
+}
+
+body{
+    padding: 0px;
+    margin: 0px;
+    background: #2b2b2b;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.wrap{
+    outline: var(--ol-1);
+    width: 700px;
+    min-height: 200px;
+    margin: 15px auto;
+    padding: 0px;
+    display: table;
+}
+
+/*-----------header------------*/
+.header{
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    border: 1px solid #565656;
+    background: #ececec;
+    box-shadow: 0px 0px 5px #ffffff;
+}
+
+/*-----------header-logo------------*/
+.header-logo{
+    outline: var(--ol-2);
+    width: 40%;
+}
+
+.header-logo img{
+    width: 95%;
+    margin: 3px 10px;
+}
+
+/*-----------header-login------------*/
+.header-login{
+    outline: var(--ol-2);
+    width: 59%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.click{
+    cursor: pointer;
+    display: flex;
+    height: 25px;;
+    margin: 19px 20px;
+    float: right;
+    background: linear-gradient(to bottom right, #0b380b, #53bb53, #0f480f);
+    border: 1px solid #676767;
+    border-radius: 7px 15px;
+    box-shadow: 0px 0px 5px #4a4a4a;
+    transition: 0.2s;
+}
+
+.click:hover{
+    box-shadow: 0px 0px 8px #4a4a4a;
+    text-shadow: 0px 0px 5px red;
+    transition: 0.2s;
+}
+
+.click-login-close{
+    width: 0px;
+    margin: 2px 1px 2px 7px;
+    border-radius: 5px 5px 5px 5px;
+    padding: 0px 0px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    transition: 0.7s;
+}
+
+.click-login-close input{
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.click-login-exit{
+    width: 0px;
+    margin: 2px 1px 2px 7px;
+    border-radius: 5px 5px 5px 5px;
+    padding: 0px 0px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    transition: 0.7s;
+}
+
+.click-login-exit input{
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.click-login-open{
+    width: 230px;
+    margin: 2px 1px 2px 7px;
+    border-radius: 5px 5px 5px 5px;
+    padding: 0px 0px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    transition: 0.7s;
+}
+
+.click-login-open input{
+    width: 106px;
+    height: 18px;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 1px 4px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    border: 1px solid #757575;
+    opacity: 1;
+    transition: 0.7s;
+}
+
+/*-----------header-batton------------*/
+.click-text{
+    width: 80px;
+    height: 24px;
+    margin: 0px;
+    padding: 3px;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 0px 15px 7px 0px;
+}
+
+.info{
+    width: 170px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 2px;
+}
+
+.info > p{
+    margin: 0px 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.fa-user-check{
+    color:green;
+    text-shadow: 0px 0px 1px green;
+}
+
+/*-----------content------------*/
+.content{
+    display: none;
+}
+
+.content-wrap{
+    outline: var(--ol-3);
+    margin: 20px auto;
+}
+
+.tab-wrap{
+    outline: var(--ol-3);
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+}
+
+.tab1, .tab2{
+    cursor: pointer;
+    outline: var(--ol-3);
+    width: 30%;
+    border-radius: 15px 15px 0px 0px;
+    border: 1px solid #565656;
+    background: #ececec;
+    box-shadow: 0px 0px 5px #ffffff;
+    transition: 0.7s;
+}
+
+.activ{
+    width: 70%;
+}
+
+
+.tab-body-wrap{
+    outline: var(--ol-3);
+    width: 100%;
+    min-height: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+}
+
+.tab-body1{
+    outline: var(--ol-3);
+    width: 100%;
+    min-height: 200px;
+    border-radius: 0px 0px 15px 15px;
+    border: 1px solid #565656;
+    background: #ececec;
+    box-shadow: 0px 0px 5px #ffffff;
+    
+}
+
+.tab-body2{
+    outline: var(--ol-3);
+    width: 100%;
+    min-height: 200px;
+    border-radius: 0px 0px 15px 15px;
+    border: 1px solid #565656;
+    background: #ececec;
+    box-shadow: 0px 0px 5px #ffffff;
+    display: none;
+}
