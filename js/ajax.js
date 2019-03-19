@@ -1,12 +1,17 @@
 let AJAX = (function(){
 
     // function for get object from (*.json) file
-    let getJson = function(namefile, funCallback) {
+    let getJson = function(namefile) {
         var file = new XMLHttpRequest();
         file.onreadystatechange = function() {
             if (file.readyState === 4 && file.status == "200") {
                 let data = JSON.parse(file.responseText);
-                funCallback(data.loginEnter);
+                for (var id in data) {
+                    if (SE.$(id)){    
+                        SE.$(id).placeholder = data[id];
+                        SE.$(id).innerHTML = data[id];
+                    }
+                }
             }
         };
         file.open("GET", namefile, true);

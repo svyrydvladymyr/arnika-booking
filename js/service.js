@@ -6,8 +6,9 @@ let SE = (function(){
     };
 
     // function for set parametrs
-    let setSettings = function(...val){
-        SE.$("enter-open").innerHTML = val[0]; 
+    let setSettings = function(enter){
+        SE.$("enter-open").innerHTML = enter;
+        AJAX.getJson("json/package.json");
     };
 
     return {

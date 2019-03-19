@@ -1,4 +1,9 @@
 {
-    "loginEnter": "ВХІД",
-    "loginExit": "ВИХІД"
-}
+    "login":"Введіть імя",
+    "password":"Введіть пароль",
+    "form-title": "Заповніть форму",
+    "form-name": "Імя",
+    "form-surname": "Прізвище",
+    "form-tel": "Тел.",
+    "form-email": "Email"
+ }

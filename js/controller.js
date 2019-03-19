@@ -1,7 +1,7 @@
 window.onload = function(){
     //get and set settings
     SE.$("demo-wrap").style.display = "none";
-    AJAX.getJson("./json/package.json", SE.setSettings);
+    SE.setSettings("ent");
     let login = sessionStorage.arnikalogin; 
     let password = sessionStorage.arnikapassword;  
     // console.log(login);
@@ -17,7 +17,7 @@ window.onload = function(){
     logInCon.onclick = function(){
         if (logIn.classList == "click-login-close"){
             logIn.classList = "click-login-open";
-            SE.$("enter-open").innerHTML = "ВХІД";
+            SE.setSettings("ВХІД");
         } else if(logIn.classList == "click-login-open"){
             let inputLogin = SE.$("login").value;
             let inputPassword = SE.$("password").value;
@@ -26,7 +26,7 @@ window.onload = function(){
             });
         } else if (logIn.classList == "click-login-exit"){
             logIn.classList = "click-login-close";
-            SE.$("enter-open").innerHTML = "ВХІД";
+            SE.setSettings("ВХІД");
             SE.$("content").style.display = "none";
             SE.$("demo-wrap").style.display = "none";
             //clear session

@@ -4,7 +4,7 @@ let VW = (function(){
     let makeDOM = function(){
         let logIn = SE.$("send-login-close");
         logIn.classList = "click-login-exit";
-        SE.$("enter-open").innerHTML = "ВИХІД"; 
+        SE.setSettings("ВИХІД");
         SE.$("content").style.display = "contents";
         //set info about user after one seccond
         let timeOut = () => {
@@ -13,8 +13,8 @@ let VW = (function(){
         setTimeout(timeOut, 1000);
     };
     
-    //change tab one
     let clikTabOne = function(){
+        let tab1, tab2, content1, content2;
         tab1 = SE.$("tab1");
         tab2 = SE.$("tab2");
         content1 = SE.$("tab-body1");
@@ -27,6 +27,7 @@ let VW = (function(){
 
     //change tab one
     let clikTabTwo = function(){
+        let tab1, tab2, content1, content2;
         tab1 = SE.$("tab1");
         tab2 = SE.$("tab2");
         content1 = SE.$("tab-body1");
