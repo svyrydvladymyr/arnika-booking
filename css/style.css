@@ -210,6 +210,7 @@ body{
     border: 1px solid #565656;
     background-image: linear-gradient(to bottom , #3c3c3c,#bdbdbd, #ffffff, #c7c7c7, #565656);
     box-shadow: 0px 0px 5px #ffffff;
+    text-shadow: 0px 0px 3px #020202;
     transition: 0.5s;
     display: flex;
     flex-wrap: wrap;
@@ -220,6 +221,7 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
+    text-shadow: 0px 0px 3px #020202;
     border-radius: 0px 15px 0px 0px;
 
 }
@@ -271,6 +273,7 @@ body{
     background-image: linear-gradient(to bottom , #124c12,#b2f1b2, #ffffff, #9ecc9e, #094209);
     border: 1px solid #145f14;
     box-shadow: 0px 0px 5px #ffffff;
+    text-shadow: 0px 0px 3px #020202;
 }
 
 .tab1 .activ{
