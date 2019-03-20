@@ -5,6 +5,7 @@ let VW = (function(){
         let logIn = SE.$("send-login-close");
         logIn.classList = "click-login-exit";
         SE.setSettings("ВИХІД");
+        SE.setMessage("autoriz-message-wrap", "none", "autoriz-message", "", "");
         SE.$("content").style.display = "contents";
         //set info about user after one seccond
         let timeOut = () => {

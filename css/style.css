@@ -165,6 +165,23 @@ body{
     text-shadow: 0px 0px 1px green;
 }
 
+.autoriz-message-wrap{
+    display: none;
+    width: 100%;
+    border: 1px solid #5f5f5f;
+    text-align: center;
+    background: #ececec;
+    font-weight: bold;
+    border-radius: 12px;
+    margin: 5px auto;
+    padding: 9px 15px;
+    box-shadow: 0px 0px 5px #ffffff;
+}
+
+.autoriz-message-wrap > p{
+    margin: 0px;
+}
+
 /*-----------content------------*/
 .content{
     display: none;
@@ -209,10 +226,11 @@ body{
     justify-content: center; 
 }
 
-.tab-body1{
+.tab-body1, .tab-body2{
     outline: var(--ol-3);
     width: 100%;
     min-height: 200px;
+    display: table;
     border-radius: 0px 0px 15px 15px;
     border: 1px solid #565656;
     background: #ececec;
@@ -221,11 +239,5 @@ body{
 }
 
 .tab-body2{
-    outline: var(--ol-3);
-    width: 100%;
-    min-height: 200px;
-    border-radius: 0px 0px 15px 15px;
-    border: 1px solid #565656;
-    background: #ececec;
-    box-shadow: 0px 0px 5px #ffffff;
+    display: none;
 }
