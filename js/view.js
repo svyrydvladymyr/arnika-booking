@@ -15,28 +15,26 @@ let VW = (function(){
     };
     
     let clikTabOne = function(){
-        let tab1, tab2, content1, content2;
-        tab1 = SE.$("tab1");
-        tab2 = SE.$("tab2");
-        content1 = SE.$("tab-body1");
-        content2 = SE.$("tab-body2");
-        content1.style.display = "table";
-        content2.style.display = "none";
-        tab1.classList.add("activ");
-        tab2.classList.remove("activ");
+        SE.$("tab1").classList.add("activ");
+        SE.$("tab2").classList.remove("activ");
+        SE.$("tab-body1").style.display = "table";
+        SE.$("tab-body2").style.display = "none";
+        setTimeout(function(){
+            SE.$("tab-text-one").style.display = "table";
+        },500);
+        SE.$("tab-text-two").style.display = "none";
     };
 
     //change tab one
     let clikTabTwo = function(){
-        let tab1, tab2, content1, content2;
-        tab1 = SE.$("tab1");
-        tab2 = SE.$("tab2");
-        content1 = SE.$("tab-body1");
-        content2 = SE.$("tab-body2");
-        content2.style.display = "table";
-        content1.style.display = "none";
-        tab1.classList.remove("activ");
-        tab2.classList.add("activ");
+        SE.$("tab1").classList.remove("activ");
+        SE.$("tab2").classList.add("activ");
+        SE.$("tab-body1").style.display = "none";
+        SE.$("tab-body2").style.display = "table";
+        setTimeout(function(){
+            SE.$("tab-text-two").style.display = "table";
+        },500);
+        SE.$("tab-text-one").style.display = "none";
     };
 
     return {

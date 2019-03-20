@@ -2,17 +2,29 @@ window.onload = function(){
     //get and set settings
     SE.$("demo-wrap").style.display = "none";
     SE.setSettings("ВХІД");
+
     let login = sessionStorage.arnikalogin; 
-    let password = sessionStorage.arnikapassword;  
-    //check session and if true autorisation
-    if ((login == "") || (password == "")){
-        SE.setMessage("autoriz-message-wrap", "table", "autoriz-message", "#1f6a1f", "Вам потрібно авторизуватися");
-    }
-    SE.auditLogin(login, password, function(){
-        AJAX.checkUser(login, password, function(){
-            VW.makeDOM();
+    let password = sessionStorage.arnikapassword; 
+
+    if ((login == undefined) || (password == undefined)){
+        sessionStorage.arnikalogin = ""; 
+        sessionStorage.arnikapassword = ""; 
+        let login = sessionStorage.arnikalogin; 
+        let password = sessionStorage.arnikapassword; 
+        //check session and if true autorisation
+        SE.auditLogin(login, password, function(){
+            AJAX.checkUser(login, password, function(){
+                VW.makeDOM();
+            });
         });
-    });
+    } else {
+        //check session and if true autorisation
+        SE.auditLogin(login, password, function(){
+            AJAX.checkUser(login, password, function(){
+                VW.makeDOM();
+            });
+        });
+    }
 
     //check and cut incorrect symbol in password
     SE.$("login").addEventListener("input", SE.resLoginFun);      
@@ -29,11 +41,11 @@ window.onload = function(){
             let inputLogin = SE.$("login").value;
             let inputPassword = SE.$("password").value;
             if ((inputLogin == "") && (inputPassword == "")){
-                SE.setMessage("autoriz-message-wrap", "table", "autoriz-message", "#b62b2b", "Логін і пароль не можуть бути пустими!!!");
+                SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Логін і пароль не можуть бути пустими!!!");
             } else if ((inputLogin == "")) {
-                SE.setMessage("autoriz-message-wrap", "table", "autoriz-message", "#b62b2b", "Логін не може бути пустим!!!");
+                SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Логін не може бути пустим!!!");
             } else if ((inputPassword == "")) {
-                SE.setMessage("autoriz-message-wrap", "table", "autoriz-message", "#b62b2b", "Пароль не може бути пустим!!!");
+                SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Пароль не може бути пустим!!!");
             } else{
                 SE.auditLogin(inputLogin, inputPassword, function(){
                     AJAX.checkUser(inputLogin, inputPassword, function(){
@@ -46,7 +58,6 @@ window.onload = function(){
             SE.setSettings("ВХІД");
             SE.$("content").style.display = "none";
             SE.$("demo-wrap").style.display = "none";
-            SE.setMessage("autoriz-message-wrap", "table", "autoriz-message", "#1f6a1f", "Вам потрібно авторизуватися");
             //clear session
             sessionStorage.arnikalogin = "";
             sessionStorage.arnikapassword = "";

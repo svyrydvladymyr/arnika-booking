@@ -20,11 +20,11 @@ let AJAX = (function(){
 
     // function for autorisation
     let checkUser = function(login, password, funCall){
-        let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res, resLogin, resPassword;
-            resLogin = login.replace(/[^a-zA-Zа-яА-Я]/gi, '');
-            resPassword = password.replace(/[^0-9a-zA-Zа-яА-Я]/gi, '');
+        let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res;
+            let resLogin = login.replace(/[^a-zA-Zа-яА-Я]/gi, '');
+            let resPassword = password.replace(/[^0-9a-zA-Zа-яА-Я]/gi, '');
             if ((/^[a-zA-Zа-яА-Я]/gi.test(resLogin) == true) && (/^[0-9a-zA-Zа-яА-Я]/gi.test(resPassword) == true)) {
-                obj = { "login":resLogin, "password":resPassword};
+                obj = { "login":login, "password":password};
             }
             dbParam = JSON.stringify(obj);
             xmlhttp = new XMLHttpRequest();
@@ -32,7 +32,7 @@ let AJAX = (function(){
             if (this.readyState == 4 && this.status == 200) {
                 //check on true response
                 if (this.responseText = "[]"){
-                    SE.setMessage("autoriz-message-wrap", "table", "autoriz-message", "#b62b2b", "Не вірний логін або пароль");
+                    SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Не вірний логін або пароль");
                 } 
                 //cut first and last symbol in Object
                 trimObg = this.responseText.trim();

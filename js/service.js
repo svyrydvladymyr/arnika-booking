@@ -12,10 +12,10 @@ let SE = (function(){
     };
 
     // function for message
-    let setMessage = function(box, boxstatus, tag, color, message){
+    let setMessage = function(box, boxstatus, color, message){
         SE.$(box).style.display = boxstatus;
-        SE.$(tag).innerHTML = message;
-        SE.$(tag).style.color = color;
+        SE.$(box).innerHTML = `<p id="message">${message}</p>`;
+        SE.$(box).style.color = color;
     };    
 
     //audit login
