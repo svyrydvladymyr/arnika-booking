@@ -18,7 +18,7 @@ window.onload = function(){
     SE.$("login").addEventListener("input", SE.resLoginFun);      
     SE.$("password").addEventListener("input", SE.resPasswordFun);
 
-    //change button in blok and login    
+    //change button in bloklogin and login    
     let logInCon = SE.$("click");
     let logIn = SE.$("send-login-close");
     logInCon.onclick = function(){
