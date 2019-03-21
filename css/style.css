@@ -207,13 +207,10 @@ body{
     margin: 5px;
     background: #ffffff;
     box-shadow: 0px 0px 4px #393939;
-    transition: 2s;
 }
 
 .dark{
     background: #2b2b2b;
-    transition: 2s;
-
 }
 
 
