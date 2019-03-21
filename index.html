@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+</head>
     <title>Arnika-booking</title>
 </head>
-<body>
+<body id="body">
     <div class="wrap">
         <!--header-->
         <div class="header">
@@ -33,7 +34,10 @@
                 </div>
             </div>
         </div>
-        <div class="autoriz-message-wrap" id="autoriz-message-wrap">
+        <div class="autoriz-message-wrap" id="autoriz-message-wrap"></div>
+        <div class="settings">
+            <div class="light" id="light"></div>
+            <div class="dark" id="dark"></div>
         </div>
         <!--content-->
         <div class="content" id="content">
@@ -58,7 +62,68 @@
                 <!--tabs content-->
                 <div class="tab-body-wrap">
                     <div class="tab-body1" id="tab-body1">
-                        <h1>TAB11111</h1>
+                        <!--form-->
+                        <div class="form-wrap">
+                            <h3>ЗАПОВНІТЬ ФОРМУ 2</h3>
+                            <!--form name-->
+                            <div class="form-blok">
+                                <div class="form-icon">
+                                    <i class='fas fa-times error' id="error"></i>
+                                    <i class='fas fa-check true' id="true" style="display: none;"></i>
+                                </div>
+                                <div class="blokinput">
+                                    <div class="blokinput-wrap">
+                                        <label for="addname2">Імя:</label><input type="text" id="addname2" name="add-name2" placeholder="Введіть імя...">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--form surname-->
+                            <div class="form-blok">
+                                <div class="form-icon">
+                                    <i class='fas fa-times error' id="error"></i>
+                                    <i class='fas fa-check true' id="true" style="display: none;"></i>
+                                </div>
+                                <div class="blokinput">
+                                    <div class="blokinput-wrap">
+                                        <label for="add-surname">Прізвище:</label><input type="text" id="add-surname" name="add-surname" placeholder="Введіть прізвище...">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--form phome-->
+                            <div class="form-blok">
+                                <div class="form-icon">
+                                    <i class='fas fa-times error' id="error"></i>
+                                    <i class='fas fa-check true' id="true" style="display: none;"></i>
+                                </div>
+                                <div class="blokinput">
+                                    <div class="blokinput-wrap">
+                                        <label for="add-tel">Тел:</label><input type="text" id="add-tel" name="add-tel" placeholder="+38 000 0000000">
+                                    </div>
+                                </div>
+                            </div>  
+                            <!--form date, room-->                          
+                            <div class="form-blok">
+                                <div class="form-icon">
+                                    <i class='fas fa-times error' id="error"></i>
+                                    <i class='fas fa-check true' id="true" style="display: none;"></i>
+                                </div>
+                                <div class="blokinput2">
+                                    <div class="blokinput-wrap">
+                                        <label for="add-nomer">Номер:(1-12)</label><input type="number" id="add-nomer" name="add-nomer" placeholder="1 - 12" min="1" max="12">
+                                    </div>
+                                    <div class="blokinput-wrap">
+                                        <label for="add-start-data">Заїзд:(12:00)</label><input type="date" id="add-start-data" name="add-start-data">
+                                    </div>
+                                    <div class="blokinput-wrap">
+                                        <label for="add-kilk">Кіл. ночей:</label><input type="number" id="add-kilk" name="add-kilk" placeholder="Кількість ночей..." min="1" max="20">
+                                    </div>
+                                        
+                                </div>    
+                            </div>
+                            <div class="form-blok"></div>
+                            <div class="form-blok"></div>
+
+                        </div>
                     </div>
                     <div class="tab-body2" id="tab-body2">
                         <h1>TAB22222</h1>

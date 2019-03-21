@@ -41,12 +41,18 @@ let SE = (function(){
         SE.$("password").value = resPassword;  
     }; 
 
+    //chenge color background
+    let chengeBG = function(id, color){
+        SE.$(id).style.backgroundColor = color;
+    }
+
     return {
         $:$, 
         setSettings:setSettings,
         setMessage:setMessage,
         auditLogin:auditLogin,
         resLoginFun:resLoginFun,
-        resPasswordFun:resPasswordFun
+        resPasswordFun:resPasswordFun,
+        chengeBG:chengeBG
     };
 })();

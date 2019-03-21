@@ -1,3 +1,6 @@
+@import "tabs.css";
+@import "form.css";
+
 :root{
     --ol-1: 0px solid red;
     --ol-2: 0px solid green;
@@ -181,10 +184,44 @@ body{
 .autoriz-message-wrap > p{
     margin: 0px;
 }
+/*-----------settings-----------*/
+.settings{
+    width: 50px;
+    height: 100px;
+    position: absolute;
+    right: 0px;
+    top: 160px;
+    background: #ececec;
+    border: 1px solid grey;
+    border-radius: 10px 0px 0px 10px;
+    box-shadow: 0px 0px 4px #111111;
+
+}
+
+.light, .dark{
+    cursor: pointer;
+    border: 1px solid grey;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    background: #ffffff;
+    box-shadow: 0px 0px 4px #393939;
+    transition: 2s;
+}
+
+.dark{
+    background: #2b2b2b;
+    transition: 2s;
+
+}
+
 
 /*-----------content------------*/
 .content{
     display: none;
+    transition: 1s;
+
 }
 
 .content-wrap{
@@ -192,122 +229,3 @@ body{
     margin: 20px auto;
 }
 
-.tab-wrap{
-    outline: var(--ol-3);
-    width: 100%;
-    height: 100px;
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center; 
-}
-
-.tab1, .tab2{
-    cursor: pointer;
-    outline: var(--ol-3);
-    width: 30%;
-    height: 100px;
-    border-radius: 15px 0px 0px 0px;
-    border: 1px solid #565656;
-    background-image: linear-gradient(to bottom , #3c3c3c,#bdbdbd, #ffffff, #c7c7c7, #565656);
-    box-shadow: 0px 0px 5px #ffffff;
-    text-shadow: 0px 0px 3px #020202;
-    transition: 0.5s;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-
-.tab2{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    text-shadow: 0px 0px 3px #020202;
-    border-radius: 0px 15px 0px 0px;
-
-}
-
-.tab-img-wrap-one, .tab-img-wrap-two{
-    width: 120px;
-    height: 84px;
-    margin: 8px;
-    border: 1px solid #111111;
-    background: #ffffff;
-    border-radius:9px; 
-    padding: 4px;
-}
-
-.tab-img-wrap-one{
-    float: left;
-}
-
-.tab-img-wrap-two{
-    float: right;
-}
-
-.tab-img-wrap-one > img, .tab-img-wrap-two > img {
-    width: 100%;
-}
-
-.tab1 > h1, .tab2 > h1 {
-    font-size: 80px;
-    font-weight: bold;
-    margin: 5px;
-}
-
-.tab1 > p, .tab2 > p {
-    font-size: 35px;
-    font-weight: bold;
-    margin: 20px;
-    border-bottom: 3px solid;
-    width: 150px;
-    height: 40px;
-}
-
-.tab2 > p{
-    display: none;
-}
-
-
-.activ{
-    width: 70%;
-    background-image: linear-gradient(to bottom , #124c12,#b2f1b2, #ffffff, #9ecc9e, #094209);
-    border: 1px solid #145f14;
-    box-shadow: 0px 0px 5px #ffffff;
-    text-shadow: 0px 0px 3px #020202;
-}
-
-.tab1 .activ{
-    border-radius: 0px 15px 0px 0px;
-}
-.tab2 .activ{
-    border-radius: 15px 0px 0px 0px;
-}
-
-
-
-
-.tab-body-wrap{
-    outline: var(--ol-3);
-    width: 100%;
-    min-height: 200px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; 
-}
-
-.tab-body1, .tab-body2{
-    outline: var(--ol-3);
-    width: 100%;
-    min-height: 200px;
-    display: table;
-    border-radius: 0px 0px 15px 15px;
-    border: 1px solid #b1b1b1;
-    background: #ececec;
-    box-shadow: 0px 0px 5px #ffffff;
-    /* box-shadow: 0px 0px 5px #0e4a0e; */
-    
-}
-
-.tab-body2{
-    display: none;
-}

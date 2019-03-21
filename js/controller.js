@@ -1,11 +1,13 @@
 window.onload = function(){
     //get and set settings
+    SE.$("body").style.backgroundColor = localStorage.bgColor || "#2b2b2b";
     SE.$("demo-wrap").style.display = "none";
     SE.setSettings("ВХІД");
 
     let login = sessionStorage.arnikalogin; 
     let password = sessionStorage.arnikapassword; 
 
+    //for first visit
     if ((login == undefined) || (password == undefined)){
         sessionStorage.arnikalogin = ""; 
         sessionStorage.arnikapassword = ""; 
@@ -25,6 +27,16 @@ window.onload = function(){
             });
         });
     }
+
+    //chenge bgcolor
+    SE.$("dark").addEventListener("click", function(){
+        SE.chengeBG("body", "#2b2b2b");
+        localStorage.bgColor = "#2b2b2b";
+    });
+    SE.$("light").addEventListener("click", function(){
+        SE.chengeBG("body", "#ffffff");
+        localStorage.bgColor = "#ffffff";
+    });
 
     //check and cut incorrect symbol in password
     SE.$("login").addEventListener("input", SE.resLoginFun);      
