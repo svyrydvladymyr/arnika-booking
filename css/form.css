@@ -20,6 +20,7 @@
 .form-wrap > h3{
     margin: 10px auto 15px auto;
     text-align: center;
+    text-indent: 15px;
 }
 
 .form-blok{
@@ -43,14 +44,14 @@
     color: #d00000;
     text-shadow: 0px 0px 3px #d50000;
     font-weight: normal; 
-    font-size:20px;
+    font-size:16px;
 }
 
 .true{
     color: #00af00;
     text-shadow: 0px 0px 4px #009700;
     font-weight: normal; 
-    font-size:20px;
+    font-size:16px;
 }
 
 .blokinput{
@@ -97,6 +98,17 @@ label{
     border: 1px solid #17517f;
 }
 
+.blokinput select{
+    outline: 0 !important;
+    float: right;
+    position: relative;
+    width: 65%;
+    height: 24px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: 1px solid #17517f;
+}
+
 .blokinput2 input{
     outline: 0 !important;
     float: right;
@@ -122,4 +134,27 @@ label{
 
 .blokinput2 input::placeholder{
     color: #9c9c9c;
+}
+
+.send{
+    cursor: pointer;
+    width: 120px;
+    height: 27px;
+    margin: 15px auto;
+    padding: 5px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(to bottom right, #0b380b, #53bb53, #0f480f);
+    border: 1px solid #676767;
+    border-radius: 7px 15px;
+    box-shadow: 0px 0px 5px #4a4a4a;
+    transition: 0.2s;
+}
+
+.send:hover{
+    box-shadow: 0px 0px 8px #4a4a4a;
+    text-shadow: 0px 0px 1px red;
+    transition: 0.2s;
 }

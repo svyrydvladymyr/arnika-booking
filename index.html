@@ -68,8 +68,8 @@
                             <!--form name-->
                             <div class="form-blok">
                                 <div class="form-icon">
-                                    <i class='fas fa-times error' id="error"></i>
-                                    <i class='fas fa-check true' id="true" style="display: none;"></i>
+                                    <i class='fas fa-times error' id="error" style="display: none;"></i>
+                                    <i class='fas fa-check true' id="true"></i>
                                 </div>
                                 <div class="blokinput">
                                     <div class="blokinput-wrap">
@@ -120,8 +120,41 @@
                                         
                                 </div>    
                             </div>
-                            <div class="form-blok"></div>
-                            <div class="form-blok"></div>
+                            <!--form status gгest-->
+                            <div class="form-blok">
+                                <div class="form-icon">
+                                    <i class='fas fa-times error' id="error"></i>
+                                    <i class='fas fa-check true' id="true" style="display: none;"></i>
+                                </div>
+                                <div class="blokinput">
+                                    <div class="blokinput-wrap">
+                                        <label for="add-status-gгest">Стат. гостя:</label>
+                                        <input list="add-status-gгest" name="add-status-gгest" placeholder="Статус гостя...">
+                                        <datalist id="add-status-gгest">
+                                            <option value="Відвідувач"></option>
+                                            <option value="Працівник"></option>
+                                        </datalist>  
+                                    </div>
+                                </div>
+                            </div>  
+                            <!--form status gгest-->
+                            <div class="form-blok">
+                                <div class="form-icon">
+                                    <i class='fas fa-times error' id="error"></i>
+                                    <i class='fas fa-check true' id="true" style="display: none;"></i>
+                                </div>
+                                <div class="blokinput">
+                                    <div class="blokinput-wrap">
+                                        <label for="add-status-zamovl">Стат. замов:</label>
+                                        <input list="add-status-zamovl" name="add-status-zamovl" placeholder="Статус замовлення...">
+                                        <datalist id="add-status-zamovl">
+                                            <option value="Зарезервовано"></option>
+                                            <option value="Оплачено"></option>
+                                        </datalist> 
+                                    </div>
+                                </div>
+                            </div>              
+                            <div class="send" id="send">НАДІСЛАТИ</div>
 
                         </div>
                     </div>
