@@ -49,10 +49,10 @@
                             <img src="img/baza2.JPG">
                         </div>
                         <h1>2</h1>
-                        <p id="tab-text-one">КОРПУС</p>            
+                        <p id="tab-text-one"></p>            
                     </div>
                     <div class="tab2" id="tab2">                        
-                        <p id="tab-text-two">КОРПУС</p> 
+                        <p id="tab-text-two"></p> 
                         <h1>3</h1>
                         <div class="tab-img-wrap-two">
                             <img src="img/baza3.JPG">
@@ -64,58 +64,62 @@
                     <div class="tab-body1" id="tab-body1">
                         <!--form-->
                         <div class="form-wrap">
-                            <h3>ЗАПОВНІТЬ ФОРМУ 2</h3>
+                            <h3 id="form-title-2"></h3>
                             <!--form name-->
                             <div class="form-blok">
                                 <div class="form-icon">
-                                    <i class='fas fa-times error' id="error" style="display: none;"></i>
-                                    <i class='fas fa-check true' id="true"></i>
+                                    <i class='fas fa-times error' id="name-error" style="display: none;"></i>
+                                    <i class='fas fa-check true' id="name-true" style="display: none;"></i>
                                 </div>
                                 <div class="blokinput">
                                     <div class="blokinput-wrap">
-                                        <label for="addname2">Імя:</label><input type="text" id="addname2" name="add-name2" placeholder="Введіть імя...">
+                                        <label for="add-name" id="add-name-label"></label>
+                                        <input type="text" id="add-name" name="add-name">
                                     </div>
                                 </div>
                             </div>
                             <!--form surname-->
                             <div class="form-blok">
                                 <div class="form-icon">
-                                    <i class='fas fa-times error' id="error"></i>
-                                    <i class='fas fa-check true' id="true" style="display: none;"></i>
+                                    <i class='fas fa-times error' id="surname-error" style="display: none;"></i>
+                                    <i class='fas fa-check true' id="surname-true" style="display: none;"></i>
                                 </div>
                                 <div class="blokinput">
                                     <div class="blokinput-wrap">
-                                        <label for="add-surname">Прізвище:</label><input type="text" id="add-surname" name="add-surname" placeholder="Введіть прізвище...">
+                                        <label for="add-surname" id="add-surname-label"></label>
+                                        <input type="text" id="add-surname" name="add-surname">
                                     </div>
                                 </div>
                             </div>
                             <!--form phome-->
                             <div class="form-blok">
                                 <div class="form-icon">
-                                    <i class='fas fa-times error' id="error"></i>
-                                    <i class='fas fa-check true' id="true" style="display: none;"></i>
+                                    <i class='fas fa-times error' id="tel-error" style="display: none;"></i>
+                                    <i class='fas fa-check true' id="tel-true" style="display: none;"></i>
                                 </div>
                                 <div class="blokinput">
                                     <div class="blokinput-wrap">
-                                        <label for="add-tel">Тел:</label><input type="text" id="add-tel" name="add-tel" placeholder="+38 000 0000000">
+                                        <label for="add-tel" id="add-tel-label"></label>
+                                        <input type="text" id="add-tel-code" name="add-tel-code" value="+380" style="width:40px; margin-right: 3px;" readonly>
+                                        <input type="text" id="add-tel" name="add-tel" maxlength="9" style="width:47%;"> 
                                     </div>
                                 </div>
                             </div>  
                             <!--form date, room-->                          
                             <div class="form-blok">
                                 <div class="form-icon">
-                                    <i class='fas fa-times error' id="error"></i>
+                                    <i class='fas fa-times error' id="error" style="display: none;"></i>
                                     <i class='fas fa-check true' id="true" style="display: none;"></i>
                                 </div>
                                 <div class="blokinput2">
                                     <div class="blokinput-wrap">
-                                        <label for="add-nomer">Номер:(1-12)</label><input type="number" id="add-nomer" name="add-nomer" placeholder="1 - 12" min="1" max="12">
+                                        <label for="add-nomer" id="add-nomer-label"></label><input type="number" id="add-nomer" name="add-nomer" min="1" max="12">
                                     </div>
                                     <div class="blokinput-wrap">
-                                        <label for="add-start-data">Заїзд:(12:00)</label><input type="date" id="add-start-data" name="add-start-data">
+                                        <label for="add-start-data" id="add-start-data-label"></label><input type="date" id="add-start-data" name="add-start-data">
                                     </div>
                                     <div class="blokinput-wrap">
-                                        <label for="add-kilk">Кіл. ночей:</label><input type="number" id="add-kilk" name="add-kilk" placeholder="Кількість ночей..." min="1" max="20">
+                                        <label for="add-kilk" id="add-kilk-label"></label><input type="number" id="add-kilk" name="add-kilk" min="1" max="20">
                                     </div>
                                         
                                 </div>    
@@ -123,53 +127,52 @@
                             <!--form status gгest-->
                             <div class="form-blok">
                                 <div class="form-icon">
-                                    <i class='fas fa-times error' id="error"></i>
+                                    <i class='fas fa-times error' id="error" style="display: none;"></i>
                                     <i class='fas fa-check true' id="true" style="display: none;"></i>
                                 </div>
                                 <div class="blokinput">
                                     <div class="blokinput-wrap">
-                                        <label for="add-status-gгest">Стат. гостя:</label>
-                                        <input list="add-status-gгest" name="add-status-gгest" placeholder="Статус гостя...">
-                                        <datalist id="add-status-gгest">
-                                            <option value="Відвідувач"></option>
-                                            <option value="Працівник"></option>
-                                        </datalist>  
+                                        <label for="add-status-gгest" id="add-status-gгest-label"></label>
+                                        <select name="add-status-gгest" id="add-status-gгest">
+                                            <option value="" disabled selected hidden>Статус гостя...</option>
+                                            <option value="guest">Відвідувач</option>
+                                            <option value="worker">Працівник</option>
+                                        </select>  
                                     </div>
                                 </div>
                             </div>  
                             <!--form status gгest-->
                             <div class="form-blok">
                                 <div class="form-icon">
-                                    <i class='fas fa-times error' id="error"></i>
+                                    <i class='fas fa-times error' id="error" style="display: none;"></i>
                                     <i class='fas fa-check true' id="true" style="display: none;"></i>
                                 </div>
                                 <div class="blokinput">
                                     <div class="blokinput-wrap">
-                                        <label for="add-status-zamovl">Стат. замов:</label>
-                                        <input list="add-status-zamovl" name="add-status-zamovl" placeholder="Статус замовлення...">
-                                        <datalist id="add-status-zamovl">
-                                            <option value="Зарезервовано"></option>
-                                            <option value="Оплачено"></option>
-                                        </datalist> 
+                                        <label for="add-status-zamovl" id="add-status-zamovl-label"></label>
+                                        <select  name="add-status-zamovl" id="add-status-zamovl">
+                                            <option value="" disabled selected hidden>Статус замовлення...</option>
+                                            <option value="rez">Зарезервовано</option>
+                                            <option value="pay">Оплачено</option>
+                                        </select> 
                                     </div>
                                 </div>
                             </div>              
-                            <div class="send" id="send">НАДІСЛАТИ</div>
-
+                            <div class="send" id="send"></div>
                         </div>
                     </div>
                     <div class="tab-body2" id="tab-body2">
-                        <h1>TAB22222</h1>
+                        <h3 id="form-title-3"></h3>
                     </div>
                 </div>
             </div>
         </div> 
 
     </div>
+    <script src="js/regexp.js"></script>
     <script src="js/ajax.js"></script>
     <script src="js/view.js"></script>
     <script src="js/service.js"></script>
-
     <script src="js/controller.js"></script>
 
 

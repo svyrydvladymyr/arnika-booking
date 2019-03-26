@@ -11,14 +11,6 @@ window.onload = function(){
     if ((login == undefined) || (password == undefined)){
         sessionStorage.arnikalogin = ""; 
         sessionStorage.arnikapassword = ""; 
-        let login = sessionStorage.arnikalogin; 
-        let password = sessionStorage.arnikapassword; 
-        //check session and if true autorisation
-        SE.auditLogin(login, password, function(){
-            AJAX.checkUser(login, password, function(){
-                VW.makeDOM();
-            });
-        });
     } else {
         //check session and if true autorisation
         SE.auditLogin(login, password, function(){
@@ -28,19 +20,65 @@ window.onload = function(){
         });
     }
 
-    //chenge bgcolor
-    SE.$("dark").addEventListener("click", function(){
-        SE.chengeBG("body", "#2b2b2b");
-        localStorage.bgColor = "#2b2b2b";
-    });
-    SE.$("light").addEventListener("click", function(){
-        SE.chengeBG("body", "#ffffff");
-        localStorage.bgColor = "#ffffff";
-    });
+    //addEventListener(s)
+            //chenge bgcolor
+            SE.$("dark").addEventListener("click", function(){
+                VW.chengeBG("body", "#2b2b2b");
+                localStorage.bgColor = "#2b2b2b";
+            });
+            SE.$("light").addEventListener("click", function(){
+                VW.chengeBG("body", "#ffffff");
+                localStorage.bgColor = "#ffffff";
+            });
 
-    //check and cut incorrect symbol in password
-    SE.$("login").addEventListener("input", SE.resLoginFun);      
-    SE.$("password").addEventListener("input", SE.resPasswordFun);
+            //check and cut incorrect symbol in login and password
+            SE.$("login").addEventListener("input", function(){
+                if (new RegExp(REG.exp().loginTest, "gi").test(SE.$("login").value) == true){
+                    SE.setMessage("autoriz-message-wrap", "none", "", "");
+                } else {
+                    SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "В логіні можуть бути тільки латинські букви!!!");
+                }
+                SE.incorrectCheck("login", REG.exp().loginCut, function(){}); 
+            });      
+            SE.$("password").addEventListener("input", function(){
+                if (new RegExp(REG.exp().passwordTest, "gi").test(SE.$("password").value) == true){
+                    SE.setMessage("autoriz-message-wrap", "none", "", "");
+                } else {
+                    SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "В паролі можуть бути тільки латинські букви та цифри!!!");
+                }
+                SE.incorrectCheck("password", REG.exp().passwordCut, function(){});
+            });
+            
+            //create tabs
+            SE.$("tab1").addEventListener("click", VW.clikTabOne);
+            SE.$("tab2").addEventListener("click", VW.clikTabTwo);
+
+            //check and cut incorrect symbol form
+                //name
+                SE.$("add-name").addEventListener("change", function(){
+                    VW.checkCut("add-name", "name-error", "name-true", REG.exp().nameCut);
+                });
+                SE.$("add-name").addEventListener("input", function(){
+                    VW.checkTest("add-name", "name-error", "name-true", REG.exp().nameTest);
+                }); 
+                //surname
+                SE.$("add-surname").addEventListener("change", function(){
+                    VW.checkCut("add-surname", "surname-error", "surname-true", REG.exp().nameCut);
+                });
+                SE.$("add-surname").addEventListener("input", function(){
+                    VW.checkTest("add-surname", "surname-error", "surname-true", REG.exp().nameTest);
+                });     
+                //tel
+                SE.$("add-tel").addEventListener("change", function(){
+                    VW.checkCut("add-tel", "tel-error", "tel-true", REG.exp().telCut);
+                });
+                SE.$("add-tel").addEventListener("input", function(){
+                    VW.checkTest("add-tel", "tel-error", "tel-true", REG.exp().telTest);
+                });                                  
+          
+
+    //addEventListener(s) end       
+
 
     //change button in bloklogin and login    
     let logInCon = SE.$("click");
@@ -76,9 +114,6 @@ window.onload = function(){
         }
     };
     
-    //create tabs
-    SE.$("tab1").addEventListener("click", VW.clikTabOne);
-    SE.$("tab2").addEventListener("click", VW.clikTabTwo);
 
 };
 

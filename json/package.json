@@ -1,9 +1,27 @@
 {
-    "login":"Введіть логін",
-    "password":"Введіть пароль",
-    "form-title": "Заповніть форму",
-    "form-name": "Імя",
-    "form-surname": "Прізвище",
-    "form-tel": "Тел.",
-    "form-email": "Email"
- }
+    "tab-text-one": "КОРПУC",
+    "tab-text-two": "КОРПУС",
+    "form-title-2": "ЗАПОВНІТЬ ФОРМУ 2",
+    "form-title-3": "ЗАПОВНІТЬ ФОРМУ 3",
+    "send": "НАДІСЛАТИ",
+    "placeholder":{
+        "login":"Введіть логін...",
+        "password":"Введіть пароль...",
+        "add-name": "Введіть імя...",
+        "add-surname": "Введіть прізвище...",
+        "add-tel": "00 000 0000",
+        "add-nomer": "Кільк. номерів:12",
+        "add-kilk": "Кількість ночей..."
+    },
+    "label":{
+        "add-name-label": "Імя:",
+        "add-surname-label": "Прізвище:",
+        "add-tel-label": "Тел:",
+        "add-nomer-label": "Номер:(1-12)",
+        "add-start-data-label": "Заїзд:(12:00)",
+        "add-kilk-label": "Кіл. ночей:",    
+        "add-status-gгest-label": "Стат. гостя:",
+        "add-status-zamovl-label": "Стат. замов:"
+    }
+
+}

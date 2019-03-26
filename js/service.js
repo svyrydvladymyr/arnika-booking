@@ -25,34 +25,27 @@ let SE = (function(){
         }
     };
 
-    //cut incorrect symbol in login
-    let resLoginFun = function(){
-        let inputLogin = SE.$("login").value;
-        let resLogin = inputLogin.replace(/[^a-zA-Zа-яА-Я]/gi, '');
-        console.log(resLogin);
-        SE.$("login").value = resLogin;  
+    //cut incorrect symbol 
+    let incorrectCheck = function(val, reg, fun){
+        let newReg = new RegExp(reg, "gi");
+        let input = SE.$(val).value;
+        let res = input.replace(newReg, '');
+        if ((val == "add-name")||(val == "add-surname")){
+            SE.$(val).value = res.charAt(0).toUpperCase() + res.slice(1);
+            fun();
+        } else {
+            SE.$(val).value = res;
+            fun();
+        }
     };
-    
-    //cut incorrect symbol in password
-    let resPasswordFun = function(){
-        let inputPassword = SE.$("password").value;
-        let resPassword = inputPassword.replace(/[^0-9a-zA-Zа-яА-Я]/gi, '');
-        console.log(resPassword);
-        SE.$("password").value = resPassword;  
-    }; 
 
-    //chenge color background
-    let chengeBG = function(id, color){
-        SE.$(id).style.backgroundColor = color;
-    }
 
     return {
         $:$, 
         setSettings:setSettings,
         setMessage:setMessage,
         auditLogin:auditLogin,
-        resLoginFun:resLoginFun,
-        resPasswordFun:resPasswordFun,
-        chengeBG:chengeBG
+        incorrectCheck:incorrectCheck
+
     };
 })();
