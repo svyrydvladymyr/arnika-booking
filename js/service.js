@@ -16,7 +16,14 @@ let SE = (function(){
         SE.$(box).style.display = boxstatus;
         SE.$(box).innerHTML = `<p id="message">${message}</p>`;
         SE.$(box).style.color = color;
-    };    
+    };  
+    
+    // function for room message 
+    let messageRoom = function(box, boxstatus, color, message){
+        SE.$(box).style.display = boxstatus;
+        SE.$(box).innerHTML += `<p id="message">${message}</p>`;
+        SE.$(box).style.color = color;
+    };
 
     //audit login
     let auditLogin = function(login, password, fun){
@@ -44,6 +51,7 @@ let SE = (function(){
         $:$, 
         setSettings:setSettings,
         setMessage:setMessage,
+        messageRoom:messageRoom,
         auditLogin:auditLogin,
         incorrectCheck:incorrectCheck
 

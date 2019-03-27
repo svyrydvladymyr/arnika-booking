@@ -1,4 +1,36 @@
 let VW = (function(){
+    //function for change login button
+    let buttonLogin = function(){
+        let logIn = SE.$("send-login-close");
+        if (logIn.classList == "click-login-close"){
+            logIn.classList = "click-login-open";
+            SE.setSettings("ВХІД");
+        } else if(logIn.classList == "click-login-open"){
+            let inputLogin = SE.$("login").value;
+            let inputPassword = SE.$("password").value;
+            if ((inputLogin == "") && (inputPassword == "")){
+                SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Логін і пароль не можуть бути пустими!!!");
+            } else if ((inputLogin == "")) {
+                SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Логін не може бути пустим!!!");
+            } else if ((inputPassword == "")) {
+                SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Пароль не може бути пустим!!!");
+            } else{
+                SE.auditLogin(inputLogin, inputPassword, function(){
+                    AJAX.checkUser(inputLogin, inputPassword, function(){
+                        VW.makeDOM();
+                    });
+                });
+            }
+        } else if (logIn.classList == "click-login-exit"){
+            logIn.classList = "click-login-close";
+            SE.setSettings("ВХІД");
+            SE.$("content").style.display = "none";
+            SE.$("demo-wrap").style.display = "none";
+            //clear session
+            sessionStorage.arnikalogin = "";
+            sessionStorage.arnikapassword = "";
+        }
+    };
 
     //function for create DOM
     let makeDOM = function(){
@@ -43,7 +75,7 @@ let VW = (function(){
         SE.$(id).style.backgroundColor = color;
     };
     
-    //check on true or error 
+    //check on true or error in input on change, cut all incorrect, show message
     let checkCut = function(idF, errorF, trueF, reg){
         if (SE.$(idF).value == ""){
             SE.$(errorF).style.display = "table";
@@ -53,13 +85,13 @@ let VW = (function(){
                 if(SE.$(idF).value == ""){
                     SE.$(errorF).style.display = "table";   
                     SE.$(trueF).style.display = "none";
-                    SE.setMessage(`message-${idF}`, "table", "#b62b2b", "Не може бути пустим!");
+                    SE.setMessage(`message-${idF}`, "table", "#111111", "Не може бути пустим!");
                 } else {
                     if (SE.$(idF).id == "add-tel"){ 
                         if (SE.$(idF).value.length != 9) {
                             SE.$(errorF).style.display = "table";
                             SE.$(trueF).style.display = "none";
-                            SE.setMessage(`message-${idF}`, "table", "#b62b2b", "Не коректний номер!");
+                            SE.setMessage(`message-${idF}`, "table", "#11111", "Не коректний номер!");
                         }
                     } else {
                         SE.$(errorF).style.display = "none";   
@@ -70,6 +102,8 @@ let VW = (function(){
             }); 
         }
     };
+    
+    //check on true or error in input on input and show message
     let checkTest = function(idF, errorF, trueF, reg){
         if (new RegExp(reg, "gi").test(SE.$(idF).value) == true){
             SE.$(errorF).style.display = "none";
@@ -79,17 +113,17 @@ let VW = (function(){
             SE.$(errorF).style.display = "table";
             SE.$(trueF).style.display = "none";
             if (SE.$(idF).id == "add-tel"){
-                SE.setMessage(`message-${idF}`, "table", "#b62b2b", "Тільки цифри!");
+                SE.setMessage(`message-${idF}`, "table", "#111111", "Тільки цифри!");
             } else {
-                SE.setMessage(`message-${idF}`, "table", "#b62b2b", "Тільки букви!");
+                SE.setMessage(`message-${idF}`, "table", "#111111", "Тільки букви!");
             }
         }
     };
+
+    //check on empty in select input and show message
     let checkTestS = function(idF, errorF, trueF){
         let b = SE.$(idF);
-        console.log(b);
         let gгest = b.options[b.selectedIndex].text;
-        console.log(gгest);
         if (gгest != ""){
             SE.$(errorF).style.display = "none";
             SE.$(trueF).style.display = "table";
@@ -99,10 +133,9 @@ let VW = (function(){
         }
     };
 
-
-
     return {
         makeDOM:makeDOM,
+        buttonLogin:buttonLogin,
         clikTabOne:clikTabOne,
         clikTabTwo:clikTabTwo,
         chengeBG:chengeBG,

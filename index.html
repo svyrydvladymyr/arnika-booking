@@ -111,20 +111,23 @@
                             <!--form date, room-->                          
                             <div class="form-blok">
                                 <div class="form-icon">
-                                    <i class='fas fa-times error' id="error" style="display: none;"></i>
-                                    <i class='fas fa-check true' id="true" style="display: none;"></i>
+                                    <i class='fas fa-times error' id="room-error" style="display: none;"></i>
+                                    <i class='fas fa-check true' id="room-true" style="display: none;"></i>
                                 </div>
                                 <div class="blokinput2">
                                     <div class="blokinput-wrap">
                                         <label for="add-nomer" id="add-nomer-label"></label><input type="number" id="add-nomer" name="add-nomer" min="1" max="12">
                                     </div>
                                     <div class="blokinput-wrap">
-                                        <label for="add-start-data" id="add-start-data-label"></label><input type="date" id="add-start-data" name="add-start-data">
+                                        <label for="add-start-data" id="add-start-data-label"></label><input type="date" id="add-start-data" name="add-start-data" min="2018-01-01" max="2025-12-31">
                                     </div>
                                     <div class="blokinput-wrap">
                                         <label for="add-kilk" id="add-kilk-label"></label><input type="number" id="add-kilk" name="add-kilk" min="1" max="20">
                                     </div>
-                                        
+                                    <div class="form-message" id="message-room" style="display:none;"></div>
+                                    <div class="form-message" id="message-add-nomer" style="display:none;"></div>
+                                    <div class="form-message" id="message-add-start-data" style="display:none; margin-top: 27px;"></div> 
+                                    <div class="form-message" id="message-add-kilk" style="display:none; margin-top: 55px;"></div>     
                                 </div>    
                             </div>
                             <!--form status gгest-->
