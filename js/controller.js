@@ -74,9 +74,16 @@ window.onload = function(){
                 });
                 SE.$("add-tel").addEventListener("input", function(){
                     VW.checkTest("add-tel", "tel-error", "tel-true", REG.exp().telTest);
-                });                                  
-          
+                });   
 
+                //guest
+                SE.$("add-status-gгest").addEventListener("change", function(){
+                    VW.checkTestS("add-status-gгest", "status-gгest-error", "status-gгest-true");
+                });    
+                //guest
+                SE.$("add-status-zamovl").addEventListener("change", function(){
+                    VW.checkTestS("add-status-zamovl", "status-zamovl-error", "status-zamovl-true");
+                });                                                
     //addEventListener(s) end       
 
 

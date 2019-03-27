@@ -53,15 +53,18 @@ let VW = (function(){
                 if(SE.$(idF).value == ""){
                     SE.$(errorF).style.display = "table";   
                     SE.$(trueF).style.display = "none";
+                    SE.setMessage(`message-${idF}`, "table", "#b62b2b", "Не може бути пустим!");
                 } else {
                     if (SE.$(idF).id == "add-tel"){ 
                         if (SE.$(idF).value.length != 9) {
                             SE.$(errorF).style.display = "table";
                             SE.$(trueF).style.display = "none";
+                            SE.setMessage(`message-${idF}`, "table", "#b62b2b", "Не коректний номер!");
                         }
                     } else {
                         SE.$(errorF).style.display = "none";   
                         SE.$(trueF).style.display = "table";
+                        SE.setMessage(`message-${idF}`, "none", "", "");
                     }
                 }
             }); 
@@ -69,6 +72,25 @@ let VW = (function(){
     };
     let checkTest = function(idF, errorF, trueF, reg){
         if (new RegExp(reg, "gi").test(SE.$(idF).value) == true){
+            SE.$(errorF).style.display = "none";
+            SE.$(trueF).style.display = "table";
+            SE.setMessage(`message-${idF}`, "none", "", "");
+        } else {
+            SE.$(errorF).style.display = "table";
+            SE.$(trueF).style.display = "none";
+            if (SE.$(idF).id == "add-tel"){
+                SE.setMessage(`message-${idF}`, "table", "#b62b2b", "Тільки цифри!");
+            } else {
+                SE.setMessage(`message-${idF}`, "table", "#b62b2b", "Тільки букви!");
+            }
+        }
+    };
+    let checkTestS = function(idF, errorF, trueF){
+        let b = SE.$(idF);
+        console.log(b);
+        let gгest = b.options[b.selectedIndex].text;
+        console.log(gгest);
+        if (gгest != ""){
             SE.$(errorF).style.display = "none";
             SE.$(trueF).style.display = "table";
         } else {
@@ -79,14 +101,14 @@ let VW = (function(){
 
 
 
-
     return {
         makeDOM:makeDOM,
         clikTabOne:clikTabOne,
         clikTabTwo:clikTabTwo,
         chengeBG:chengeBG,
         checkCut:checkCut,
-        checkTest:checkTest
+        checkTest:checkTest,
+        checkTestS:checkTestS
     };
 
 })();

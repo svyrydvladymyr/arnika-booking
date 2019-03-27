@@ -76,6 +76,7 @@
                                         <label for="add-name" id="add-name-label"></label>
                                         <input type="text" id="add-name" name="add-name">
                                     </div>
+                                    <div class="form-message" id="message-add-name" style="display:none;"></div>
                                 </div>
                             </div>
                             <!--form surname-->
@@ -89,6 +90,7 @@
                                         <label for="add-surname" id="add-surname-label"></label>
                                         <input type="text" id="add-surname" name="add-surname">
                                     </div>
+                                    <div class="form-message" id="message-add-surname" style="display:none;"></div>
                                 </div>
                             </div>
                             <!--form phome-->
@@ -103,6 +105,7 @@
                                         <input type="text" id="add-tel-code" name="add-tel-code" value="+380" style="width:40px; margin-right: 3px;" readonly>
                                         <input type="text" id="add-tel" name="add-tel" maxlength="9" style="width:47%;"> 
                                     </div>
+                                    <div class="form-message" id="message-add-tel" style="display:none;"></div>
                                 </div>
                             </div>  
                             <!--form date, room-->                          
@@ -127,8 +130,8 @@
                             <!--form status gгest-->
                             <div class="form-blok">
                                 <div class="form-icon">
-                                    <i class='fas fa-times error' id="error" style="display: none;"></i>
-                                    <i class='fas fa-check true' id="true" style="display: none;"></i>
+                                    <i class='fas fa-times error' id="status-gгest-error" style="display: none;"></i>
+                                    <i class='fas fa-check true' id="status-gгest-true" style="display: none;"></i>
                                 </div>
                                 <div class="blokinput">
                                     <div class="blokinput-wrap">
@@ -139,13 +142,14 @@
                                             <option value="worker">Працівник</option>
                                         </select>  
                                     </div>
+                                    <div class="form-message" id="message-add-status-grest" style="display:none;"></div>
                                 </div>
                             </div>  
                             <!--form status gгest-->
                             <div class="form-blok">
                                 <div class="form-icon">
-                                    <i class='fas fa-times error' id="error" style="display: none;"></i>
-                                    <i class='fas fa-check true' id="true" style="display: none;"></i>
+                                    <i class='fas fa-times error' id="status-zamovl-error" style="display: none;"></i>
+                                    <i class='fas fa-check true' id="status-zamovl-true" style="display: none;"></i>
                                 </div>
                                 <div class="blokinput">
                                     <div class="blokinput-wrap">
@@ -156,6 +160,7 @@
                                             <option value="pay">Оплачено</option>
                                         </select> 
                                     </div>
+                                    <div class="form-message" id="message-add-status-zamovl" style="display:none;"></div>
                                 </div>
                             </div>              
                             <div class="send" id="send"></div>

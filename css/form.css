@@ -60,6 +60,7 @@
     padding: 0px 5px;
     background: #ececec;
     border-radius: 7px;
+    position: relative;
 }
 
 .blokinput2{
@@ -68,6 +69,7 @@
     padding: 0px 5px;
     background: #ececec;
     border-radius: 7px;
+    position: relative;
 }
 
 .blokinput-wrap{
@@ -157,4 +159,37 @@ label{
     box-shadow: 0px 0px 8px #4a4a4a;
     text-shadow: 0px 0px 1px red;
     transition: 0.2s;
+}
+
+.form-message{
+    width: 160px;
+    min-height: 25px;
+    padding: 4px 5px;
+    border: 1px solid #000000;
+    background: #ececec;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    font-weight:bold; 
+    position: absolute;
+    right: -65%;
+    top: 3px;
+    display: table;
+}
+
+.form-message p{
+    margin: 0px;
+}
+
+.form-message::after{
+    content: "";
+    padding: 0px;
+    border-top: 10px solid #ff2727;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    position: absolute;
+    transform: rotate(90deg);
+    left: -20px;
+    top: 1px;
 }
