@@ -9,7 +9,7 @@ let REG = (function(){
             nameCut:"[^a-zA-Zа-яА-Я]",
             nameTest:"^[a-zA-Zа-яА-Я]+$",
             telCut:"[^0-9]",
-            telTest:"[0-9]{9}"
+            telTest:"[0-9]{9}",
         };
         return reg;
     };

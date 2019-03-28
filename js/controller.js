@@ -19,7 +19,7 @@ window.onload = function(){
             });
         });
     }
-
+    
     //addEventListener(s)
             //change button in bloklogin and login    
             SE.$("click").addEventListener("click", function(){
@@ -86,6 +86,7 @@ window.onload = function(){
                         {
                             SE.setMessage("message-add-nomer", "table", "#111111", "Не коректне значення!");
                             SE.iconON("room-error", "room-true", "false");
+                            SE.readyToSend("add-nomer", "");
                         } else {
                             SE.setMessage("message-add-nomer", "none", "", "");
                             AJAX.checkRoom();
@@ -93,9 +94,11 @@ window.onload = function(){
                     });
                     //date-----------------------------------------------------------------------------
                     SE.$("add-start-data").addEventListener("change", function(){
-                        if(!isNaN(SE.$("add-start-data").value)){
+                        if(!isNaN(SE.$("add-start-data").value))
+                        {
                             SE.setMessage("message-add-start-data", "table", "#111111", "Не коректне значення!");
                             SE.iconON("room-error", "room-true", "false");
+                            SE.readyToSend("add-start-data", "");
                         } else {
                             SE.setMessage("message-add-start-data", "none", "", "");
                             AJAX.checkRoom();
@@ -107,6 +110,7 @@ window.onload = function(){
                         {
                             SE.setMessage("message-add-kilk", "table", "#111111", "Не коректне значення!");
                             SE.iconON("room-error", "room-true", "false");
+                            SE.readyToSend("add-kilk", "");
                         } else {
                             SE.setMessage("message-add-kilk", "none", "", "");
                             AJAX.checkRoom();

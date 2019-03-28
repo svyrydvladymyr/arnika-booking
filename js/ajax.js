@@ -62,6 +62,36 @@ let AJAX = (function(){
             xmlhttp.send();
     }; 
 
+    // function for check rooms
+    let checkRoom = function(){
+        let numRoom = SE.$("add-nomer").value;
+        let dateStart = SE.$("add-start-data").value;
+        let kilkDay = SE.$("add-kilk").value;
+        if ((numRoom != "") && (dateStart != "") & (kilkDay != "")){
+            let day = 0;
+            for(let i = 0; i < kilkDay; i++){
+                let result = new Date(dateStart);
+                //add day
+                let nextday = new Date(result.getFullYear(),result.getMonth(),result.getDate()+day);
+                day = day + 1;
+                //format date
+                let resDate = nextday.getFullYear() + "-" + SE.readyMonth(nextday) + "-" + SE.readyDay(nextday);
+                //run function for get room on this date
+                AJAX.getRoom(numRoom, resDate);
+            } 
+            //clear message
+            SE.setMessage("message-room", "none", "", "Кімната зайнята на:");
+            //show true on icon
+            SE.iconON("room-error", "room-true", "true");
+            //if all true, push to obgect prototype 
+            SE.readyToSend("add-nomer", SE.$("add-nomer").value);
+            SE.readyToSend("add-start-data", SE.$("add-start-data").value);
+            SE.readyToSend("add-kilk", SE.$("add-kilk").value);
+        } else {
+            //show false on icon
+            SE.iconON("room-error", "room-true", "false");
+        }
+    };  
 
     // function for get room on this date
     let getRoom = function(room, date){
@@ -80,13 +110,7 @@ let AJAX = (function(){
                             myRoom = JSON.parse(res);
                             //create new date from result
                             let createDate = new Date(myRoom.data_zaizdu);
-                            let finDay;
-                            if ((createDate.getDate() >= 1) && (createDate.getDate() <= 9)) {
-                                finDay = "0" + createDate.getDate();
-                            } else {
-                                finDay = createDate.getDate();
-                            }
-                            let resulrDate = finDay + " - " + ("0" + (createDate.getMonth()+1)) + " - " + createDate.getFullYear();
+                            let resulrDate = SE.readyDay(createDate) + " - " + SE.readyMonth(createDate) + " - " + createDate.getFullYear();
                             //show message if room not free
                             SE.messageRoom("message-room", "table", "#111111", resulrDate); 
                             SE.iconON("room-error", "room-true", "false");
@@ -98,32 +122,7 @@ let AJAX = (function(){
             xmlhttp.send();
     }; 
 
-    // function for check rooms
-    let checkRoom = function(){
-        let numRoom = SE.$("add-nomer").value;
-        let dateStart = SE.$("add-start-data").value;
-        let kilkDay = SE.$("add-kilk").value;
-        if ((numRoom != "") && (dateStart != "") & (kilkDay != "")){
-            let day = 0;
-            for(let i = 0; i < kilkDay; i++){
-                let result = new Date(dateStart);
-                //add day
-                let nextday = new Date(result.getFullYear(),result.getMonth(),result.getDate()+day);
-                day = day + 1;
-                //format date
-                let resDate = nextday.getFullYear() + "-" + ("0" + (nextday.getMonth() + 1)) + "-" + nextday.getDate();
-                //run function for get room on this date
-                AJAX.getRoom(numRoom, resDate);
-            } 
-            //clear message
-            SE.setMessage("message-room", "none", "", "Кімната зайнята на:");
-            //show true on icon
-            SE.iconON("room-error", "room-true", "true");
-        } else {
-            //show false on icon
-            SE.iconON("room-error", "room-true", "false");
-        }
-    };    
+  
 
     return {
         getJson:getJson,

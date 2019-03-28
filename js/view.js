@@ -84,15 +84,21 @@ let VW = (function(){
                 if(SE.$(idF).value == ""){
                     SE.iconON(errorF, trueF, "false");
                     SE.setMessage(`message-${idF}`, "table", "#111111", "Не може бути пустим!");
+                    SE.readyToSend(idF, "");
                 } else {
                     if (SE.$(idF).id == "add-tel"){ 
                         if (SE.$(idF).value.length != 9) {
                             SE.iconON(errorF, trueF, "false");
                             SE.setMessage(`message-${idF}`, "table", "#11111", "Не коректний номер!");
+                            SE.readyToSend(idF, "");
+                        } else {
+                            SE.readyToSend(idF, SE.$(idF).value);
                         }
                     } else {
                         SE.iconON(errorF, trueF, "true");
                         SE.setMessage(`message-${idF}`, "none", "", "");
+                        SE.readyToSend(idF, SE.$(idF).value);
+
                     }
                 }
             }); 
@@ -108,8 +114,10 @@ let VW = (function(){
             SE.iconON(errorF, trueF, "false");
             if (SE.$(idF).id == "add-tel"){
                 SE.setMessage(`message-${idF}`, "table", "#111111", "Тільки цифри!");
+                SE.readyToSend(idF, "");
             } else {
                 SE.setMessage(`message-${idF}`, "table", "#111111", "Тільки букви!");
+                SE.readyToSend(idF, "");
             }
         }
     };

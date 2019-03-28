@@ -57,6 +57,85 @@ let SE = (function(){
         }
     };
 
+    //date format day
+    let readyDay = function(fullDate){
+        let finDay, createDate;
+        createDate = new Date(fullDate);
+        if ((createDate.getDate() >= 1) && (createDate.getDate() <= 9)) {
+            finDay = "0" + createDate.getDate();
+            return finDay;
+        } else {
+            finDay = createDate.getDate();
+            return finDay;
+        }
+    };  
+
+    //date format month
+    let readyMonth = function(fullDate){    
+        let finMonth, createDate;
+        createDate = new Date(fullDate);
+        if ((createDate.getMonth() >= 1) && (createDate.getMonth() <= 9)) {
+            finMonth = "0" + (createDate.getMonth()+1);
+            return finMonth;
+        } else {
+            finMonth = createDate.getMonth();
+            return finMonth;
+        }
+    };
+
+    //function for make prototipe for send obgect
+    let readyToSend = function(idF, value){
+        let readyObg = new toSend();
+        //get date registration
+        let dateRegFull = new Date();
+        let dateReg = dateRegFull.getFullYear() + "-" + SE.readyMonth(dateRegFull) + "-" + SE.readyDay(dateRegFull);
+        toSend.prototype.datazaizdu = dateReg;
+        //replace (-) and push to prototipe
+        let idReplace = idF.replace(/[\-]/gi, "");
+        toSend.prototype[idReplace] = value;
+
+
+
+        console.log(readyObg.__proto__.datazaizdu);
+        console.log(readyObg.__proto__.addname);
+        console.log(readyObg.__proto__.addsurname);
+        console.log(readyObg.__proto__.addtel);
+        console.log(readyObg.__proto__.addnomer);
+        console.log(readyObg.__proto__.addstartdata);
+        console.log(readyObg.__proto__.addkilk);
+        console.log(readyObg);
+    };
+
+    //function for clear obgect prototype and icon true
+    let clearObg = function(){
+        let readyObg = new toSend(); 
+        console.log(readyObg);
+
+        
+        toSend.prototype.datazaizdu = "";
+        toSend.prototype.addname = "";
+        SE.$("add-name").value = "";
+        toSend.prototype.addsurname = "";
+        SE.$("add-surname").value = "";
+        toSend.prototype.addtel = "";
+        SE.$("add-tel").value = "";
+        toSend.prototype.addnomer = "";
+        SE.$("add-nomer").value = "";
+        toSend.prototype.addstartdata = "";
+        SE.$("add-start-data").value = "";
+        toSend.prototype.addkilk = "";
+
+
+        SE.$("add-kilk").value = "";
+        SE.$("name-true").style.display = "none";
+        SE.$("surname-true").style.display = "none";
+        SE.$("tel-true").style.display = "none";
+        SE.$("room-true").style.display = "none";
+
+    };
+
+
+
     return {
         $:$, 
         setSettings:setSettings,
@@ -64,7 +143,11 @@ let SE = (function(){
         messageRoom:messageRoom,
         auditLogin:auditLogin,
         incorrectCheck:incorrectCheck,
-        iconON:iconON
+        iconON:iconON,
+        readyDay:readyDay,
+        readyMonth:readyMonth,
+        readyToSend:readyToSend,
+        clearObg:clearObg
 
     };
 })();
