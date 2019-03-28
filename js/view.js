@@ -78,24 +78,20 @@ let VW = (function(){
     //check on true or error in input on change, cut all incorrect, show message
     let checkCut = function(idF, errorF, trueF, reg){
         if (SE.$(idF).value == ""){
-            SE.$(errorF).style.display = "table";
-            SE.$(trueF).style.display = "none";
+            SE.iconON(errorF, trueF, "false");
         } else {
             SE.incorrectCheck(idF, reg, function(){
                 if(SE.$(idF).value == ""){
-                    SE.$(errorF).style.display = "table";   
-                    SE.$(trueF).style.display = "none";
+                    SE.iconON(errorF, trueF, "false");
                     SE.setMessage(`message-${idF}`, "table", "#111111", "Не може бути пустим!");
                 } else {
                     if (SE.$(idF).id == "add-tel"){ 
                         if (SE.$(idF).value.length != 9) {
-                            SE.$(errorF).style.display = "table";
-                            SE.$(trueF).style.display = "none";
+                            SE.iconON(errorF, trueF, "false");
                             SE.setMessage(`message-${idF}`, "table", "#11111", "Не коректний номер!");
                         }
                     } else {
-                        SE.$(errorF).style.display = "none";   
-                        SE.$(trueF).style.display = "table";
+                        SE.iconON(errorF, trueF, "true");
                         SE.setMessage(`message-${idF}`, "none", "", "");
                     }
                 }
@@ -106,12 +102,10 @@ let VW = (function(){
     //check on true or error in input on input and show message
     let checkTest = function(idF, errorF, trueF, reg){
         if (new RegExp(reg, "gi").test(SE.$(idF).value) == true){
-            SE.$(errorF).style.display = "none";
-            SE.$(trueF).style.display = "table";
+            SE.iconON(errorF, trueF, "true");
             SE.setMessage(`message-${idF}`, "none", "", "");
         } else {
-            SE.$(errorF).style.display = "table";
-            SE.$(trueF).style.display = "none";
+            SE.iconON(errorF, trueF, "false");
             if (SE.$(idF).id == "add-tel"){
                 SE.setMessage(`message-${idF}`, "table", "#111111", "Тільки цифри!");
             } else {
@@ -125,11 +119,9 @@ let VW = (function(){
         let b = SE.$(idF);
         let gгest = b.options[b.selectedIndex].text;
         if (gгest != ""){
-            SE.$(errorF).style.display = "none";
-            SE.$(trueF).style.display = "table";
+            SE.iconON(errorF, trueF, "true");
         } else {
-            SE.$(errorF).style.display = "table";
-            SE.$(trueF).style.display = "none";
+            SE.iconON(errorF, trueF, "false");
         }
     };
 

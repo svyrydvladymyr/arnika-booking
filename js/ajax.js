@@ -89,8 +89,7 @@ let AJAX = (function(){
                             let resulrDate = finDay + " - " + ("0" + (createDate.getMonth()+1)) + " - " + createDate.getFullYear();
                             //show message if room not free
                             SE.messageRoom("message-room", "table", "#111111", resulrDate); 
-                            SE.$("room-error").style.display = "table";
-                            SE.$("room-true").style.display = "none";
+                            SE.iconON("room-error", "room-true", "false");
                         } 
                     }                            
                 }
@@ -119,12 +118,10 @@ let AJAX = (function(){
             //clear message
             SE.setMessage("message-room", "none", "", "Кімната зайнята на:");
             //show true on icon
-            SE.$("room-error").style.display = "none";
-            SE.$("room-true").style.display = "table";            
+            SE.iconON("room-error", "room-true", "true");
         } else {
             //show false on icon
-            SE.$("room-error").style.display = "table";
-            SE.$("room-true").style.display = "none";
+            SE.iconON("room-error", "room-true", "false");
         }
     };    
 

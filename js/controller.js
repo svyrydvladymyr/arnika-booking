@@ -58,21 +58,21 @@ window.onload = function(){
             SE.$("tab2").addEventListener("click", VW.clikTabTwo);
 
             //check and cut incorrect symbol form
-                //name-----------------------------------------------------------------------------
+                //name-----------------------------------------------------------------------------------
                 SE.$("add-name").addEventListener("change", function(){
                     VW.checkCut("add-name", "name-error", "name-true", REG.exp().nameCut);
                 });
                 SE.$("add-name").addEventListener("input", function(){
                     VW.checkTest("add-name", "name-error", "name-true", REG.exp().nameTest);
                 }); 
-                //surname-----------------------------------------------------------------------------
+                //surname--------------------------------------------------------------------------------
                 SE.$("add-surname").addEventListener("change", function(){
                     VW.checkCut("add-surname", "surname-error", "surname-true", REG.exp().nameCut);
                 });
                 SE.$("add-surname").addEventListener("input", function(){
                     VW.checkTest("add-surname", "surname-error", "surname-true", REG.exp().nameTest);
                 });
-                //tel-----------------------------------------------------------------------------
+                //tel------------------------------------------------------------------------------------
                 SE.$("add-tel").addEventListener("change", function(){
                     VW.checkCut("add-tel", "tel-error", "tel-true", REG.exp().telCut);
                 });
@@ -85,8 +85,7 @@ window.onload = function(){
                         if ((SE.$("add-nomer").validity) && (!SE.$("add-nomer").validity.valid))
                         {
                             SE.setMessage("message-add-nomer", "table", "#111111", "Не коректне значення!");
-                            SE.$("room-error").style.display = "table";
-                            SE.$("room-true").style.display = "none";
+                            SE.iconON("room-error", "room-true", "false");
                         } else {
                             SE.setMessage("message-add-nomer", "none", "", "");
                             AJAX.checkRoom();
@@ -96,8 +95,7 @@ window.onload = function(){
                     SE.$("add-start-data").addEventListener("change", function(){
                         if(!isNaN(SE.$("add-start-data").value)){
                             SE.setMessage("message-add-start-data", "table", "#111111", "Не коректне значення!");
-                            SE.$("room-error").style.display = "table";
-                            SE.$("room-true").style.display = "none";
+                            SE.iconON("room-error", "room-true", "false");
                         } else {
                             SE.setMessage("message-add-start-data", "none", "", "");
                             AJAX.checkRoom();
@@ -108,18 +106,17 @@ window.onload = function(){
                         if ((SE.$("add-kilk").validity) && (!SE.$("add-kilk").validity.valid))
                         {
                             SE.setMessage("message-add-kilk", "table", "#111111", "Не коректне значення!");
-                            SE.$("room-error").style.display = "table";
-                            SE.$("room-true").style.display = "none";
+                            SE.iconON("room-error", "room-true", "false");
                         } else {
                             SE.setMessage("message-add-kilk", "none", "", "");
                             AJAX.checkRoom();
                         }
                     });
-                //guest-----------------------------------------------------------------------------
+                //guest--------------------------------------------------------------------------------
                 SE.$("add-status-gгest").addEventListener("change", function(){
                     VW.checkTestS("add-status-gгest", "status-gгest-error", "status-gгest-true");
                 });    
-                //guest-----------------------------------------------------------------------------
+                //guest--------------------------------------------------------------------------------
                 SE.$("add-status-zamovl").addEventListener("change", function(){
                     VW.checkTestS("add-status-zamovl", "status-zamovl-error", "status-zamovl-true");
                 });                                                

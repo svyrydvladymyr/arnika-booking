@@ -195,7 +195,7 @@ body{
     border: 1px solid grey;
     border-radius: 10px 0px 0px 10px;
     box-shadow: 0px 0px 4px #111111;
-
+    z-index: 1;
 }
 
 .light, .dark{
@@ -226,3 +226,46 @@ body{
     margin: 20px auto;
 }
 
+@media screen and (min-width:550px) and (max-width:780px){
+    .wrap {
+        width: 500px;
+    }
+}
+
+
+@media screen and (max-width:549px) {
+    .wrap {
+        width: 98%;
+        min-width: 300px;
+        margin: 7px 1%;
+    }
+    .settings {
+        display: none;
+    }
+    .header {
+        width: 100%;
+        min-height: 50px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    .header-login {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .header-logo{
+        width: 60%;
+    }
+    .click {
+        cursor: pointer;
+        display: flex;
+        height: 25px;
+        margin: 17px 6px;
+    }
+    .send {
+        width: 50%;
+        margin: 15px auto 15px 25%;
+    }
+
+}

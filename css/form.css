@@ -10,7 +10,7 @@
     position: relative;
     display: table;
     margin: 10px auto;
-    padding: 10px 100px;
+    padding: 10px 10px;
     border: 1px solid #d5d5d5;
     border-radius: 10px;
     box-shadow: 0px 0px 2px grey;
@@ -140,9 +140,9 @@ label{
 
 .send{
     cursor: pointer;
-    width: 30%;
+    width: 20%;
     height: 27px;
-    margin: 15px auto 15px 37%;
+    margin: 15px auto 15px 42%;
     padding: 5px;
     text-align: center;
     font-size: 14px;
@@ -208,4 +208,79 @@ input[type=data]:invalid {
     color: #ff0000;
     font-weight: bold;
     text-shadow: 0px 0px 1px red;
+}
+
+
+@media screen and (min-width:550px) and (max-width:780px){
+    .send {
+        width: 30%;
+        margin: 15px auto 15px 37%;
+    }
+    .form-message {
+        width: 80px;
+        right: -35%;
+        top: -1px;
+        padding: 1px;
+        font-size: 11px;
+    }
+    .form-message::after {
+        top: 4px;
+    }
+}
+
+@media screen and (max-width:549px){
+    .send {
+        width: 30%;
+        margin: 15px auto 15px 37%;
+    }
+    .form-message {
+        width: 80px;
+        right: -35%;
+        top: -1px;
+        padding: 1px;
+        font-size: 11px;
+    }
+    .form-message::after {
+        top: 4px;
+    }
+    .form-wrap {
+        padding: 10px 3px;
+    }
+    .form-message {
+        width: 100%;
+        min-height: 25px;
+        padding: 4px 5px;
+        border: 1px solid #4a0000;
+        border-left: 3px solid #333333;
+        border-right: 3px solid #333333;
+        background: #ffecec;
+        border-radius: 4px 5px 5px 4px;
+        text-align: center;
+        font-size: 12px;
+        font-weight: bold;
+        position: relative;
+        right: 0;
+        margin: 10px 0px 1px 0px;
+        display: table;
+    }
+    .form-message::after {
+        content: "";
+        border-top: 0px solid #d00000;
+        border-left: 0px solid transparent;
+        border-right: 0px solid transparent;
+        border-bottom: 0px solid transparent;
+    }
+    .form-message::before {
+        content: "";
+        padding: 0px;
+        border-top: 10px solid #d00000;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        position: absolute;
+        transform: rotate(-180deg);
+        left: 115px;
+        margin-bottom: 30px;
+        top: -20px;
+    }
 }

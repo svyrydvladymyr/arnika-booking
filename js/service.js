@@ -46,6 +46,16 @@ let SE = (function(){
         }
     };
 
+    //change icon
+    let iconON = function(errorF, trueF, on){
+        if (on == "true"){
+            SE.$(errorF).style.display = "none";
+            SE.$(trueF).style.display = "table";
+        } else if (on == "false") {
+            SE.$(errorF).style.display = "table";
+            SE.$(trueF).style.display = "none";
+        }
+    };
 
     return {
         $:$, 
@@ -53,7 +63,8 @@ let SE = (function(){
         setMessage:setMessage,
         messageRoom:messageRoom,
         auditLogin:auditLogin,
-        incorrectCheck:incorrectCheck
+        incorrectCheck:incorrectCheck,
+        iconON:iconON
 
     };
 })();

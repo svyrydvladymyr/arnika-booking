@@ -115,3 +115,103 @@
 .tab-body2{
     display: none;
 }
+
+
+@media screen and (min-width:550px) and (max-width:780px){
+    .tab1 > p, .tab2 > p {
+        font-size: 0px;
+        margin: 0px;
+        border-bottom: 0px solid;
+        width: 0px;
+        height: 0px;
+    }
+
+    .tab1, .tab2{
+        cursor: pointer;
+        outline: var(--ol-3);
+        width: 40%;
+        height: 100px;
+        border-radius: 15px 0px 0px 0px;
+        border: 1px solid #565656;
+        background-image: linear-gradient(to bottom , #3c3c3c,#bdbdbd, #ffffff, #c7c7c7, #565656);
+        box-shadow: 0px 0px 5px #ffffff;
+        text-shadow: 0px 0px 3px #020202;
+        transition: 0.5s;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    .tab2{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        text-shadow: 0px 0px 3px #020202;
+        border-radius: 0px 15px 0px 0px;
+    
+    }
+    .activ{
+        width: 60%;
+        background-image: linear-gradient(to bottom , #124c12,#b2f1b2, #ffffff, #9ecc9e, #094209);
+        border: 1px solid #145f14;
+        box-shadow: 0px 0px 5px #ffffff;
+        text-shadow: 0px 0px 3px #020202;
+    }
+}
+
+@media screen and (max-width:549px){
+    .tab1 > p, .tab2 > p {
+        font-size: 0px;
+        margin: 0px;
+        border-bottom: 0px solid;
+        width: 0px;
+        height: 0px;
+    }
+
+    .tab1 > h1, .tab2 > h1 {
+        font-size: 60px;
+        font-weight: bold;
+        margin: 0px;
+        padding: 10px 0px;
+    }
+
+    .tab-img-wrap-one, .tab-img-wrap-two {
+        width: 80px;
+        height: 56px;
+        margin: 16px 3px;        
+        padding: 4px;
+    }
+
+    .tab1, .tab2{
+        cursor: pointer;
+        outline: var(--ol-3);
+        width: 40%;
+        height: 100px;
+        border-radius: 15px 0px 0px 0px;
+        border: 1px solid #565656;
+        background-image: linear-gradient(to bottom , #3c3c3c,#bdbdbd, #ffffff, #c7c7c7, #565656);
+        box-shadow: 0px 0px 5px #ffffff;
+        text-shadow: 0px 0px 3px #020202;
+        transition: 0.5s;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    .tab2{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        text-shadow: 0px 0px 3px #020202;
+        border-radius: 0px 15px 0px 0px;    
+    }
+
+    .tab-body1, .tab-body2 {
+        padding: 4px;
+    }
+    .activ{
+        width: 60%;
+        background-image: linear-gradient(to bottom , #124c12,#b2f1b2, #ffffff, #9ecc9e, #094209);
+        border: 1px solid #145f14;
+        box-shadow: 0px 0px 5px #ffffff;
+        text-shadow: 0px 0px 3px #020202;
+    }
+}
