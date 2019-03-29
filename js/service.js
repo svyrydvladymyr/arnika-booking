@@ -86,25 +86,31 @@ let SE = (function(){
     //function for make prototipe for send obgect
     let readyToSend = function(idF, value){
         let readyObg = new toSend();
-        //get date registration
+        //get date registration and push to prototype
         let dateRegFull = new Date();
         let dateReg = dateRegFull.getFullYear() + "-" + SE.readyMonth(dateRegFull) + "-" + SE.readyDay(dateRegFull);
-        toSend.prototype.datazaizdu = dateReg;
-        //replace (-) and push to prototipe
+        toSend.prototype.registr = dateReg;
+
+        //replace (-) and push to prototype
         let idReplace = idF.replace(/[\-]/gi, "");
         toSend.prototype[idReplace] = value;
+        let nameSend = readyObg.__proto__.addname;
+        let surnameSend = readyObg.__proto__.addsurname;
+        let telSend = readyObg.__proto__.addtel;
+        let nomerSend = readyObg.__proto__.addnomer;
+        let startdataSend = readyObg.__proto__.addstartdata;
+        let kilkSend = readyObg.__proto__.addkilk;
+        let statusgгestSend = readyObg.__proto__.addstatusgгest;
+        let statuszamovlSend = readyObg.__proto__.addstatuszamovl;
 
-
-
-        console.log(readyObg.__proto__.datazaizdu);
-        console.log(readyObg.__proto__.addname);
-        console.log(readyObg.__proto__.addsurname);
-        console.log(readyObg.__proto__.addtel);
-        console.log(readyObg.__proto__.addnomer);
-        console.log(readyObg.__proto__.addstartdata);
-        console.log(readyObg.__proto__.addkilk);
-        console.log(readyObg.__proto__.addstatusgгest);
-        console.log(readyObg.__proto__.addstatuszamovl);
+        if ((nameSend != "") && (surnameSend != "") && (telSend != "") && (nomerSend != "") && (startdataSend != "") && (kilkSend != "") && (statusgгestSend != "") && (statuszamovlSend != "")){
+            SE.$("send").style.background = "linear-gradient(to bottom right, #0b380b, #53bb53, #0f480f)";
+            SE.$("send").style.cursor = "pointer";
+            SE.setMessage("message-send", "none", "", "");
+        } else {
+            SE.$("send").style.background = "linear-gradient(to bottom right, #000000, #d3d3d3, #000000)";
+            SE.$("send").style.cursor = "no-drop";
+        }
         console.log(readyObg);
     };
 
@@ -112,7 +118,7 @@ let SE = (function(){
     let clearObg = function(){
         let readyObg = new toSend(); 
         console.log(readyObg);        
-        toSend.prototype.datazaizdu = "";
+        toSend.prototype.registr = "";
         toSend.prototype.addname = "";
         toSend.prototype.addsurname = "";
         toSend.prototype.addtel = "";
@@ -121,6 +127,7 @@ let SE = (function(){
         toSend.prototype.addkilk = "";
         toSend.prototype.addstatusgгest = "";
         toSend.prototype.addstatuszamovl = "";
+        toSend.prototype.price = "";
     };
 
     //function for clear value in inputs
@@ -145,6 +152,34 @@ let SE = (function(){
         SE.$("status-zamovl-true").style.display = "none";
     };
 
+    let variablesProto = function(){
+        let readyObg = new toSend();
+        let nameSend = readyObg.__proto__.addname;
+        let surnameSend = readyObg.__proto__.addsurname;
+        let telSend = readyObg.__proto__.addtel;
+        let nomerSend = readyObg.__proto__.addnomer;
+        let startdataSend = readyObg.__proto__.addstartdata;
+        let kilkSend = readyObg.__proto__.addkilk;
+        let statusgгestSend = readyObg.__proto__.addstatusgгest;
+        let statuszamovlSend = readyObg.__proto__.addstatuszamovl;
+        let registrSend = readyObg.__proto__.registr;
+        let priceSend = readyObg.__proto__.price;
+        let adminSend = readyObg.__proto__.admin;
+        return {
+            nameSend,
+            surnameSend,
+            telSend,
+            nomerSend,
+            startdataSend,
+            kilkSend,
+            statusgгestSend,
+            statuszamovlSend,
+            registrSend,
+            priceSend,
+            adminSend            
+        };
+    }
+
     return {
         $:$, 
         setSettings:setSettings,
@@ -158,6 +193,7 @@ let SE = (function(){
         readyToSend:readyToSend,
         clearObg:clearObg,
         clearValue:clearValue,
-        clearIcon:clearIcon
+        clearIcon:clearIcon,
+        variablesProto:variablesProto
     };
 })();

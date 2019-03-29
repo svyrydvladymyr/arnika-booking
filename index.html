@@ -6,10 +6,15 @@
     <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
     <title>Arnika-booking</title>
 </head>
 <body id="body">
+    <div class="settings">
+        <div class="light" id="light"></div>
+        <div class="dark" id="dark"></div>
+    </div>
     <div class="wrap">
         <!--header-->
         <div class="header">
@@ -36,10 +41,6 @@
             </div>
         </div>
         <div class="autoriz-message-wrap" id="autoriz-message-wrap"></div>
-        <div class="settings">
-            <div class="light" id="light"></div>
-            <div class="dark" id="dark"></div>
-        </div>
         <!--content-->
         <div class="content" id="content">
             <div class="content-wrap">
@@ -127,6 +128,7 @@
                                     </div>
                                     <div class="form-message" id="message-room" style="display:none;"></div>
                                     <div class="form-message" id="message-add-nomer" style="display:none;"></div>
+                                    <div class="form-message-price" id="message-price" style="display:none;"></div>
                                     <div class="form-message" id="message-add-start-data" style="display:none; margin-top: 27px;"></div> 
                                     <div class="form-message" id="message-add-kilk" style="display:none; margin-top: 55px;"></div>     
                                 </div>    
@@ -168,6 +170,8 @@
                                 </div>
                             </div>              
                             <div class="send" id="send"></div>
+                            <i class="fa fa-spinner fa-spin" style="font-size:34px;  color: #696969; text-shadow: 0px 0px 2px #008700; margin: 5px 49%; display:none;" id="icon-send" ></i>                            
+                            <div class="autoriz-message-wrap-form" id="message-send" style="display:none;"></div>
                         </div>
                     </div>
                     <div class="tab-body2" id="tab-body2">

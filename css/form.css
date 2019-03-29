@@ -139,7 +139,8 @@ label{
 }
 
 .send{
-    cursor: pointer;
+    cursor: no-drop;
+    /* cursor: pointer; */
     width: 20%;
     height: 27px;
     margin: 15px auto 15px 42%;
@@ -148,7 +149,8 @@ label{
     font-size: 14px;
     font-weight: bold;
     color: #ffffff;
-    background: linear-gradient(to bottom right, #0b380b, #53bb53, #0f480f);
+    background: linear-gradient(to bottom right, #000000, #d3d3d3, #000000);
+    /* background: linear-gradient(to bottom right, #0b380b, #53bb53, #0f480f); */
     border: 1px solid #676767;
     border-radius: 7px 15px;
     box-shadow: 0px 0px 5px #4a4a4a;
@@ -196,6 +198,42 @@ label{
     top: 1px;
 }
 
+
+.form-message-price {
+    width: 160px;
+    min-height: 25px;
+    padding: 4px 5px;
+    border: 1px solid #4a0000;
+    border-left: 1px solid #00ad0e;
+    border-right: 3px solid #333333;
+    background: #ececec;
+    border-radius: 4px 5px 5px 4px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    right: -65%;
+    top: 3px;
+    display: table;
+}
+
+.form-message-price p{
+    margin: 0px;
+}
+
+.form-message-price::before {
+    content: "";
+    padding: 0px;
+    border-top: 10px solid #009e15;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    position: absolute;
+    transform: rotate(90deg);
+    left: -20px;
+    top: 1px;
+}
+
 input[type=number]:invalid {
     background-color: #ffe1e1;
     color: #ff0000;
@@ -224,6 +262,22 @@ input[type=data]:invalid {
         font-size: 11px;
     }
     .form-message::after {
+        top: 4px;
+    }
+
+    .form-message-price p{
+        margin: 3px 0px;
+    }
+
+    .form-message-price {
+        width: 80px;
+        right: -35%;
+        top: -1px;
+        padding: 1px;
+        font-size: 11px;
+    }
+
+    .form-message-price::before {
         top: 4px;
     }
 }
@@ -282,5 +336,46 @@ input[type=data]:invalid {
         left: 115px;
         margin-bottom: 30px;
         top: -20px;
+    }
+
+    .form-message-price {
+        width: 100%;
+        min-height: 25px;
+        padding: 4px 5px;
+        border: 1px solid #4a0000;
+        border-left: 3px solid #333333;
+        border-right: 3px solid #333333;
+        background: #ffecec;
+        border-radius: 4px 5px 5px 4px;
+        text-align: center;
+        font-size: 12px;
+        font-weight: bold;
+        position: relative;
+        right: 0;
+        margin: 10px 0px 1px 0px;
+        display: table;
+    }
+
+    .form-message-price::before {
+        content: "";
+        padding: 0px;
+        border-top: 10px solid #00a01b;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        position: absolute;
+        transform: rotate(-180deg);
+        left: 115px;
+        margin-bottom: 30px;
+        top: -20px;
+    }
+
+
+    .send {
+        cursor: no-drop;
+        width: 50%;
+        margin: 15px auto 15px 28%;
+        background: linear-gradient(to bottom right, #000000, #d3d3d3, #000000);
+
     }
 }

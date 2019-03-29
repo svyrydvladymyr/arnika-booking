@@ -48,14 +48,21 @@ let AJAX = (function(){
                     trimObg = this.responseText.trim();
                     getLength = trimObg.length-1; 
                     res = trimObg.slice(1, getLength);               
+                    
                     //parse Object
                     myObj = JSON.parse(res);
                     SE.$("demo").innerHTML = `${myObj.surname} ${myObj.name}`;
+                    
+                    //get admin name and push to prototype
+                    let admin = `${myObj.surname} ${myObj.name}`;
+                    toSend.prototype.admin = admin;
+                    
                     //if get accesses set session
                     sessionStorage.arnikalogin = myObj.login;
                     sessionStorage.arnikapassword = myObj.password;
+                    
                     //if get accesses show hidden DOM
-                    funCall();                               
+                    funCall(); 
                 }
             };
             xmlhttp.open("GET", "php/enter.php?x=" + dbParam, true);
@@ -90,6 +97,7 @@ let AJAX = (function(){
         } else {
             //show false on icon
             SE.iconON("room-error", "room-true", "false");
+
         }
     };  
 
@@ -112,8 +120,11 @@ let AJAX = (function(){
                             let createDate = new Date(myRoom.data_zaizdu);
                             let resulrDate = SE.readyDay(createDate) + " - " + SE.readyMonth(createDate) + " - " + createDate.getFullYear();
                             //show message if room not free
-                            SE.messageRoom("message-room", "table", "#111111", resulrDate); 
+                            SE.messageRoom("message-room", "table", "#111111", resulrDate);
                             SE.iconON("room-error", "room-true", "false");
+                            SE.readyToSend("add-nomer", "");
+                            SE.readyToSend("add-start-data", "");
+                            SE.readyToSend("add-kilk", "");
                         } 
                     }                            
                 }
@@ -122,12 +133,80 @@ let AJAX = (function(){
             xmlhttp.send();
     }; 
 
+
+    // function for autorisation
+    let getPrice = function(room){
+        let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res;
+            obj = {"room":room};           
+            dbParam = JSON.stringify(obj);
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    //check on true response
+                    // console.log(this.responseText);
+                    if (this.responseText != "[]"){
+                        //cut first and last symbol in Object
+                        trimObg = this.responseText.trim();
+                        getLength = trimObg.length-1; 
+                        res = trimObg.slice(1, getLength);               
+                        
+                        //parse Object
+                        myObj = JSON.parse(res);
+                    
+                        //get admin name and push to prototype
+                        let price = `${myObj.price}`;
+                        let priceParse = parseInt(price);
+                        toSend.prototype.price = priceParse;
+                        SE.setMessage("message-price", "table", "green", `${price}`);   
+                    }  else {
+                        console.log(this.responseText);
+                    }
+                }
+            };
+            xmlhttp.open("GET", "php/price.php?x=" + dbParam, true);
+            xmlhttp.send();
+    }; 
+
   
+        // function for autorisation
+        let addToDB = function(proto){
+            let obj, dbParam, xmlhttp;
+                obj = { "name":proto.nameSend, "surname":proto.surnameSend, "tel":proto.telSend, "number":proto.nomerSend, "dz":proto.startdataSend, "kilk":proto.kilkSend, "price":proto.priceSend, "buking":proto.statuszamovlSend, "tip":proto.statusgгestSend, "admin":proto.adminSend, "datazapovn":proto.registrSend};
+                console.log(obj);
+                dbParam = JSON.stringify(obj);
+                xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {    
+                        SE.setMessage("autoriz-message-wrap", "none", "", ""); 
+                        let trimRes = this.responseText.trim();
+                        if (trimRes == "") {
+                            SE.$("icon-send").style.display = "table";
+                            setTimeout(function(){
+                                SE.$("icon-send").style.display = "none";
+                                SE.setMessage("message-send", "table", "green", "Запис додано!");
+                            }, 2000);
+                            setTimeout(function(){
+                                SE.setMessage("message-send", "none", "", "");
+                                SE.setMessage("message-price", "none", "", "");
+                                SE.clearObg();
+                                SE.clearValue();
+                                SE.clearIcon();
+                            }, 4000); 
+                        }  else {
+                            SE.setMessage("message-send", "table", "red", `${this.responseText}`);
+                        } 
+                    }
+                };
+                xmlhttp.open("GET", "php/addToDB.php?x=" + dbParam, true);
+                xmlhttp.send();
+        }; 
 
     return {
         getJson:getJson,
         checkUser:checkUser,
         checkRoom:checkRoom,
-        getRoom:getRoom
+        getRoom:getRoom,
+        getPrice:getPrice,
+        addToDB:addToDB
     };
 })();

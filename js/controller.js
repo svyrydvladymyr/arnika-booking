@@ -4,6 +4,8 @@ window.onload = function(){
     SE.$("demo-wrap").style.display = "none";
     SE.setSettings("ВХІД");
     SE.clearObg();
+    SE.clearValue();
+    SE.clearIcon();
 
     let login = sessionStorage.arnikalogin; 
     let password = sessionStorage.arnikapassword; 
@@ -17,11 +19,12 @@ window.onload = function(){
         SE.auditLogin(login, password, function(){
             AJAX.checkUser(login, password, function(){
                 VW.makeDOM();
+
             });
         });
     }
-    
-    //addEventListener(s)
+
+    //addEventListener(s)+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             //change button in bloklogin and login    
             SE.$("click").addEventListener("click", function(){
                 VW.buttonLogin();
@@ -83,39 +86,69 @@ window.onload = function(){
                 //chack rooms
                     //number-----------------------------------------------------------------------------
                     SE.$("add-nomer").addEventListener("change", function(){
-                        if ((SE.$("add-nomer").validity) && (!SE.$("add-nomer").validity.valid))
-                        {
+                        if ((SE.$("add-nomer").validity) && (!SE.$("add-nomer").validity.valid)){
+                            SE.setMessage("message-price", "none", "", "");
                             SE.setMessage("message-add-nomer", "table", "#111111", "Не коректне значення!");
+                            SE.setMessage("message-room", "none", "", "");
                             SE.iconON("room-error", "room-true", "false");
                             SE.readyToSend("add-nomer", "");
                         } else {
-                            SE.setMessage("message-add-nomer", "none", "", "");
-                            AJAX.checkRoom();
+                            if ((SE.$("add-nomer").value == "")) {
+                                SE.setMessage("message-price", "none", "", "");
+                                SE.setMessage("message-add-nomer", "table", "#111111", "Не може бути пустим!");
+                                SE.setMessage("message-room", "none", "", "");
+                                SE.iconON("room-error", "room-true", "false");
+                                SE.readyToSend("add-nomer", "");
+                                SE.readyToSend("add-start-data", "");
+                                SE.readyToSend("add-kilk", "");
+                            } else {
+                                SE.setMessage("message-add-nomer", "none", "", "");
+                                AJAX.checkRoom();
+                                AJAX.getPrice(SE.$("add-nomer").value);
+                            }
                         }
                     });
                     //date-----------------------------------------------------------------------------
                     SE.$("add-start-data").addEventListener("change", function(){
-                        if(!isNaN(SE.$("add-start-data").value))
-                        {
+                        if(!isNaN(SE.$("add-start-data").value)){
                             SE.setMessage("message-add-start-data", "table", "#111111", "Не коректне значення!");
+                            SE.setMessage("message-room", "none", "", "");
                             SE.iconON("room-error", "room-true", "false");
                             SE.readyToSend("add-start-data", "");
                         } else {
-                            SE.setMessage("message-add-start-data", "none", "", "");
-                            AJAX.checkRoom();
+                            if ((SE.$("add-start-data").value == "")) {
+                                SE.setMessage("message-add-start-data", "table", "#111111", "Не може бути пустим!");
+                                SE.setMessage("message-room", "none", "", "");
+                                SE.iconON("room-error", "room-true", "false");
+                                SE.readyToSend("add-nomer", "");
+                                SE.readyToSend("add-start-data", "");
+                                SE.readyToSend("add-kilk", "");
+                            } else {
+                                SE.setMessage("message-add-start-data", "none", "", "");
+                                AJAX.checkRoom();
+                            }
                         }
                     });
                     //kilk-----------------------------------------------------------------------------
                     SE.$("add-kilk").addEventListener("change", function(){
-                        if ((SE.$("add-kilk").validity) && (!SE.$("add-kilk").validity.valid))
-                        {
+                        if ((SE.$("add-kilk").validity) && (!SE.$("add-kilk").validity.valid)){
                             SE.setMessage("message-add-kilk", "table", "#111111", "Не коректне значення!");
+                            SE.setMessage("message-room", "none", "", "");
                             SE.iconON("room-error", "room-true", "false");
                             SE.readyToSend("add-kilk", "");
                         } else {
-                            SE.setMessage("message-add-kilk", "none", "", "");
-                            AJAX.checkRoom();
-                        }
+                            if ((SE.$("add-kilk").value == "")) {
+                                SE.setMessage("message-add-kilk", "table", "#111111", "Не може бути пустим!");
+                                SE.setMessage("message-room", "none", "", "");
+                                SE.iconON("room-error", "room-true", "false");
+                                SE.readyToSend("add-nomer", "");
+                                SE.readyToSend("add-start-data", "");
+                                SE.readyToSend("add-kilk", "");
+                            } else {
+                                SE.setMessage("message-add-kilk", "none", "", "");
+                                AJAX.checkRoom();
+                            }
+                        }                
                     });
                 //guest--------------------------------------------------------------------------------
                 SE.$("add-status-gгest").addEventListener("change", function(){
@@ -125,14 +158,42 @@ window.onload = function(){
                 SE.$("add-status-zamovl").addEventListener("change", function(){
                     VW.checkTestS("add-status-zamovl", "status-zamovl-error", "status-zamovl-true");
                 }); 
+
                 
                 //send
                 SE.$("send").addEventListener("click", function(){
-                    SE.clearObg();
-                    SE.clearValue();
-                    SE.clearIcon();
-                })
-    //addEventListener(s) end       
+                    let proto =  SE.variablesProto();
+                    if ((proto.nameSend == "") || (proto.surnameSend == "") || (proto.telSend == "") || (proto.nomerSend == "") || (proto.startdataSend == "") || (proto.kilkSend == "") || (proto.statusgгestSend == "") || (proto.statuszamovlSend == "")){
+                        SE.setMessage("message-send", "table", "red", "Всі поля мають бути заповнені!!!");
+                    } else {
+                        let login = sessionStorage.arnikalogin; 
+                        let password = sessionStorage.arnikapassword; 
+                        console.log(login);
+                        console.log(password);
+                        SE.auditLogin(login, password, function(){
+                            AJAX.checkUser(login, password, function(){
+                                AJAX.addToDB(proto);
+                            });
+                        });
+
+
+
+                        // SE.$("icon-send").style.display = "table";
+                        // setTimeout(function(){
+                        //     SE.$("icon-send").style.display = "none";
+                        //     SE.setMessage("message-send", "table", "green", "Запис додано!");
+                        // }, 2000);
+                        // setTimeout(function(){
+                        //     SE.setMessage("message-send", "none", "", "");
+                        //     SE.setMessage("message-price", "none", "", "");
+                        //     SE.clearObg();
+                        //     SE.clearValue();
+                        //     SE.clearIcon();
+                        // }, 4000);
+                    }
+                });
+
+    //addEventListener(s) end +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      
 
 };
 
