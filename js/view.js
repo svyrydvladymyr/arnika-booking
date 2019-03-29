@@ -128,8 +128,10 @@ let VW = (function(){
         let gгest = b.options[b.selectedIndex].text;
         if (gгest != ""){
             SE.iconON(errorF, trueF, "true");
+            SE.readyToSend(idF, SE.$(idF).value);
         } else {
             SE.iconON(errorF, trueF, "false");
+            SE.readyToSend(idF, "");
         }
     };
 

@@ -3,6 +3,7 @@ window.onload = function(){
     SE.$("body").style.backgroundColor = localStorage.bgColor || "#2b2b2b";
     SE.$("demo-wrap").style.display = "none";
     SE.setSettings("ВХІД");
+    SE.clearObg();
 
     let login = sessionStorage.arnikalogin; 
     let password = sessionStorage.arnikapassword; 
@@ -123,7 +124,14 @@ window.onload = function(){
                 //guest--------------------------------------------------------------------------------
                 SE.$("add-status-zamovl").addEventListener("change", function(){
                     VW.checkTestS("add-status-zamovl", "status-zamovl-error", "status-zamovl-true");
-                });                                                
+                }); 
+                
+                //send
+                SE.$("send").addEventListener("click", function(){
+                    SE.clearObg();
+                    SE.clearValue();
+                    SE.clearIcon();
+                })
     //addEventListener(s) end       
 
 };

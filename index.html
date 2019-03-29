@@ -75,7 +75,7 @@
                                 <div class="blokinput">
                                     <div class="blokinput-wrap">
                                         <label for="add-name" id="add-name-label"></label>
-                                        <input type="text" id="add-name" name="add-name">
+                                        <input type="text" id="add-name" name="add-name" maxlength="15">
                                     </div>
                                     <div class="form-message" id="message-add-name" style="display:none;"></div>
                                 </div>
@@ -89,7 +89,7 @@
                                 <div class="blokinput">
                                     <div class="blokinput-wrap">
                                         <label for="add-surname" id="add-surname-label"></label>
-                                        <input type="text" id="add-surname" name="add-surname">
+                                        <input type="text" id="add-surname" name="add-surname" maxlength="15">
                                     </div>
                                     <div class="form-message" id="message-add-surname" style="display:none;"></div>
                                 </div>
@@ -160,14 +160,14 @@
                                         <label for="add-status-zamovl" id="add-status-zamovl-label"></label>
                                         <select  name="add-status-zamovl" id="add-status-zamovl">
                                             <option value="" disabled selected hidden>Статус замовлення...</option>
-                                            <option value="rez">Зарезервовано</option>
+                                            <option value="rezerv">Зарезервовано</option>
                                             <option value="pay">Оплачено</option>
                                         </select> 
                                     </div>
                                     <div class="form-message" id="message-add-status-zamovl" style="display:none;"></div>
                                 </div>
                             </div>              
-                            <div class="send" id="send" onclick="SE.clearObg()"></div>
+                            <div class="send" id="send"></div>
                         </div>
                     </div>
                     <div class="tab-body2" id="tab-body2">

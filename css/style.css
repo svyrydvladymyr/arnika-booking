@@ -255,13 +255,13 @@ body{
         justify-content: flex-end;
     }
     .header-logo{
-        width: 60%;
+        width: 90%;
     }
     .click {
         cursor: pointer;
         display: flex;
         height: 25px;
-        margin: 17px 6px;
+        margin: 17px 9px;
     }
     .send {
         width: 50%;

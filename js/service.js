@@ -103,38 +103,47 @@ let SE = (function(){
         console.log(readyObg.__proto__.addnomer);
         console.log(readyObg.__proto__.addstartdata);
         console.log(readyObg.__proto__.addkilk);
+        console.log(readyObg.__proto__.addstatusgгest);
+        console.log(readyObg.__proto__.addstatuszamovl);
         console.log(readyObg);
     };
 
-    //function for clear obgect prototype and icon true
+    //function for clear obgect prototype
     let clearObg = function(){
         let readyObg = new toSend(); 
-        console.log(readyObg);
-
-        
+        console.log(readyObg);        
         toSend.prototype.datazaizdu = "";
         toSend.prototype.addname = "";
-        SE.$("add-name").value = "";
         toSend.prototype.addsurname = "";
-        SE.$("add-surname").value = "";
         toSend.prototype.addtel = "";
-        SE.$("add-tel").value = "";
         toSend.prototype.addnomer = "";
-        SE.$("add-nomer").value = "";
         toSend.prototype.addstartdata = "";
-        SE.$("add-start-data").value = "";
         toSend.prototype.addkilk = "";
+        toSend.prototype.addstatusgгest = "";
+        toSend.prototype.addstatuszamovl = "";
+    };
 
-
+    //function for clear value in inputs
+    let clearValue = function(){
+        SE.$("add-name").value = "";
+        SE.$("add-surname").value = "";
+        SE.$("add-tel").value = "";
+        SE.$("add-nomer").value = "";
+        SE.$("add-start-data").value = "";
         SE.$("add-kilk").value = "";
+        SE.$("add-status-gгest").value = "";
+        SE.$("add-status-zamovl").value = "";
+    };
+
+    //function for clear true icon
+    let clearIcon = function(){
         SE.$("name-true").style.display = "none";
         SE.$("surname-true").style.display = "none";
         SE.$("tel-true").style.display = "none";
         SE.$("room-true").style.display = "none";
-
+        SE.$("status-gгest-true").style.display = "none";
+        SE.$("status-zamovl-true").style.display = "none";
     };
-
-
 
     return {
         $:$, 
@@ -147,7 +156,8 @@ let SE = (function(){
         readyDay:readyDay,
         readyMonth:readyMonth,
         readyToSend:readyToSend,
-        clearObg:clearObg
-
+        clearObg:clearObg,
+        clearValue:clearValue,
+        clearIcon:clearIcon
     };
 })();
