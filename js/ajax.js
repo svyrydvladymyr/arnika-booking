@@ -120,6 +120,10 @@ let AJAX = (function(){
                             let createDate = new Date(myRoom.data_zaizdu);
                             let resulrDate = SE.readyDay(createDate) + " - " + SE.readyMonth(createDate) + " - " + createDate.getFullYear();
                             //show message if room not free
+                            setTimeout(function(){
+                                SE.setMessage("message-price", "none", "", ""); 
+                            }, 100);
+                            SE.setMessage("message-price", "none", "", "");
                             SE.messageRoom("message-room", "table", "#111111", resulrDate);
                             SE.iconON("room-error", "room-true", "false");
                             SE.readyToSend("add-nomer", "");
@@ -132,7 +136,6 @@ let AJAX = (function(){
             xmlhttp.open("GET", "php/getroom.php?x=" + dbParam, true);
             xmlhttp.send();
     }; 
-
 
     // function for autorisation
     let getPrice = function(room){
@@ -168,24 +171,43 @@ let AJAX = (function(){
     }; 
 
   
-        // function for autorisation
-        let addToDB = function(proto){
-            let obj, dbParam, xmlhttp;
-                obj = { "name":proto.nameSend, "surname":proto.surnameSend, "tel":proto.telSend, "number":proto.nomerSend, "dz":proto.startdataSend, "kilk":proto.kilkSend, "price":proto.priceSend, "buking":proto.statuszamovlSend, "tip":proto.statusgгestSend, "admin":proto.adminSend, "datazapovn":proto.registrSend};
+    // function for autorisation
+    let addToDB = function(proto){
+        SE.$("send").removeEventListener("click", SE.sendToDB);
+        let obj, dbParam, xmlhttp, priseResult, priceOrigin;
+            if (proto.statusgгestSend == "worker"){
+                priceOrigin = proto.priceSend;
+                priseResult = priceOrigin / 2;
+            } else {
+                priseResult = proto.priceSend;
+            }
+            let day = 0;
+            for(let i = 0; i < proto.kilkSend; i++){
+                let startdata = new Date(proto.startdataSend);
+                //add day
+                let nextday = new Date(startdata.getFullYear(),startdata.getMonth(),startdata.getDate()+day);
+                day = day + 1;
+                //format date
+                let resDateDZ = nextday.getFullYear() + "-" + SE.readyMonth(nextday) + "-" + SE.readyDay(nextday);
+                console.log(resDateDZ);
+                obj = { "name":proto.nameSend, "surname":proto.surnameSend, "tel":proto.telSend, "number":proto.nomerSend, "dz":resDateDZ, "kilk":proto.kilkSend, "price":priseResult, "buking":proto.statuszamovlSend, "tip":proto.statusgгestSend, "admin":proto.adminSend, "datazapovn":proto.registrSend};
                 console.log(obj);
                 dbParam = JSON.stringify(obj);
                 xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {    
                         SE.setMessage("autoriz-message-wrap", "none", "", ""); 
-                        let trimRes = this.responseText.trim();
+                        let trimRes = this.responseText.trim();                        
                         if (trimRes == "") {
+                            SE.$("send").style.background = "linear-gradient(to bottom right, #000000, #d3d3d3, #000000)";
+                            SE.$("send").style.cursor = "no-drop";
                             SE.$("icon-send").style.display = "table";
                             setTimeout(function(){
                                 SE.$("icon-send").style.display = "none";
                                 SE.setMessage("message-send", "table", "green", "Запис додано!");
                             }, 2000);
                             setTimeout(function(){
+                                SE.$("send").addEventListener("click", SE.sendToDB);
                                 SE.setMessage("message-send", "none", "", "");
                                 SE.setMessage("message-price", "none", "", "");
                                 SE.clearObg();
@@ -194,12 +216,13 @@ let AJAX = (function(){
                             }, 4000); 
                         }  else {
                             SE.setMessage("message-send", "table", "red", `${this.responseText}`);
-                        } 
+                        }       
                     }
                 };
-                xmlhttp.open("GET", "php/addToDB.php?x=" + dbParam, true);
-                xmlhttp.send();
-        }; 
+            xmlhttp.open("GET", "php/addToDB.php?x=" + dbParam, true);
+            xmlhttp.send();
+            } 
+    };     
 
     return {
         getJson:getJson,

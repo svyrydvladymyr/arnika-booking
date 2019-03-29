@@ -94,16 +94,9 @@ let SE = (function(){
         //replace (-) and push to prototype
         let idReplace = idF.replace(/[\-]/gi, "");
         toSend.prototype[idReplace] = value;
-        let nameSend = readyObg.__proto__.addname;
-        let surnameSend = readyObg.__proto__.addsurname;
-        let telSend = readyObg.__proto__.addtel;
-        let nomerSend = readyObg.__proto__.addnomer;
-        let startdataSend = readyObg.__proto__.addstartdata;
-        let kilkSend = readyObg.__proto__.addkilk;
-        let statusgгestSend = readyObg.__proto__.addstatusgгest;
-        let statuszamovlSend = readyObg.__proto__.addstatuszamovl;
-
-        if ((nameSend != "") && (surnameSend != "") && (telSend != "") && (nomerSend != "") && (startdataSend != "") && (kilkSend != "") && (statusgгestSend != "") && (statuszamovlSend != "")){
+        //for change button
+        let proto = SE.variablesProto();
+        if ((proto.nameSend != "") && (proto.surnameSend != "") && (proto.telSend != "") && (proto.nomerSend != "") && (proto.startdataSend != "") && (proto.kilkSend != "") && (proto.statusgгestSend != "") && (proto.statuszamovlSend != "")){
             SE.$("send").style.background = "linear-gradient(to bottom right, #0b380b, #53bb53, #0f480f)";
             SE.$("send").style.cursor = "pointer";
             SE.setMessage("message-send", "none", "", "");
@@ -152,6 +145,7 @@ let SE = (function(){
         SE.$("status-zamovl-true").style.display = "none";
     };
 
+    //get variables from prototype
     let variablesProto = function(){
         let readyObg = new toSend();
         let nameSend = readyObg.__proto__.addname;
@@ -180,6 +174,24 @@ let SE = (function(){
         };
     }
 
+    //function for send to database
+    let sendToDB = function(){
+        let proto =  SE.variablesProto();
+        if ((proto.nameSend == "") || (proto.surnameSend == "") || (proto.telSend == "") || (proto.nomerSend == "") || (proto.startdataSend == "") || (proto.kilkSend == "") || (proto.statusgгestSend == "") || (proto.statuszamovlSend == "")){
+            SE.setMessage("message-send", "table", "red", "Всі поля мають бути заповнені!!!");
+        } else {
+            let login = sessionStorage.arnikalogin; 
+            let password = sessionStorage.arnikapassword; 
+            console.log(login);
+            console.log(password);
+            SE.auditLogin(login, password, function(){
+                AJAX.checkUser(login, password, function(){
+                    AJAX.addToDB(proto);        
+                });
+            });
+        }
+    }
+
     return {
         $:$, 
         setSettings:setSettings,
@@ -194,6 +206,7 @@ let SE = (function(){
         clearObg:clearObg,
         clearValue:clearValue,
         clearIcon:clearIcon,
-        variablesProto:variablesProto
+        variablesProto:variablesProto,
+        sendToDB:sendToDB
     };
 })();

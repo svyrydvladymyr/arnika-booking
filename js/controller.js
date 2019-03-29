@@ -159,39 +159,9 @@ window.onload = function(){
                     VW.checkTestS("add-status-zamovl", "status-zamovl-error", "status-zamovl-true");
                 }); 
 
+            //send
+            SE.$("send").addEventListener("click", SE.sendToDB);    
                 
-                //send
-                SE.$("send").addEventListener("click", function(){
-                    let proto =  SE.variablesProto();
-                    if ((proto.nameSend == "") || (proto.surnameSend == "") || (proto.telSend == "") || (proto.nomerSend == "") || (proto.startdataSend == "") || (proto.kilkSend == "") || (proto.statusgгestSend == "") || (proto.statuszamovlSend == "")){
-                        SE.setMessage("message-send", "table", "red", "Всі поля мають бути заповнені!!!");
-                    } else {
-                        let login = sessionStorage.arnikalogin; 
-                        let password = sessionStorage.arnikapassword; 
-                        console.log(login);
-                        console.log(password);
-                        SE.auditLogin(login, password, function(){
-                            AJAX.checkUser(login, password, function(){
-                                AJAX.addToDB(proto);
-                            });
-                        });
-
-
-
-                        // SE.$("icon-send").style.display = "table";
-                        // setTimeout(function(){
-                        //     SE.$("icon-send").style.display = "none";
-                        //     SE.setMessage("message-send", "table", "green", "Запис додано!");
-                        // }, 2000);
-                        // setTimeout(function(){
-                        //     SE.setMessage("message-send", "none", "", "");
-                        //     SE.setMessage("message-price", "none", "", "");
-                        //     SE.clearObg();
-                        //     SE.clearValue();
-                        //     SE.clearIcon();
-                        // }, 4000);
-                    }
-                });
 
     //addEventListener(s) end +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      
 

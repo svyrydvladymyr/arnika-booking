@@ -114,10 +114,8 @@ let VW = (function(){
             SE.iconON(errorF, trueF, "false");
             if (SE.$(idF).id == "add-tel"){
                 SE.setMessage(`message-${idF}`, "table", "#111111", "Тільки цифри!");
-                SE.readyToSend(idF, "");
             } else {
                 SE.setMessage(`message-${idF}`, "table", "#111111", "Тільки букви!");
-                SE.readyToSend(idF, "");
             }
         }
     };
