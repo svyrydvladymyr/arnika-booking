@@ -80,9 +80,30 @@ let VW = (function(){
         SE.clearIcon();
     };
 
+    //change tab one in zvit
+    let zvitTabOne = function(){
+        SE.$("tab-zvit1").classList.add("activ-zvit");
+        SE.$("tab-zvit2").classList.remove("activ-zvit");
+        SE.$("body-zvit1").style.display = "table";
+        SE.$("body-zvit2").style.display = "none";
+    }; 
+
+    //change tab two in zvit
+    let zvitTabTwo = function(){
+        SE.$("tab-zvit2").classList.add("activ-zvit");
+        SE.$("tab-zvit1").classList.remove("activ-zvit");
+        SE.$("body-zvit2").style.display = "table";
+        SE.$("body-zvit1").style.display = "none";
+    };      
+
     //chenge color background
     let chengeBG = function(id, color){
         SE.$(id).style.backgroundColor = color;
+        if (color == "#2b2b2b"){
+            SE.$("footer").style.color = "#ffffff";
+        } else {
+            SE.$("footer").style.color = "#111111";
+        }
     };
     
     //check on true or error in input on change, cut all incorrect, show message
@@ -151,7 +172,9 @@ let VW = (function(){
         chengeBG:chengeBG,
         checkCut:checkCut,
         checkTest:checkTest,
-        checkTestS:checkTestS
+        checkTestS:checkTestS,
+        zvitTabOne:zvitTabOne,
+        zvitTabTwo:zvitTabTwo
     };
 
 })();

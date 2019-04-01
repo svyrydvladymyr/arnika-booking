@@ -3,7 +3,7 @@
 <?php
 $obj = json_decode($_GET["x"], false);
 $conn = new mysqli($servername, $username, $password, $dbname);
-$stmt = $conn->prepare("SELECT price FROM priceGurtOne WHERE room = ?");
+$stmt = $conn->prepare("SELECT price FROM priceGurtTwo WHERE room = ?");
 $stmt->bind_param("s", $obj->room);
 $stmt->execute();
 $result = $stmt->get_result();

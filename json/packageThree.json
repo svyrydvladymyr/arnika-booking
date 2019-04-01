@@ -2,7 +2,8 @@
     "tab-text-one": "КОРПУC",
     "tab-text-two": "КОРПУС",
     "form-title-2": "ЗАПОВНІТЬ ФОРМУ <spun class='title-form-num'>3</spun>",
-    "zvit-title": "ЗВІТ ПО КОРПУСУ <spun class='title-form-num'>3</spun>",
+    "zvit-title": "ЗВІТ ПО ДАТІ <spun class='title-form-num-zvit'>3</spun>",
+    "zvit-title2": "ЗВІТ ЗА ПЕРІОД <spun class='title-form-num-zvit'>3</spun>",
     "send": "НАДІСЛАТИ",
     "placeholder":{
         "login":"Введіть логін...",

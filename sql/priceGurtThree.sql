@@ -25,41 +25,44 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `priceGurtOne`
+-- Table structure for table `priceGurtTwo`
 --
 
-CREATE TABLE `priceGurtOne` (
+CREATE TABLE `priceGurtTwo` (
   `id` int(6) UNSIGNED NOT NULL,
   `room` int(6) DEFAULT NULL,
-  `price` varchar(30) DEFAULT NULL
+  `price` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `priceGurtOne`
+-- Dumping data for table `priceGurtTwo`
 --
 
-INSERT INTO `priceGurtOne` (`id`, `room`, `price`) VALUES
-(1, 1, '420грн 4 місця'),
-(2, 2, '450грн 3+2 місця'),
-(3, 3, '420грн 3 місця'),
-(4, 4, '450грн 3+2 місця'),
-(5, 5, '420грн 4 місця'),
-(6, 6, '450грн 3+2 місця'),
-(7, 7, '420грн 4 місця'),
-(8, 8, '450грн 3+2 місця'),
-(9, 9, '420грн 5 місць'),
-(10, 10, '450грн 3+2місця'),
-(11, 11, '420грн 3 місця'),
-(12, 12, '450грн 3+2місця');
+INSERT INTO `priceGurtTwo` (`id`, `room`, `price`) VALUES
+(1, 1, '400грн 2 місця'),
+(2, 2, '260грн 2 місця'),
+(3, 3, '300грн 3 місця'),
+(4, 4, '300грн 3 місця'),
+(5, 5, '320грн 4 місця'),
+(6, 6, '360грн 2 місця'),
+(7, 7, '400грн 2 місця'),
+(8, 8, '260грн 2 місця'),
+(9, 9, '260грн 2 місць'),
+(10, 10, '260грн 2 місця'),
+(11, 11, '260грн 2 місця'),
+(12, 12, '300грн 2 місця'),
+(13, 13, 'Кімната відсутня'),
+(14, 14, '180грн 2 місця'),
+(15, 15, '180грн 2 місця');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `priceGurtOne`
+-- Indexes for table `priceGurtTwo`
 --
-ALTER TABLE `priceGurtOne`
+ALTER TABLE `priceGurtTwo`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -67,10 +70,10 @@ ALTER TABLE `priceGurtOne`
 --
 
 --
--- AUTO_INCREMENT for table `priceGurtOne`
+-- AUTO_INCREMENT for table `priceGurtTwo`
 --
-ALTER TABLE `priceGurtOne`
-  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+ALTER TABLE `priceGurtTwo`
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -26,7 +26,7 @@ body{
     outline: var(--ol-1);
     width: 700px;
     min-height: 200px;
-    margin: 15px auto;
+    margin: 15px auto 0px auto;
     padding: 0px;
     display: table;
     position: relative;
@@ -251,7 +251,7 @@ body{
     border: 1px solid #520000;
     padding: 0px 6px;
     border-radius: 5px;
-    background: #ff3434;
+    background: #ff4343;
     font-size: 20px;
     box-shadow: 0px 0px 2px #111111;
     font-weight: bold;
@@ -264,9 +264,96 @@ body{
     margin-top: 15px;
 }
 
+.tabs-zvit{
+    margin: 0px 0px;
+    border: 0px solid transparent;
+    background: transparent;
+    position: relative;
+    margin-top: 7px;
+    padding: 0px;
+    border-radius: 10px;
+}
+
+
+.tab-zvit1, .tab-zvit2{
+    cursor: pointer;
+    width: 30%;
+    float: left;
+    text-align: center;
+    border-radius: 10px 0px 0px 0px;
+    border: 1px solid #565656;
+    font-size: 12px;
+    margin: 0px;
+    padding: 5px 0px;
+    height: 60px;
+    position: relative;
+    background-image: linear-gradient(to bottom , #7b7b7b,#dadada, #ffffff, #dcdcdc, #7b7b7b);    border: 1px solid #9a9a9a;
+    box-shadow: 0px 0px 2px grey;
+    transition: 0.5s;
+} 
+
+.tab-zvit2{
+    width: 30%;
+    float: right;
+    border: 1px solid #565656;
+    border-radius: 0px 10px 0px 0px;
+    background-image: linear-gradient(to bottom , #7b7b7b,#dadada, #ffffff, #dcdcdc, #7b7b7b);    border: 1px solid #9a9a9a;
+    transition: 0.5s;
+}
+
+.activ-zvit{
+    width: 70%;
+    background-image: linear-gradient(to bottom , #396539,#b5e6b5, #ffffff, #b7d8b7, #296329);    transition: 0.5s;
+}
+
+.title-form-num-zvit{
+    border: 1px solid #520000;
+    padding: 0px 4px;
+    border-radius: 5px;
+    background: #4e4e4e;
+    font-size: 15px;
+    box-shadow: 0px 0px 2px #111111;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0px 0px 1px #111111;
+}
+
+
+.body-zvit1, .body-zvit2 {
+    margin-top: 0px;
+    position: relative;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.footer{
+    width: 100%;
+    height: 70px;
+    margin: 35px auto 0px auto;
+    color: #ffffff;
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer > p{
+    margin: 0px;
+}
+
+
 @media screen and (min-width:550px) and (max-width:780px){
     .wrap {
         width: 500px;
+    }
+    .tab-zvit1, .tab-zvit2{
+        width: 30%;
+        font-size: 9px;
+        margin: 0px;
+        padding: 10px 0px;
+    }
+    .tab-zvit2{
+        width: 30%;
+    }
+    .activ-zvit{
+        width: 70%;
     }
 }
 
@@ -301,6 +388,21 @@ body{
         height: 25px;
         margin: 17px 9px;
     }
-
+    .tab-zvit1, .tab-zvit2{
+        width: 30%;
+        font-size: 9px;
+        margin: 0px;
+        padding: 1px 5px;
+        transition: 0.1s;
+    }
+    .tab-zvit2{
+        width: 30%;
+        transition: 0.1s;
+    }
+    .activ-zvit{
+        width: 70%;
+        padding: 10px 5px;
+        transition: 0.1s;
+    }
 
 }
