@@ -8,7 +8,13 @@ let SE = (function(){
     // function for set parametrs
     let setSettings = function(enter){
         SE.$("enter-open").innerHTML = enter;
-        AJAX.getJson("json/package.json");
+        if (sessionStorage.arnikatabs == "two"){
+            AJAX.getJson("json/packageTwo.json");
+            SE.$("add-nomer").max = 12;
+        } else if (sessionStorage.arnikatabs == "three"){
+            AJAX.getJson("json/packageThree.json");
+            SE.$("add-nomer").max = 15;
+        }
     };
 
     // function for message
@@ -143,6 +149,12 @@ let SE = (function(){
         SE.$("room-true").style.display = "none";
         SE.$("status-gгest-true").style.display = "none";
         SE.$("status-zamovl-true").style.display = "none";
+        SE.$("name-error").style.display = "none";
+        SE.$("surname-error").style.display = "none";
+        SE.$("tel-error").style.display = "none";
+        SE.$("room-error").style.display = "none";
+        SE.$("status-gгest-error").style.display = "none";
+        SE.$("status-zamovl-error").style.display = "none";
     };
 
     //get variables from prototype
@@ -192,6 +204,21 @@ let SE = (function(){
         }
     }
 
+    //function for clear tabs
+    let clearTabs = function(){
+        SE.setMessage("message-send", "none", "", "");
+        SE.setMessage("message-price", "none", "", ""); 
+        SE.setMessage("message-room", "none", "", "Кімната зайнята на:");
+        SE.setMessage("message-add-name", "none", "", "");
+        SE.setMessage("message-add-surname", "none", "", "");
+        SE.setMessage("message-add-tel", "none", "", "");
+        SE.setMessage("message-add-nomer", "none", "", "");
+        SE.setMessage("message-add-start-data", "none", "", "");
+        SE.setMessage("message-add-kilk", "none", "", "");
+        SE.setMessage("message-add-status-grest", "none", "", "");
+        SE.setMessage("message-add-status-zamovl", "none", "", "");
+    }
+
     return {
         $:$, 
         setSettings:setSettings,
@@ -207,6 +234,7 @@ let SE = (function(){
         clearValue:clearValue,
         clearIcon:clearIcon,
         variablesProto:variablesProto,
-        sendToDB:sendToDB
+        sendToDB:sendToDB,
+        clearTabs:clearTabs
     };
 })();

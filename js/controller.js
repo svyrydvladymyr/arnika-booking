@@ -3,17 +3,23 @@ window.onload = function(){
     SE.$("body").style.backgroundColor = localStorage.bgColor || "#2b2b2b";
     SE.$("demo-wrap").style.display = "none";
     SE.setSettings("ВХІД");
+    AJAX.getJson("json/package.json");
+    AJAX.getJson("json/packageTwo.json");
+    sessionStorage.arnikatabs = "two";
+
     SE.clearObg();
     SE.clearValue();
     SE.clearIcon();
 
     let login = sessionStorage.arnikalogin; 
     let password = sessionStorage.arnikapassword; 
+    let tabs = sessionStorage.arnikatabs; 
 
     //for first visit
-    if ((login == undefined) || (password == undefined)){
+    if ((login == undefined) || (password == undefined) || (tabs == undefined)){
         sessionStorage.arnikalogin = ""; 
         sessionStorage.arnikapassword = ""; 
+        sessionStorage.arnikatabs = "two";
     } else {
         //check session and if true autorisation
         SE.auditLogin(login, password, function(){
@@ -23,6 +29,7 @@ window.onload = function(){
             });
         });
     }
+
 
     //addEventListener(s)+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             //change button in bloklogin and login    
@@ -87,14 +94,12 @@ window.onload = function(){
                     //number-----------------------------------------------------------------------------
                     SE.$("add-nomer").addEventListener("change", function(){
                         if ((SE.$("add-nomer").validity) && (!SE.$("add-nomer").validity.valid)){
-                            SE.setMessage("message-price", "none", "", "");
                             SE.setMessage("message-add-nomer", "table", "#111111", "Не коректне значення!");
                             SE.setMessage("message-room", "none", "", "");
                             SE.iconON("room-error", "room-true", "false");
                             SE.readyToSend("add-nomer", "");
                         } else {
                             if ((SE.$("add-nomer").value == "")) {
-                                SE.setMessage("message-price", "none", "", "");
                                 SE.setMessage("message-add-nomer", "table", "#111111", "Не може бути пустим!");
                                 SE.setMessage("message-room", "none", "", "");
                                 SE.iconON("room-error", "room-true", "false");
@@ -104,7 +109,6 @@ window.onload = function(){
                             } else {
                                 SE.setMessage("message-add-nomer", "none", "", "");
                                 AJAX.checkRoom();
-                                AJAX.getPrice(SE.$("add-nomer").value);
                             }
                         }
                     });

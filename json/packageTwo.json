@@ -1,0 +1,27 @@
+{
+    "tab-text-one": "КОРПУC",
+    "tab-text-two": "КОРПУС",
+    "form-title-2": "ЗАПОВНІТЬ ФОРМУ <spun class='title-form-num'>2</spun>",
+    "zvit-title": "ЗВІТ ПО КОРПУСУ <spun class='title-form-num'>2</spun>",
+    "send": "НАДІСЛАТИ",
+    "placeholder":{
+        "login":"Введіть логін...",
+        "password":"Введіть пароль...",
+        "add-name": "Введіть імя...",
+        "add-surname": "Введіть прізвище...",
+        "add-tel": "00 000 0000",
+        "add-nomer": "Кільк. номерів:12",
+        "add-kilk": "Кількість ночей..."
+    },
+    "label":{
+        "add-name-label": "Імя:",
+        "add-surname-label": "Прізвище:",
+        "add-tel-label": "Тел:",
+        "add-nomer-label": "Номер:(1-12)",
+        "add-start-data-label": "Заїзд:(12:00)",
+        "add-kilk-label": "Кіл. ночей:",    
+        "add-status-gгest-label": "Стат. гостя:",
+        "add-status-zamovl-label": "Стат. замов:"
+    }
+
+}

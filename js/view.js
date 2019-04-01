@@ -50,24 +50,34 @@ let VW = (function(){
     let clikTabOne = function(){
         SE.$("tab1").classList.add("activ");
         SE.$("tab2").classList.remove("activ");
-        SE.$("tab-body1").style.display = "table";
-        SE.$("tab-body2").style.display = "none";
         setTimeout(function(){
             SE.$("tab-text-one").style.display = "table";
         },500);
         SE.$("tab-text-two").style.display = "none";
+        AJAX.getJson("json/packageTwo.json");
+        SE.$("add-nomer").max = 12;
+        sessionStorage.arnikatabs = "two";
+        SE.clearTabs();
+        SE.clearObg();
+        SE.clearValue();
+        SE.clearIcon();
     };
 
     //change tab two
     let clikTabTwo = function(){
         SE.$("tab1").classList.remove("activ");
         SE.$("tab2").classList.add("activ");
-        SE.$("tab-body1").style.display = "none";
-        SE.$("tab-body2").style.display = "table";
         setTimeout(function(){
             SE.$("tab-text-two").style.display = "table";
         },500);
         SE.$("tab-text-one").style.display = "none";
+        AJAX.getJson("json/packageThree.json");
+        SE.$("add-nomer").max = 15;
+        sessionStorage.arnikatabs = "three";
+        SE.clearTabs();
+        SE.clearObg();
+        SE.clearValue();
+        SE.clearIcon();
     };
 
     //chenge color background

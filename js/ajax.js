@@ -94,16 +94,22 @@ let AJAX = (function(){
             SE.readyToSend("add-nomer", SE.$("add-nomer").value);
             SE.readyToSend("add-start-data", SE.$("add-start-data").value);
             SE.readyToSend("add-kilk", SE.$("add-kilk").value);
+            AJAX.getPrice(SE.$("add-nomer").value);
         } else {
             //show false on icon
             SE.iconON("room-error", "room-true", "false");
-
+            AJAX.getPrice(SE.$("add-nomer").value);
         }
     };  
 
     // function for get room on this date
     let getRoom = function(room, date){
-        let obj, dbParam, xmlhttp, myRoom, trimObg, getLength, res;
+        let obj, dbParam, xmlhttp, myRoom, trimObg, getLength, res, urlGetRoom;
+        if (sessionStorage.arnikatabs == "two"){
+            urlGetRoom = "php/getroomTwo.php?x=";
+        } else if(sessionStorage.arnikatabs == "three"){
+            urlGetRoom = "php/getroomThree.php?x=";
+        }  
             obj = { "room":room, "date":date};
             dbParam = JSON.stringify(obj);
             xmlhttp = new XMLHttpRequest();
@@ -124,7 +130,9 @@ let AJAX = (function(){
                                 SE.setMessage("message-price", "none", "", ""); 
                             }, 100);
                             SE.setMessage("message-price", "none", "", "");
-                            SE.messageRoom("message-room", "table", "#111111", resulrDate);
+                            setTimeout(function(){
+                                SE.messageRoom("message-room", "table", "#111111", resulrDate);
+                            }, 200);
                             SE.iconON("room-error", "room-true", "false");
                             SE.readyToSend("add-nomer", "");
                             SE.readyToSend("add-start-data", "");
@@ -133,14 +141,19 @@ let AJAX = (function(){
                     }                            
                 }
             };
-            xmlhttp.open("GET", "php/getroom.php?x=" + dbParam, true);
+            xmlhttp.open("GET", urlGetRoom + dbParam, true);
             xmlhttp.send();
     }; 
 
     // function for autorisation
     let getPrice = function(room){
-        let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res;
-            obj = {"room":room};           
+        let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res, urlPrice;
+            obj = {"room":room};   
+            if (sessionStorage.arnikatabs == "two"){
+                urlPrice = "php/priceTwo.php?x=";
+            } else if(sessionStorage.arnikatabs == "three"){
+                urlPrice = "php/priceThree.php?x=";
+            }       
             dbParam = JSON.stringify(obj);
             xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
@@ -166,7 +179,7 @@ let AJAX = (function(){
                     }
                 }
             };
-            xmlhttp.open("GET", "php/price.php?x=" + dbParam, true);
+            xmlhttp.open("GET", urlPrice + dbParam, true);
             xmlhttp.send();
     }; 
 
@@ -174,13 +187,18 @@ let AJAX = (function(){
     // function for autorisation
     let addToDB = function(proto){
         SE.$("send").removeEventListener("click", SE.sendToDB);
-        let obj, dbParam, xmlhttp, priseResult, priceOrigin;
+        let obj, dbParam, xmlhttp, priseResult, priceOrigin, urlToDB;
             if (proto.statusgгestSend == "worker"){
                 priceOrigin = proto.priceSend;
                 priseResult = priceOrigin / 2;
             } else {
                 priseResult = proto.priceSend;
             }
+            if (sessionStorage.arnikatabs == "two"){
+                urlToDB = "php/addToDbTwo.php?x=";
+            } else if(sessionStorage.arnikatabs == "three"){
+                urlToDB = "php/addToDbThree.php?x=";
+            }  
             let day = 0;
             for(let i = 0; i < proto.kilkSend; i++){
                 let startdata = new Date(proto.startdataSend);
@@ -219,7 +237,7 @@ let AJAX = (function(){
                         }       
                     }
                 };
-            xmlhttp.open("GET", "php/addToDB.php?x=" + dbParam, true);
+            xmlhttp.open("GET", urlToDB + dbParam, true);
             xmlhttp.send();
             } 
     };     
