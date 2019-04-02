@@ -1,0 +1,103 @@
+.cal-wrap{
+    width: 310px;
+    min-height: 200px;
+    position: relative;
+    background: #ececec;
+    border: 1px solid #a0a0a0;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px #858585;
+    padding: 0px;
+    margin: 20px auto;
+}
+
+.cal-header{
+    outline: 0px solid red;
+    width: 100%;
+    height: 35px;
+    padding: 1px 10px;
+    border-radius: 8px 8px 0px 0px;
+    display: flex;
+    flex-wrap: wrap;
+    background: #858585;
+    background: linear-gradient(to bottom, #6e6e6e, #ffffff, #757575);
+}
+
+.cal-header select{
+    outline: 0 !important;
+    float: right;
+    position: relative;
+    width: 100%;
+    height: 22px;
+    padding: 2px 4px;
+    margin: 5px auto;
+    border-radius: 4px;
+    border: 1px solid #17517f;
+}
+
+.cal-year, .cal-mounth{
+    width: 26%;
+    margin: 1px 2%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cal-mounth{
+    width: 66%;
+}
+
+.cal-week{
+    width: 100%;
+    height: 20px;
+    background: #8a8a8a;
+    position: absolute;
+    padding: 0px 6px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cal-week p{
+    margin: 0px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight:bold; 
+    width: 14.2%;
+    padding: 2px;
+    text-align: center;
+    border-right: 1px solid #b6b6b6;
+}
+
+.cal-week p:last-child{
+    border-right: 0px solid #bebebe;
+}
+
+.cal-body{
+    outline: 0px solid red;
+    width: 96.5%;
+    margin: 25px 5px 5px 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.empty-day{
+    outline: 0px solid green;
+    width: 12.9%;
+    height: 26px;
+    margin: 2px;
+}
+
+.full-day{
+    cursor: pointer;
+    outline: 0px solid red;
+    width: 12.9%;
+    height: 26px;
+    margin: 2px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    padding: 4px;
+    color: #2a2a2a;
+    font-weight: bold;
+    background: #ffffff;
+    box-shadow: 0px 0px 2px #111111;
+}

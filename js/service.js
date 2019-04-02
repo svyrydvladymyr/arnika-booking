@@ -219,6 +219,63 @@ let SE = (function(){
         SE.setMessage("message-add-status-zamovl", "none", "", "");
     }
 
+    //for set present date
+    let presentDate = function(){
+        let calDate = new Date();
+        let calMounth = SE.readyMonth(calDate);
+        let calYear = calDate.getFullYear();
+        SE.$("cal-year").value = calYear;
+        SE.$("cal-mounth").value = calMounth;
+    }
+
+    //for set days in calendar
+    let setDaysToCalendar  = function(){
+        SE.$("cal-body").innerHTML = "";
+        let calMounth = SE.$("cal-mounth").value;
+        let calYear =  SE.$("cal-year").value;
+        let firstDay = new Date(calYear, calMounth - 1, 1);
+        let lastDay = new Date(calYear, calMounth, 0);
+        //get first day of mounth
+        let numFirstDayB = firstDay.getDay();
+        if (numFirstDayB == 0){
+            numFirstDay = 7;
+        } else {
+            numFirstDay = firstDay.getDay();
+        }
+        //get last day of mounth
+        let kilkDay = lastDay.getDate();
+        //add empty cell       
+        for (let i=1; i < numFirstDay; i++){
+            SE.$("cal-body").innerHTML += `<p class="empty-day"></p>`;
+        }
+        //add cell  
+        for (let i=1; i <= kilkDay; i++){
+            SE.$("cal-body").innerHTML += `<p class="full-day" id="${calYear}-${calMounth}-${i}"">${i}</p>`;
+        }   
+        //add color for holidays     
+        for (let i = 1; i <= kilkDay; i++){
+            let getID = document.getElementsByClassName("full-day");
+            let r = i - 1; 
+            let idDay = getID[r].id;
+            let makeDate = new Date(idDay);
+            let getWeekDay = makeDate.getDay();
+            //add color for suterday
+            if (getWeekDay == 6) {
+                let sat = calYear + "-" + calMounth + "-" + i;
+                SE.$(sat).style.backgroundColor = "rgb(225, 225, 225)";
+                SE.$(sat).style.border = "1px solid rgb(109, 109, 109)";
+                SE.$(sat).style.color = "#111111";
+            }
+            //add color for sunday
+            if (getWeekDay == 0) {
+                let sun = calYear + "-" + calMounth + "-" + i;
+                SE.$(sun).style.backgroundColor = "rgb(225, 225, 225)";
+                SE.$(sun).style.border = "1px solid rgb(109, 109, 109)";
+                SE.$(sun).style.color = "#111111";    
+            }  
+        }
+    }    
+
     return {
         $:$, 
         setSettings:setSettings,
@@ -235,6 +292,8 @@ let SE = (function(){
         clearIcon:clearIcon,
         variablesProto:variablesProto,
         sendToDB:sendToDB,
-        clearTabs:clearTabs
+        clearTabs:clearTabs,
+        presentDate:presentDate,
+        setDaysToCalendar:setDaysToCalendar
     };
 })();

@@ -6,11 +6,14 @@ window.onload = function(){
     AJAX.getJson("json/package.json");
     AJAX.getJson("json/packageTwo.json");
     sessionStorage.arnikatabs = "two";
+    SE.presentDate();
 
+    //clear obgect prototipe
     SE.clearObg();
     SE.clearValue();
     SE.clearIcon();
-
+    
+    //get session to variables 
     let login = sessionStorage.arnikalogin; 
     let password = sessionStorage.arnikapassword; 
     let tabs = sessionStorage.arnikatabs; 
@@ -30,6 +33,7 @@ window.onload = function(){
         });
     }
 
+    SE.setDaysToCalendar();
 
     //addEventListener(s)+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             //change button in bloklogin and login    
@@ -169,7 +173,10 @@ window.onload = function(){
         //create tabs in zvit
         SE.$("tab-zvit1").addEventListener("click", VW.zvitTabOne);
         SE.$("tab-zvit2").addEventListener("click", VW.zvitTabTwo);    
-                
+        
+        //for change date in calendar
+        SE.$("cal-year").addEventListener("change", SE.setDaysToCalendar);  
+        SE.$("cal-mounth").addEventListener("change", SE.setDaysToCalendar);     
 
     //addEventListener(s) end +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      
 
