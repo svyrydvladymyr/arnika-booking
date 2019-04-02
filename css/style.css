@@ -285,8 +285,8 @@ body{
     border: 1px solid #565656;
     font-size: 12px;
     margin: 0px;
-    padding: 5px 0px;
-    height: 60px;
+    padding: 15px 0px;
+    height: 80px;
     position: relative;
     background-image: linear-gradient(to bottom , #c4c4c4,#dadada, #ffffff, #dcdcdc, #b5b5b5);    
     border: 1px solid #9a9a9a;
@@ -350,7 +350,7 @@ body{
         width: 30%;
         font-size: 9px;
         margin: 0px;
-        padding: 10px 0px;
+        padding: 18px 0px;
     }
     .tab-zvit2{
         width: 30%;
@@ -395,7 +395,7 @@ body{
         width: 30%;
         font-size: 9px;
         margin: 0px;
-        padding: 1px 5px;
+        padding: 12px 5px;
         transition: 0.1s;
     }
     .tab-zvit2{
@@ -404,7 +404,7 @@ body{
     }
     .activ-zvit{
         width: 70%;
-        padding: 10px 5px;
+        padding: 18px 5px;
         transition: 0.1s;
     }
 
