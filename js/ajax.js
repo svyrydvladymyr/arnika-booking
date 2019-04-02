@@ -231,6 +231,7 @@ let AJAX = (function(){
                                 SE.clearObg();
                                 SE.clearValue();
                                 SE.clearIcon();
+                                SE.setDaysToCalendar();
                             }, 4000); 
                         }  else {
                             SE.setMessage("message-send", "table", "red", `${this.responseText}`);
@@ -240,7 +241,30 @@ let AJAX = (function(){
             xmlhttp.open("GET", urlToDB + dbParam, true);
             xmlhttp.send();
             } 
-    };     
+    };  
+    
+    //for get busy room
+    let getBusyRoom = function(busyDte, urlBusy){
+        obj = { "dz":busyDte};
+        dbParam = JSON.stringify(obj);
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {    
+                if (this.responseText != "[]"){
+                    trimObg = this.responseText.trim();
+                    myObj = JSON.parse(trimObg);
+                    if (myObj.length != 0){
+                        SE.$(busyDte).innerHTML += `<span class="kilk-busy-room">${myObj.length}</span>`; 
+                    }
+                }  else {
+                    // console.log(this.responseText);
+                }                 
+            }
+        };
+        xmlhttp.open("GET", urlBusy + dbParam, true);
+        xmlhttp.send();
+    }; 
+    
 
     return {
         getJson:getJson,
@@ -248,6 +272,7 @@ let AJAX = (function(){
         checkRoom:checkRoom,
         getRoom:getRoom,
         getPrice:getPrice,
-        addToDB:addToDB
+        addToDB:addToDB,
+        getBusyRoom:getBusyRoom
     };
 })();

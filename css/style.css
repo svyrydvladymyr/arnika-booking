@@ -306,8 +306,7 @@ body{
 
 .activ-zvit{
     width: 70%;
-    background-image: linear-gradient(to bottom , #656565,#cccccc, #ffffff, #cbcbcb, #666666);    
-    transition: 0.5s;
+    background-image: linear-gradient(to bottom , #1d7900,#c7e0be, #ffffff, #c0d6b2, #277700);    transition: 0.5s;
 }
 
 .title-form-num-zvit{

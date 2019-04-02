@@ -116,7 +116,7 @@ let SE = (function(){
     //function for clear obgect prototype
     let clearObg = function(){
         let readyObg = new toSend(); 
-        console.log(readyObg);        
+        // console.log(readyObg);        
         toSend.prototype.registr = "";
         toSend.prototype.addname = "";
         toSend.prototype.addsurname = "";
@@ -251,6 +251,12 @@ let SE = (function(){
         //add cell  
         for (let i=1; i <= kilkDay; i++){
             SE.$("cal-body").innerHTML += `<p class="full-day" id="${calYear}-${calMounth}-${i}"">${i}</p>`;
+            let busyDte = `${calYear}-${calMounth}-${i}`;
+            if (sessionStorage.arnikatabs == "two"){
+                AJAX.getBusyRoom(busyDte, "php/busyRoomTwo.php?x=");
+            } else if (sessionStorage.arnikatabs == "three"){
+                AJAX.getBusyRoom(busyDte, "php/busyRoomThree.php?x=");
+            }
         }   
         //add color for holidays     
         for (let i = 1; i <= kilkDay; i++){
@@ -259,7 +265,7 @@ let SE = (function(){
             let idDay = getID[r].id;
             let makeDate = new Date(idDay);
             let getWeekDay = makeDate.getDay();
-            //add color for suterday
+            //add color for saturday
             if (getWeekDay == 6) {
                 let sat = calYear + "-" + calMounth + "-" + i;
                 SE.$(sat).style.backgroundColor = "rgb(225, 225, 225)";

@@ -61,6 +61,7 @@ let VW = (function(){
         SE.clearObg();
         SE.clearValue();
         SE.clearIcon();
+        SE.setDaysToCalendar();
     };
 
     //change tab two
@@ -78,6 +79,7 @@ let VW = (function(){
         SE.clearObg();
         SE.clearValue();
         SE.clearIcon();
+        SE.setDaysToCalendar();
     };
 
     //change tab one in zvit
