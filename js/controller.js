@@ -175,8 +175,36 @@ window.onload = function(){
         SE.$("tab-zvit2").addEventListener("click", VW.zvitTabTwo);    
         
         //for change date in calendar
-        SE.$("cal-year").addEventListener("change", SE.setDaysToCalendar);  
-        SE.$("cal-mounth").addEventListener("change", SE.setDaysToCalendar);     
+        SE.$("cal-year").addEventListener("change", function(){
+            SE.setDaysToCalendar();
+            //for select day
+            let v = document.getElementsByClassName("full-day");
+            for(let i = 0; i < v.length; i++){
+                v[i].addEventListener("click", function(){
+                    VW.selectDay(this);
+                });
+            }
+        });  
+        SE.$("cal-mounth").addEventListener("change", function(){
+            SE.setDaysToCalendar();
+            //for select day
+            let v = document.getElementsByClassName("full-day");
+            for(let i = 0; i < v.length; i++){
+                v[i].addEventListener("click", function(){
+                    VW.selectDay(this);
+                });
+            }
+        });  
+        
+        //for select day
+        let v = document.getElementsByClassName("full-day");
+        for(let i = 0; i < v.length; i++){
+            v[i].addEventListener("click", function(){
+                VW.selectDay(this);
+            });
+        }
+
+
 
     //addEventListener(s) end +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      
 

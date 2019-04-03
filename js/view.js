@@ -166,6 +166,28 @@ let VW = (function(){
         }
     };
 
+    //for select present day
+    let selectPresentDay = function(){
+        let presDayShowNew = new Date();
+        let presDayShow = presDayShowNew.getFullYear() + "-" + SE.readyMonth(presDayShowNew) + "-" + presDayShowNew.getDate();
+        console.log(presDayShow);
+        if (SE.$(presDayShow)){
+            SE.$(presDayShow).style.border = "1px solid red";
+            SE.$(presDayShow).style.backgroundColor = "#fffbd2";
+        }
+    };
+
+    //for select day
+    let selectDay = function(el){
+        let cell = el;
+        console.log(cell.id);
+        let v = document.getElementsByClassName("full-day");
+        for(let i = 0; i < v.length; i++){
+            SE.$(v[i].id).classList.remove("cal-activ");
+        }
+        SE.$(cell.id).classList.add("cal-activ");
+    };    
+
     return {
         makeDOM:makeDOM,
         buttonLogin:buttonLogin,
@@ -176,7 +198,9 @@ let VW = (function(){
         checkTest:checkTest,
         checkTestS:checkTestS,
         zvitTabOne:zvitTabOne,
-        zvitTabTwo:zvitTabTwo
+        zvitTabTwo:zvitTabTwo,
+        selectPresentDay:selectPresentDay,
+        selectDay:selectDay
     };
 
 })();

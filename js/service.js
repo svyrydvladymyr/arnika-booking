@@ -268,18 +268,22 @@ let SE = (function(){
             //add color for saturday
             if (getWeekDay == 6) {
                 let sat = calYear + "-" + calMounth + "-" + i;
-                SE.$(sat).style.backgroundColor = "rgb(225, 225, 225)";
-                SE.$(sat).style.border = "1px solid rgb(109, 109, 109)";
-                SE.$(sat).style.color = "#111111";
+                SE.$(sat).classList.add("set-color-holiday");
             }
             //add color for sunday
             if (getWeekDay == 0) {
                 let sun = calYear + "-" + calMounth + "-" + i;
-                SE.$(sun).style.backgroundColor = "rgb(225, 225, 225)";
-                SE.$(sun).style.border = "1px solid rgb(109, 109, 109)";
-                SE.$(sun).style.color = "#111111";    
+                SE.$(sun).classList.add("set-color-holiday");
             }  
         }
+        //add eventListener to cell
+        let v = document.getElementsByClassName("full-day");
+        for(let i = 0; i < v.length; i++){
+            v[i].addEventListener("click", function(){
+                VW.selectDay(this);
+            });
+        }
+        VW.selectPresentDay();
     }    
 
     return {
