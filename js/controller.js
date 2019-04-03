@@ -177,6 +177,7 @@ window.onload = function(){
         //for change date in calendar
         SE.$("cal-year").addEventListener("change", function(){
             SE.setDaysToCalendar();
+            SE.$("list-zvit-wrap").innerHTML = "";
             //for select day
             let v = document.getElementsByClassName("full-day");
             for(let i = 0; i < v.length; i++){
@@ -187,6 +188,7 @@ window.onload = function(){
         });  
         SE.$("cal-mounth").addEventListener("change", function(){
             SE.setDaysToCalendar();
+            SE.$("list-zvit-wrap").innerHTML = "";
             //for select day
             let v = document.getElementsByClassName("full-day");
             for(let i = 0; i < v.length; i++){

@@ -82,9 +82,9 @@
 
 .empty-day{
     outline: 0px solid green;
-    width: 12.9%;
+    width: 11.5%;
     height: 26px;
-    margin: 2px;
+    margin: 2px 5px
 }
 
 .full-day{

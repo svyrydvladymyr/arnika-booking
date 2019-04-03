@@ -62,6 +62,7 @@ let VW = (function(){
         SE.clearValue();
         SE.clearIcon();
         SE.setDaysToCalendar();
+        SE.$("list-zvit-wrap").innerHTML = "";
     };
 
     //change tab two
@@ -80,6 +81,7 @@ let VW = (function(){
         SE.clearValue();
         SE.clearIcon();
         SE.setDaysToCalendar();
+        SE.$("list-zvit-wrap").innerHTML = "";
     };
 
     //change tab one in zvit
@@ -170,15 +172,23 @@ let VW = (function(){
     let selectPresentDay = function(){
         let presDayShowNew = new Date();
         let presDayShow = presDayShowNew.getFullYear() + "-" + SE.readyMonth(presDayShowNew) + "-" + presDayShowNew.getDate();
-        console.log(presDayShow);
         if (SE.$(presDayShow)){
             SE.$(presDayShow).style.border = "1px solid red";
             SE.$(presDayShow).style.backgroundColor = "#fffbd2";
+            if (sessionStorage.arnikatabs == "two"){
+                SE.$("list-zvit-wrap").style.display = "table";
+                AJAX.getRoomCalendar(presDayShow, "php/getRoomCalTwo.php?x=");
+            } else if (sessionStorage.arnikatabs == "three"){
+                SE.$("list-zvit-wrap").style.display = "table";
+                AJAX.getRoomCalendar(presDayShow, "php/getRoomCalThree.php?x=");
+            }
         }
+        // VW.selectDay(this);
     };
 
     //for select day
     let selectDay = function(el){
+        // SE.$("list-zvit-wrap").innerHTML = "";
         let cell = el;
         console.log(cell.id);
         let v = document.getElementsByClassName("full-day");
@@ -186,7 +196,19 @@ let VW = (function(){
             SE.$(v[i].id).classList.remove("cal-activ");
         }
         SE.$(cell.id).classList.add("cal-activ");
-    };    
+        if (sessionStorage.arnikatabs == "two"){
+            SE.$("list-zvit-wrap").style.display = "table";
+            AJAX.getRoomCalendar(cell.id, "php/getRoomCalTwo.php?x=");
+        } else if (sessionStorage.arnikatabs == "three"){
+            SE.$("list-zvit-wrap").style.display = "table";
+            AJAX.getRoomCalendar(cell.id, "php/getRoomCalThree.php?x=");
+        }
+    };   
+    
+    
+    let getEditList = function(el){
+        console.log(el);
+    }
 
     return {
         makeDOM:makeDOM,
@@ -200,7 +222,8 @@ let VW = (function(){
         zvitTabOne:zvitTabOne,
         zvitTabTwo:zvitTabTwo,
         selectPresentDay:selectPresentDay,
-        selectDay:selectDay
+        selectDay:selectDay,
+        getEditList:getEditList
     };
 
 })();

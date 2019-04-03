@@ -264,6 +264,46 @@ let AJAX = (function(){
         xmlhttp.open("GET", urlBusy + dbParam, true);
         xmlhttp.send();
     }; 
+
+    //for get busy room
+    let getRoomCalendar = function(date, urlDate){
+        obj = { "dz":date};
+        dbParam = JSON.stringify(obj);
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {    
+                if (this.responseText != "[]"){
+                    trimObg = this.responseText.trim();
+                    myObj = JSON.parse(trimObg);
+                    if (myObj.length != 0){
+                        SE.$("list-zvit-wrap").innerHTML = `<div class="list-zvit-title"><p>Прізвище</p><p>Імя</p><p>Кімната</p><p>Дата</p><p></p></div>`;
+                        let v = document.getElementsByClassName("far fa-edit");
+                        for(let i = 0; i < myObj.length; i++){
+                            SE.$("list-zvit-wrap").innerHTML += `<div class="list-zvit-body"><p>${myObj[i].last_name}</p>
+                                                                                            <p>${myObj[i].first_name}</p>
+                                                                                            <p>${myObj[i].nomer_kimn}</p>
+                                                                                            <p>${myObj[i].data_zaizdu}</p>
+                                                                                            <p><i class='far fa-edit' style='font-size:18px' 
+                                                                                            editsurname="${myObj[i].last_name}" 
+                                                                                            editname="${myObj[i].first_name}"
+                                                                                            editnomer="${myObj[i].nomer_kimn}" 
+                                                                                            editdate="${myObj[i].data_zaizdu}"></i></p></div>`;
+                        }
+                        for(let i = 0; i < myObj.length; i++){
+                            v[i].addEventListener("click", function(){
+                                VW.getEditList(this);
+                            });
+                        }  
+                    } else {
+                        SE.$("list-zvit-wrap").style.display = "none";
+                        SE.$("list-zvit-wrap").innerHTML = "";
+                    }                 
+            }
+        }
+        };
+        xmlhttp.open("GET", urlDate + dbParam, true);
+        xmlhttp.send();
+    };     
     
 
     return {
@@ -273,6 +313,7 @@ let AJAX = (function(){
         getRoom:getRoom,
         getPrice:getPrice,
         addToDB:addToDB,
-        getBusyRoom:getBusyRoom
+        getBusyRoom:getBusyRoom,
+        getRoomCalendar:getRoomCalendar
     };
 })();
