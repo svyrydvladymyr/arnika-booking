@@ -2,6 +2,7 @@ window.onload = function(){
     //get and set settings
     SE.$("body").style.backgroundColor = localStorage.bgColor || "#2b2b2b";
     SE.$("demo-wrap").style.display = "none";
+    SE.$("edit-wrap").style.display = "none";
     SE.setSettings("ВХІД");
     AJAX.getJson("json/package.json");
     AJAX.getJson("json/packageTwo.json");

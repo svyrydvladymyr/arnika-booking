@@ -276,18 +276,30 @@ let AJAX = (function(){
                     trimObg = this.responseText.trim();
                     myObj = JSON.parse(trimObg);
                     if (myObj.length != 0){
-                        SE.$("list-zvit-wrap").innerHTML = `<div class="list-zvit-title"><p>Прізвище</p><p>Імя</p><p>Кімната</p><p>Дата</p><p></p></div>`;
+                        SE.$("list-zvit-wrap").innerHTML = `<div class="list-zvit-title"><p>Прізвище</p><p>Імя</p><p>Кімн.</p><p>Статус</p><p></p></div>`;
                         let v = document.getElementsByClassName("far fa-edit");
+                        let status;
                         for(let i = 0; i < myObj.length; i++){
-                            SE.$("list-zvit-wrap").innerHTML += `<div class="list-zvit-body"><p>${myObj[i].last_name}</p>
-                                                                                            <p>${myObj[i].first_name}</p>
-                                                                                            <p>${myObj[i].nomer_kimn}</p>
-                                                                                            <p>${myObj[i].data_zaizdu}</p>
-                                                                                            <p><i class='far fa-edit' style='font-size:18px' 
-                                                                                            editsurname="${myObj[i].last_name}" 
-                                                                                            editname="${myObj[i].first_name}"
-                                                                                            editnomer="${myObj[i].nomer_kimn}" 
-                                                                                            editdate="${myObj[i].data_zaizdu}"></i></p></div>`;
+                            if (myObj[i].status == "rezerv"){
+                                status = `<span style="text-shadow: 0px 0px 2px yellow;">Резерв.</span>`;
+                            } else if (myObj[i].status == "pay"){
+                                status = `<span style="text-shadow: 0px 0px 1px #00a500; color:green;">Оплач.</span>`;
+                            }
+                            SE.$("list-zvit-wrap").innerHTML += `<div class="list-zvit-body">
+                                                                    <p>${myObj[i].last_name}</p>
+                                                                    <p>${myObj[i].first_name}</p>
+                                                                    <p>${myObj[i].nomer_kimn}</p>
+                                                                    <p>${status}</p>
+                                                                    <p>
+                                                                        <i class='far fa-edit' style='font-size:18px; cursor:pointer;' 
+                                                                            editsurname="${myObj[i].last_name}" 
+                                                                            editname="${myObj[i].first_name}"
+                                                                            editnomer="${myObj[i].nomer_kimn}" 
+                                                                            editdate="${myObj[i].data_zaizdu}"
+                                                                            editstatus="${myObj[i].status}" id="ffff">
+                                                                        </i>
+                                                                    </p>
+                                                                </div>`;
                         }
                         for(let i = 0; i < myObj.length; i++){
                             v[i].addEventListener("click", function(){

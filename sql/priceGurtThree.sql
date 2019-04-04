@@ -25,20 +25,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `priceGurtTwo`
+-- Table structure for table `priceGurtThree`
 --
 
-CREATE TABLE `priceGurtTwo` (
+CREATE TABLE `priceGurtThree` (
   `id` int(6) UNSIGNED NOT NULL,
   `room` int(6) DEFAULT NULL,
   `price` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `priceGurtTwo`
+-- Dumping data for table `priceGurtThree`
 --
 
-INSERT INTO `priceGurtTwo` (`id`, `room`, `price`) VALUES
+INSERT INTO `priceGurtThree` (`id`, `room`, `price`) VALUES
 (1, 1, '400грн 2 місця'),
 (2, 2, '260грн 2 місця'),
 (3, 3, '300грн 3 місця'),
@@ -60,9 +60,9 @@ INSERT INTO `priceGurtTwo` (`id`, `room`, `price`) VALUES
 --
 
 --
--- Indexes for table `priceGurtTwo`
+-- Indexes for table `priceGurtThree`
 --
-ALTER TABLE `priceGurtTwo`
+ALTER TABLE `priceGurtThree`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -70,9 +70,9 @@ ALTER TABLE `priceGurtTwo`
 --
 
 --
--- AUTO_INCREMENT for table `priceGurtTwo`
+-- AUTO_INCREMENT for table `priceGurtThree`
 --
-ALTER TABLE `priceGurtTwo`
+ALTER TABLE `priceGurtThree`
   MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 

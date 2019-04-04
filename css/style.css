@@ -14,10 +14,27 @@ html{
     margin: 0px;  
 }
 
+html::-webkit-scrollbar{
+    width: 15px;
+    height: 30px;
+}
+html::-webkit-scrollbar-thumb{
+    background: #ffffff;
+    border: 2px solid #585858;
+    border-radius: 0px 20px 20px 0px;
+}
+html::-webkit-scrollbar-track{
+    background: #585858;
+    width: 1px;
+    border-radius: 0px 8px 8px 0px;
+
+}
+
 body{
     padding: 0px;
     margin: 0px;
     background: #2b2b2b;
+    position: relative;
 }
 
 *{
@@ -307,14 +324,16 @@ body{
 
 .activ-zvit{
     width: 70%;
-    background-image: linear-gradient(to bottom , #1d7900,#c7e0be, #ffffff, #c0d6b2, #277700);    transition: 0.5s;
+    /* background-image: linear-gradient(to bottom , #1d7900,#c7e0be, #ffffff, #c0d6b2, #277700);    */
+    background-image: linear-gradient(to bottom , #525252,#dcdcdc, #ffffff, #cccccc, #595959); 
+    transition: 0.5s;
 }
 
 .title-form-num-zvit{
     border: 1px solid #520000;
     padding: 0px 4px;
     border-radius: 5px;
-    background: #4e4e4e;
+    background: #ff3333;
     font-size: 15px;
     box-shadow: 0px 0px 2px #111111;
     font-weight: bold;

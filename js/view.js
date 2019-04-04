@@ -207,8 +207,13 @@ let VW = (function(){
     
     
     let getEditList = function(el){
+        SE.$("edit-wrap").style.display = "flex";
+        SE.$("edit-exit").addEventListener("click", function(){
+            SE.$("edit-wrap").style.display = "none";
+        });
         console.log(el);
-    }
+        console.log(el.getAttribute("editstatus"));
+    };
 
     return {
         makeDOM:makeDOM,

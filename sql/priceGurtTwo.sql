@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `priceGurtOne`
 --
 
-CREATE TABLE `priceGurtOne` (
+CREATE TABLE `priceGurtTwo` (
   `id` int(6) UNSIGNED NOT NULL,
   `room` int(6) DEFAULT NULL,
   `price` varchar(30) DEFAULT NULL
@@ -38,7 +38,7 @@ CREATE TABLE `priceGurtOne` (
 -- Dumping data for table `priceGurtOne`
 --
 
-INSERT INTO `priceGurtOne` (`id`, `room`, `price`) VALUES
+INSERT INTO `priceGurtTwo` (`id`, `room`, `price`) VALUES
 (1, 1, '420грн 4 місця'),
 (2, 2, '450грн 3+2 місця'),
 (3, 3, '420грн 3 місця'),
@@ -59,7 +59,7 @@ INSERT INTO `priceGurtOne` (`id`, `room`, `price`) VALUES
 --
 -- Indexes for table `priceGurtOne`
 --
-ALTER TABLE `priceGurtOne`
+ALTER TABLE `priceGurtTwo`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -69,7 +69,7 @@ ALTER TABLE `priceGurtOne`
 --
 -- AUTO_INCREMENT for table `priceGurtOne`
 --
-ALTER TABLE `priceGurtOne`
+ALTER TABLE `priceGurtTwo`
   MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 

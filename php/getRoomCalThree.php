@@ -3,7 +3,7 @@
 <?php
 $obj = json_decode($_GET["x"], false);
 $conn = new mysqli($servername, $username, $password, $dbname);
-$stmt = $conn->prepare("SELECT last_name, first_name, nomer_kimn, data_zaizdu FROM bookinggurt2 WHERE data_zaizdu = ?");
+$stmt = $conn->prepare("SELECT last_name, first_name, nomer_kimn, data_zaizdu, status FROM bookinggurt2 WHERE data_zaizdu = ?");
 $stmt->bind_param("s", $obj->dz);
 $stmt->execute();
 $result = $stmt->get_result();
