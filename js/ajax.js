@@ -184,7 +184,7 @@ let AJAX = (function(){
     }; 
 
   
-    // function for autorisation
+    // function for add to DB
     let addToDB = function(proto){
         SE.$("send").removeEventListener("click", SE.sendToDB);
         let obj, dbParam, xmlhttp, priseResult, priceOrigin, urlToDB;
@@ -265,7 +265,7 @@ let AJAX = (function(){
         xmlhttp.send();
     }; 
 
-    //for get busy room
+    //for get room to list for edit
     let getRoomCalendar = function(date, urlDate){
         obj = { "dz":date};
         dbParam = JSON.stringify(obj);
@@ -295,8 +295,9 @@ let AJAX = (function(){
                                                                             editsurname="${myObj[i].last_name}" 
                                                                             editname="${myObj[i].first_name}"
                                                                             editnomer="${myObj[i].nomer_kimn}" 
-                                                                            editdate="${myObj[i].data_zaizdu}"
-                                                                            editstatus="${myObj[i].status}" id="ffff">
+                                                                            edittel="${myObj[i].telephone}"
+                                                                            editkilk="${myObj[i].kilk_dniv}"
+                                                                            editguest="${myObj[i].tip}">
                                                                         </i>
                                                                     </p>
                                                                 </div>`;

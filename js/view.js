@@ -84,22 +84,6 @@ let VW = (function(){
         SE.$("list-zvit-wrap").innerHTML = "";
     };
 
-    //change tab one in zvit
-    let zvitTabOne = function(){
-        SE.$("tab-zvit1").classList.add("activ-zvit");
-        SE.$("tab-zvit2").classList.remove("activ-zvit");
-        SE.$("body-zvit1").style.display = "table";
-        SE.$("body-zvit2").style.display = "none";
-    }; 
-
-    //change tab two in zvit
-    let zvitTabTwo = function(){
-        SE.$("tab-zvit2").classList.add("activ-zvit");
-        SE.$("tab-zvit1").classList.remove("activ-zvit");
-        SE.$("body-zvit2").style.display = "table";
-        SE.$("body-zvit1").style.display = "none";
-    };      
-
     //chenge color background
     let chengeBG = function(id, color){
         SE.$(id).style.backgroundColor = color;
@@ -183,7 +167,6 @@ let VW = (function(){
                 AJAX.getRoomCalendar(presDayShow, "php/getRoomCalThree.php?x=");
             }
         }
-        // VW.selectDay(this);
     };
 
     //for select day
@@ -205,14 +188,14 @@ let VW = (function(){
         }
     };   
     
-    
+    //for show form for edit
     let getEditList = function(el){
         SE.$("edit-wrap").style.display = "flex";
         SE.$("edit-exit").addEventListener("click", function(){
             SE.$("edit-wrap").style.display = "none";
         });
         console.log(el);
-        console.log(el.getAttribute("editstatus"));
+        console.log(el.getAttribute("editname"));
     };
 
     return {
@@ -224,8 +207,6 @@ let VW = (function(){
         checkCut:checkCut,
         checkTest:checkTest,
         checkTestS:checkTestS,
-        zvitTabOne:zvitTabOne,
-        zvitTabTwo:zvitTabTwo,
         selectPresentDay:selectPresentDay,
         selectDay:selectDay,
         getEditList:getEditList

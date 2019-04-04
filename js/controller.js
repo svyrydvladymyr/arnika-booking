@@ -171,11 +171,7 @@ window.onload = function(){
             //send
             SE.$("send").addEventListener("click", SE.sendToDB);    
         
-        //create tabs in zvit
-        SE.$("tab-zvit1").addEventListener("click", VW.zvitTabOne);
-        SE.$("tab-zvit2").addEventListener("click", VW.zvitTabTwo);    
-        
-        //for change date in calendar
+         //for change date in calendar
         SE.$("cal-year").addEventListener("change", function(){
             SE.setDaysToCalendar();
             SE.$("list-zvit-wrap").innerHTML = "";

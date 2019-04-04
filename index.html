@@ -176,16 +176,10 @@
                     </div>
                     <!--zvit wrap-->
                     <div class="tab-body1 zvit">                        
-                        <!--zvit body-->
-                        <div class="form-wrap tabs-zvit">
-                            <div class="tab-zvit1 activ-zvit" id="tab-zvit1">                                
-                                <h2 id="zvit-title"></h2>
-                            </div>
-                            <div class="tab-zvit2 " id="tab-zvit2">
-                                <h2 id="zvit-title2"></h2>
-                            </div>
-                        </div>
+                        <!--report for a day-->
                         <div class="form-wrap body-zvit1" id="body-zvit1">
+                            <h3 id="zvit-title"></h3>
+                            <!--calendar-->
                             <div class="cal-wrap">
                                 <div class="cal-header">
                                     <div class="cal-year">
@@ -233,22 +227,21 @@
                                 <div class="cal-body" id="cal-body">
                                 </div>
                             </div>
+                            <!--list zvit-->
                             <div class="list-zvit-wrap" id="list-zvit-wrap" style="display:none;">
-
-
                             </div>
                         </div>
-
-
-                        <div class="form-wrap body-zvit2" id="body-zvit2" style="display: none;">
-
-                        </div>
-
-                        
-                        
-                        
-
                     </div>
+
+                    <!--report for the period-->>
+                    <div class="tab-body1 zvit"> 
+                        <div class="form-wrap body-zvit2" id="body-zvit2">
+                            <h3 id="zvit-title2"></h3>
+                        </div>    
+
+                    </div>    
+
+                    <!--footer-->>
                     <div class="footer" id="footer"> 
                          <p>Copyright © 2019</p>
                          <p>Офіційний сайт Івано-Франківського національного медичного університету</p>
@@ -261,14 +254,17 @@
 
     </div>
 
+    <!--form for edit booking-->>
     <div class="edit-wrap" id="edit-wrap">
         <div class="edit-body">
+            <!--header of form for edit booking-->
             <div class="edit-header">                
                 <div class="edit-exit" id="edit-exit">
                     <p>ЗАКРИТИ</p>                    
                     <i class='fas fa-times' style='font-size:18px'></i>
                 </div>
             </div>
+            <!--body of form for edit booking-->
             <div class="edit-list-body">
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Прізвище</p>
@@ -314,6 +310,7 @@
             </div>
         </div>
     </div>
+
     <script src="js/regexp.js"></script>
     <script src="js/ajax.js"></script>
     <script src="js/view.js"></script>
