@@ -233,7 +233,7 @@
                         </div>
                     </div>
 
-                    <!--report for the period-->>
+                    <!--report for the period-->
                     <div class="tab-body1 zvit"> 
                         <div class="form-wrap body-zvit2" id="body-zvit2">
                             <h3 id="zvit-title2"></h3>
@@ -241,7 +241,7 @@
 
                     </div>    
 
-                    <!--footer-->>
+                    <!--footer-->
                     <div class="footer" id="footer"> 
                          <p>Copyright © 2019</p>
                          <p>Офіційний сайт Івано-Франківського національного медичного університету</p>
@@ -254,7 +254,7 @@
 
     </div>
 
-    <!--form for edit booking-->>
+    <!--form for edit booking-->
     <div class="edit-wrap" id="edit-wrap">
         <div class="edit-body">
             <!--header of form for edit booking-->
@@ -268,45 +268,70 @@
             <div class="edit-list-body">
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Прізвище</p>
-                    <p class="edit-list-value" id="edit-list-name"></p>
+                    <div class="edit-list-value" id="edit-list-name"></div>
                 </div>
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Імя</p>
-                    <p class="edit-list-value" id="edit-list-surname"></p>
+                    <div class="edit-list-value" id="edit-list-surname"></div>
                 </div>
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Телефон</p>
-                    <p class="edit-list-value" id="edit-list-tel"></p>
+                    <div class="edit-list-value" id="edit-list-tel"></div>
                 </div>
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Номер кімн.</p>
-                    <p class="edit-list-value" id="edit-list-nomer"></p>    
+                    <div class="edit-list-value" id="edit-list-nomer"></div>    
                 </div>
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Кілк. днів</p>
-                    <p class="edit-list-value" id="edit-list-kilk"></p>
+                    <div class="edit-list-value" id="edit-list-kilk"></div>
                 </div>
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Ціна за 1 д.</p>
-                    <p class="edit-list-value" id="edit-list-price"></p>
+                    <div class="edit-list-value" id="edit-list-price"></div>
                 </div>
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Сума за всі</p>
-                    <p class="edit-list-value" id="edit-list-sum"></p>
+                    <div class="edit-list-value" id="edit-list-sum"></div>
                 </div>
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Статус гостя</p>
-                    <p class="edit-list-value" id="edit-list-guest"></p>
-                </div>
-                <div class="edit-list-body-row">
-                    <p class="edit-list-label">Статус зам.</p>
-                    <p class="edit-list-value" id="edit-list-status"></p>
+                    <div class="edit-list-value" id="edit-list-guest"></div>
                 </div>
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Дата</p>
-                    <p class="edit-list-value" id="edit-list-date"></p>
+                    <div class="edit-list-value" id="edit-list-date"></div>
                 </div>     
-
+                <div class="edit-list-body-row">
+                    <p class="edit-list-label">Статус зам.</p>
+                    <div class="edit-list-value" id="edit-list-status">
+                        <select name="update-list" id="update-list">
+                            <option value="rezerv">Зарезервовано</option>
+                            <option value="pay">Оплачено</option>
+                            <option value="del">Видалено</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="send-update" id="send-update">Оновити запис</div>
+                <!--info about update date and admin-->
+                <div class="edit-list-info">
+                    <div class="edit-list-info-blok">
+                        <p class="edit-list-info-label">Дата бронюв.:</p>
+                        <p class="edit-list-info-value" id="edit-date-zapisu"></p>
+                    </div>
+                    <div class="edit-list-info-blok">
+                        <p class="edit-list-info-label">Адмін:</p>
+                        <p class="edit-list-info-value" id="edit-admin"></p>
+                    </div>
+                    <div class="edit-list-info-blok">
+                        <p class="edit-list-info-label">Дата зміни:</p>
+                        <p class="edit-list-info-value" id="edit-date-update"></p>
+                    </div>
+                    <div class="edit-list-info-blok">
+                        <p class="edit-list-info-label">Адмін:</p>
+                        <p class="edit-list-info-value" id="edit-admin-apdate"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

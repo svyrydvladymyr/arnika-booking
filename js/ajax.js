@@ -245,6 +245,7 @@ let AJAX = (function(){
     
     //for get busy room
     let getBusyRoom = function(busyDte, urlBusy){
+        let obj, dbParam, xmlhttp, trimObg, myObj;
         obj = { "dz":busyDte};
         dbParam = JSON.stringify(obj);
         xmlhttp = new XMLHttpRequest();
@@ -267,6 +268,7 @@ let AJAX = (function(){
 
     //for get room to list for edit
     let getRoomCalendar = function(date, urlDate){
+        let obj, dbParam, xmlhttp, trimObg, myObj;
         obj = { "dz":date};
         dbParam = JSON.stringify(obj);
         xmlhttp = new XMLHttpRequest();
@@ -317,6 +319,29 @@ let AJAX = (function(){
         xmlhttp.open("GET", urlDate + dbParam, true);
         xmlhttp.send();
     };     
+
+    //for set to update form
+    let setToEdit = function(upSurame, upName, upNomer, upTel, upKilk, urlUpdate){
+        let obj, dbParam, xmlhttp, trimObg, myObj;
+        obj = { "lastname":upSurame, "firstname":upName, "nomerkimn":upNomer, "telephone":upTel, "kilkdniv":upKilk};
+        console.log(obj);
+        dbParam = JSON.stringify(obj);
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {   
+                console.log(this.responseText); 
+                if (this.responseText != "[]"){
+                    trimObg = this.responseText.trim();
+                    myObj = JSON.parse(trimObg);
+                    console.log(myObj);
+                } else {
+                    console.log(this.responseText); 
+                };
+            }
+        };   
+        xmlhttp.open("GET", urlUpdate + dbParam, true);
+        xmlhttp.send();                 
+    };
     
 
     return {
@@ -327,6 +352,7 @@ let AJAX = (function(){
         getPrice:getPrice,
         addToDB:addToDB,
         getBusyRoom:getBusyRoom,
-        getRoomCalendar:getRoomCalendar
+        getRoomCalendar:getRoomCalendar,
+        setToEdit:setToEdit
     };
 })();

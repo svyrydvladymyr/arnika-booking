@@ -194,8 +194,25 @@ let VW = (function(){
         SE.$("edit-exit").addEventListener("click", function(){
             SE.$("edit-wrap").style.display = "none";
         });
+        let upName, upSurname, upNomer, upTel, upKilk, upGuest;
+        upName = el.getAttribute("editname");
+        upSurname = el.getAttribute("editsurname");
+        upNomer = el.getAttribute("editnomer");
+        upTel = el.getAttribute("edittel");
+        upKilk = el.getAttribute("editkilk");
+        upGuest = el.getAttribute("editguest");
         console.log(el);
-        console.log(el.getAttribute("editname"));
+        console.log(upName);
+        console.log(upSurname);
+        console.log(upNomer);
+        console.log(upTel);
+        console.log(upKilk);
+        console.log(upGuest);
+        if (sessionStorage.arnikatabs == "two"){
+            AJAX.setToEdit(upSurname, upName, upNomer, upTel, upKilk, "php/getForUpdateTwo.php?x=");
+        } else if (sessionStorage.arnikatabs == "three"){
+            AJAX.setToEdit(upSurname, upName, upNomer, upTel, upKilk, "php/getForUpdateThree.php?x=");
+        }
     };
 
     return {
