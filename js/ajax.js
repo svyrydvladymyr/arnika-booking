@@ -6,16 +6,19 @@ let AJAX = (function(){
         file.onreadystatechange = function() {
             if (file.readyState === 4 && file.status == "200") {
                 let data = JSON.parse(file.responseText);
+                //set innerHTML
                 for (let id in data) {
                     if (SE.$(id)){    
                         SE.$(id).innerHTML = data[id];
                     }
                 }
+                //set placeholder
                 for (let id in data.placeholder) {  
                     if (SE.$(id)){    
                         SE.$(id).placeholder = data.placeholder[id];
                     }
                 }
+                //set innerHTML to label
                 for (let id in data.label) {  
                     if (SE.$(id)){    
                         SE.$(id).innerHTML = data.label[id];
@@ -94,6 +97,7 @@ let AJAX = (function(){
             SE.readyToSend("add-nomer", SE.$("add-nomer").value);
             SE.readyToSend("add-start-data", SE.$("add-start-data").value);
             SE.readyToSend("add-kilk", SE.$("add-kilk").value);
+            //get price
             AJAX.getPrice(SE.$("add-nomer").value);
         } else {
             //show false on icon
@@ -105,6 +109,7 @@ let AJAX = (function(){
     // function for get room on this date
     let getRoom = function(room, date){
         let obj, dbParam, xmlhttp, myRoom, trimObg, getLength, res, urlGetRoom;
+        //select get request
         if (sessionStorage.arnikatabs == "two"){
             urlGetRoom = "php/getroomTwo.php?x=";
         } else if(sessionStorage.arnikatabs == "three"){
@@ -116,6 +121,7 @@ let AJAX = (function(){
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     if (this.responseText != "[]"){
+                        //trim obgect
                         trimObg = this.responseText.trim();
                         getLength = trimObg.length-1; 
                         res = trimObg.slice(1, getLength); 
@@ -134,6 +140,7 @@ let AJAX = (function(){
                                 SE.messageRoom("message-room", "table", "#111111", resulrDate);
                             }, 200);
                             SE.iconON("room-error", "room-true", "false");
+                            //clear points in prototype
                             SE.readyToSend("add-nomer", "");
                             SE.readyToSend("add-start-data", "");
                             SE.readyToSend("add-kilk", "");
@@ -145,10 +152,11 @@ let AJAX = (function(){
             xmlhttp.send();
     }; 
 
-    // function for autorisation
+    // function for get price
     let getPrice = function(room){
         let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res, urlPrice;
-            obj = {"room":room};   
+            obj = {"room":room};
+            //select get request
             if (sessionStorage.arnikatabs == "two"){
                 urlPrice = "php/priceTwo.php?x=";
             } else if(sessionStorage.arnikatabs == "three"){
@@ -222,10 +230,12 @@ let AJAX = (function(){
                             SE.$("send").style.background = "linear-gradient(to bottom right, #000000, #d3d3d3, #000000)";
                             SE.$("send").style.cursor = "no-drop";
                             SE.$("icon-send").style.display = "table";
+                            //show message about add to DB
                             setTimeout(function(){
                                 SE.$("icon-send").style.display = "none";
                                 SE.setMessage("message-send", "table", "green", "Запис додано!");
                             }, 2000);
+                            //clear message about add to DB and clear form 
                             setTimeout(function(){
                                 SE.$("send").addEventListener("click", SE.sendToDB);
                                 SE.setMessage("message-send", "none", "", "");
@@ -233,6 +243,7 @@ let AJAX = (function(){
                                 SE.clearObg();
                                 SE.clearValue();
                                 SE.clearIcon();
+                                //update calendar
                                 SE.setDaysToCalendar();
                             }, 4000); 
                         }  else {
@@ -254,8 +265,10 @@ let AJAX = (function(){
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {    
                 if (this.responseText != "[]"){
+                    //trim obgect
                     trimObg = this.responseText.trim();
                     myObj = JSON.parse(trimObg);
+                    //seted label for all days about how many days are busy
                     if (myObj.length != 0){
                         SE.$(busyDte).innerHTML += `<span class="kilk-busy-room">${myObj.length}</span>`; 
                     }
@@ -277,27 +290,36 @@ let AJAX = (function(){
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {    
                 if (this.responseText != "[]"){
+                    //trim obgect
                     trimObg = this.responseText.trim();
                     myObj = JSON.parse(trimObg);
                     //if list not empty, push to calendar list
                     if (myObj.length != 0){
-                        SE.$("list-zvit-wrap").innerHTML = `<div class="list-zvit-title"><p>Прізвище</p><p>Імя</p><p>Кімн.</p><p>Статус</p><p></p></div>`;
+                        SE.$("list-zvit-wrap").innerHTML = `<div class="list-zvit-title">
+                                                            <p>Прізвище</p>
+                                                            <p>Імя</p>
+                                                            <p>Кімн.</p>
+                                                            <p>Статус</p>
+                                                            <p></p></div>`;
                         let v = document.getElementsByClassName("far fa-edit");
+                        //iteration for show booking list                        
                         let status;
                         for(let i = 0; i < myObj.length; i++){
+                            //add color to message about status
                             if (myObj[i].status == "rezerv"){
                                 status = `<span style="text-shadow: 0px 0px 2px yellow;">Резерв.</span>`;
                             } else if (myObj[i].status == "pay"){
                                 status = `<span style="text-shadow: 0px 0px 1px #00a500; color:green;">Оплач.</span>`;
                             }
-                            //push to calendar list
+                            //push to calendar list and to noda atributes 
                             SE.$("list-zvit-wrap").innerHTML += `<div class="list-zvit-body">
                                                                     <p>${myObj[i].last_name}</p>
                                                                     <p>${myObj[i].first_name}</p>
                                                                     <p>${myObj[i].nomer_kimn}</p>
                                                                     <p>${status}</p>
                                                                     <p>
-                                                                        <i class='far fa-edit' style='font-size:18px; cursor:pointer;' 
+                                                                        <i class='far fa-edit' 
+                                                                            style='font-size:18px; cursor:pointer;' 
                                                                             editsurname="${myObj[i].last_name}" 
                                                                             editname="${myObj[i].first_name}"
                                                                             editnomer="${myObj[i].nomer_kimn}" 
@@ -337,7 +359,7 @@ let AJAX = (function(){
                     trimObg = this.responseText.trim();
                     myObj = JSON.parse(trimObg);
                     //set to form and to update prototype
-                    SE.setToUpdate(myObj); 
+                    VW.setToUpdate(myObj); 
                     SE.addToUpdareProto(myObj);
                 } else {
                     console.log(this.responseText); 
@@ -349,8 +371,19 @@ let AJAX = (function(){
     };
     
     //update DB
-    let upToDB = function(nameUp, surnameUp, telUp, nomerUp, kilkUp, datazapisuUp, statusUp, adminregUp, dateregUp, urlUp){
+    let upToDB = function(urlUp){
         let obj, dbParam, xmlhttp;
+        //get variables from prototype
+        let protoUpdate = new toUpdate(); 
+        let nameUp = protoUpdate.__proto__.firstname;
+        let surnameUp = protoUpdate.__proto__.lastname;
+        let telUp = protoUpdate.__proto__.telephone;
+        let nomerUp = protoUpdate.__proto__.nomerkimn;
+        let kilkUp = protoUpdate.__proto__.kilkdniv;
+        let datazapisuUp = protoUpdate.__proto__.datazapisu;
+        let statusUp = protoUpdate.__proto__.status;
+        let adminregUp = protoUpdate.__proto__.adminreg;
+        let dateregUp = protoUpdate.__proto__.datereg;
         obj = {"statusUp":statusUp, "adminregUp":adminregUp, "dateregUp":dateregUp, "surnameUp":surnameUp, "nameUp":nameUp, "telUp":telUp, "nomerUp":nomerUp, "kilkUp":kilkUp, "datazapisuUp":datazapisuUp};
         dbParam = JSON.stringify(obj);
         xmlhttp = new XMLHttpRequest();
@@ -365,6 +398,7 @@ let AJAX = (function(){
                     SE.clearInfoForm();
                     SE.$("edit-wrap-message").style.display = "flex";
                     SE.$("icon-send-up").style.display = "table";
+                    //update calendar
                     setTimeout(function(){
                         SE.setDaysToCalendar();
                         SE.$("list-zvit-wrap").innerHTML = "";
@@ -375,6 +409,7 @@ let AJAX = (function(){
                                 VW.selectDay(this);
                             });
                         }
+                        //clear update prototipe
                         toUpdate.prototype.lastname = "";
                         toUpdate.prototype.firstname = "";
                         toUpdate.prototype.telephone = "";
@@ -384,9 +419,11 @@ let AJAX = (function(){
                         toUpdate.prototype.status = "";
                         toUpdate.prototype.adminreg = "";
                         toUpdate.prototype.datereg = "";
+                        //clear and show message about update 
                         SE.$("icon-send-up").style.display = "none";
                         SE.$("message-send-up").style.display = "table";
                     }, 2000);
+                    //hidden all message about update
                     setTimeout(function(){
                         SE.$("edit-wrap-message").style.display = "none";
                         SE.$("message-send-up").style.display = "none";

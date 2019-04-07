@@ -8,6 +8,7 @@ let VW = (function(){
         } else if(logIn.classList == "click-login-open"){
             let inputLogin = SE.$("login").value;
             let inputPassword = SE.$("password").value;
+            //chack on empty login and password and show message
             if ((inputLogin == "") && (inputPassword == "")){
                 SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Логін і пароль не можуть бути пустими!!!");
             } else if ((inputLogin == "")) {
@@ -15,6 +16,7 @@ let VW = (function(){
             } else if ((inputPassword == "")) {
                 SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Пароль не може бути пустим!!!");
             } else{
+                //chack access to DB
                 SE.auditLogin(inputLogin, inputPassword, function(){
                     AJAX.checkUser(inputLogin, inputPassword, function(){
                         VW.makeDOM();
@@ -46,7 +48,7 @@ let VW = (function(){
         setTimeout(timeOut, 1000);
     };
     
-    //change tab one
+    //change tab one an clear all for tab two
     let clikTabOne = function(){
         SE.$("tab1").classList.add("activ");
         SE.$("tab2").classList.remove("activ");
@@ -65,7 +67,7 @@ let VW = (function(){
         SE.$("list-zvit-wrap").innerHTML = "";
     };
 
-    //change tab two
+    //change tab two and clear all for tab one
     let clikTabTwo = function(){
         SE.$("tab1").classList.remove("activ");
         SE.$("tab2").classList.add("activ");
@@ -99,12 +101,14 @@ let VW = (function(){
         if (SE.$(idF).value == ""){
             SE.iconON(errorF, trueF, "false");
         } else {
+            //chack on incorrect and show message and icon
             SE.incorrectCheck(idF, reg, function(){
                 if(SE.$(idF).value == ""){
                     SE.iconON(errorF, trueF, "false");
                     SE.setMessage(`message-${idF}`, "table", "#111111", "Не може бути пустим!");
                     SE.readyToSend(idF, "");
                 } else {
+                    //phone exclusion
                     if (SE.$(idF).id == "add-tel"){ 
                         if (SE.$(idF).value.length != 9) {
                             SE.iconON(errorF, trueF, "false");
@@ -159,6 +163,7 @@ let VW = (function(){
         if (SE.$(presDayShow)){
             SE.$(presDayShow).style.border = "1px solid red";
             SE.$(presDayShow).style.backgroundColor = "#fffbd2";
+            //set url for select present day
             if (sessionStorage.arnikatabs == "two"){
                 SE.$("list-zvit-wrap").style.display = "table";
                 AJAX.getRoomCalendar(presDayShow, "php/getRoomCalTwo.php?x=");
@@ -177,6 +182,7 @@ let VW = (function(){
             SE.$(v[i].id).classList.remove("cal-activ");
         }
         SE.$(cell.id).classList.add("cal-activ");
+        //set url for select day
         if (sessionStorage.arnikatabs == "two"){
             SE.$("list-zvit-wrap").style.display = "table";
             AJAX.getRoomCalendar(cell.id, "php/getRoomCalTwo.php?x=");
@@ -186,25 +192,58 @@ let VW = (function(){
         }
     };   
     
-    //for show form for edit
+    //show form for edit
     let getEditList = function(el){
         SE.$("edit-wrap").style.display = "flex";
         SE.$("edit-exit").addEventListener("click", function(){
             SE.$("edit-wrap").style.display = "none";
             SE.clearInfoForm();
         });
+        //get variables from attributes node
         let upName, upSurname, upNomer, upTel, upKilk, upGuest;
         upName = el.getAttribute("editname");
         upSurname = el.getAttribute("editsurname");
         upNomer = el.getAttribute("editnomer");
         upTel = el.getAttribute("edittel");
         upKilk = el.getAttribute("editkilk");
+        //set url for show form for edit
         if (sessionStorage.arnikatabs == "two"){
             AJAX.setToEdit(upSurname, upName, upNomer, upTel, upKilk, "php/getForUpdateTwo.php?x=");
         } else if (sessionStorage.arnikatabs == "three"){
             AJAX.setToEdit(upSurname, upName, upNomer, upTel, upKilk, "php/getForUpdateThree.php?x=");
         }
     };
+
+    //set info to form for updata
+    let setToUpdate = function(myObj){
+        SE.$("edit-list-surname").innerHTML = myObj[0].last_name;
+        SE.$("edit-list-name").innerHTML = myObj[0].first_name;
+        SE.$("edit-list-tel").innerHTML = `+380 ${myObj[0].telephone}`;
+        SE.$("edit-list-nomer").innerHTML = myObj[0].nomer_kimn;
+        SE.$("edit-list-kilk").innerHTML = myObj[0].kilk_dniv;
+        SE.$("edit-list-price").innerHTML = myObj[0].price;
+        let priceSum = myObj[0].kilk_dniv * myObj[0].price;
+        SE.$("edit-list-sum").innerHTML = priceSum;
+        if (myObj[0].tip == "guest"){
+            SE.$("edit-list-guest").innerHTML = "Відвідувач";
+        } else if (myObj[0].tip == "worker"){
+            SE.$("edit-list-guest").innerHTML = "Працівник";
+        }
+        let listDate = [];
+        SE.$("edit-list-date").innerHTML = "";
+        for (let i = 0; i < myObj.length; i++){
+            listDate.push(myObj[i].data_zaizdu);
+            SE.$("edit-list-date").innerHTML += `${myObj[i].data_zaizdu}<br>`;
+        }
+        SE.$("update-list").value = myObj[0].status;
+        SE.$("edit-admin").innerHTML = myObj[0].admin;
+        SE.$("edit-date-zapisu").innerHTML = myObj[0].data_zapisu;
+        if ((myObj[0].admin_updata != null) && (myObj[0].data_zmin != null)){
+            SE.$("info-date-up").style.display = "block";
+            SE.$("edit-admin-apdate").innerHTML = myObj[0].admin_updata;
+            SE.$("edit-date-update").innerHTML = myObj[0].data_zmin;
+        }
+    }    
 
     return {
         makeDOM:makeDOM,
@@ -217,7 +256,8 @@ let VW = (function(){
         checkTestS:checkTestS,
         selectPresentDay:selectPresentDay,
         selectDay:selectDay,
-        getEditList:getEditList
+        getEditList:getEditList,
+        setToUpdate:setToUpdate
     };
 
 })();

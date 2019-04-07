@@ -323,7 +323,7 @@
 .edit-wrap-message-blok{
     width: 300px;
     height: 20%;
-    min-height: 150px;
+    min-height: 170px;
     position: fixed;
     margin: 300px auto 0px auto;
     padding: 60px 10px;
@@ -338,7 +338,7 @@
     font-size: 40px;
     font-weight: bold;
     color: #8e0000;
-    margin: -40px 0px 0px 0px;
+    margin: -50px 0px 0px 0px;
     text-align: center;
     width: 100%;
 }
@@ -346,10 +346,11 @@
 
 @media screen and (max-width:549px){
     .list-zvit-wrap {
-        width: 320px;
+        width: 300px;      
     }
+    
     .list-zvit-title p {
-        width: 85px;
+        width: 83px;
         font-size: 14px;
         font-weight: bold;
         padding: 5px 0px;
@@ -368,7 +369,7 @@
     }
 
     .list-zvit-body p {
-        width: 85px;
+        width: 83px;
         font-size: 12px;
         font-weight: bold;
         padding: 0px 0px;
@@ -411,6 +412,10 @@
         overflow-X: hidden;
         /* min-height: 50px; */
         margin-top: 5px;
+    }
+    
+    .edit-wrap-message-blok{
+        margin: 150px auto 0px auto;
     }
 
 }

@@ -171,7 +171,7 @@ window.onload = function(){
             //send
             SE.$("send").addEventListener("click", SE.sendToDB);    
         
-         //for change date in calendar
+        //for set date in calendar, on change selected year
         SE.$("cal-year").addEventListener("change", function(){
             SE.setDaysToCalendar();
             SE.$("list-zvit-wrap").innerHTML = "";
@@ -182,7 +182,9 @@ window.onload = function(){
                     VW.selectDay(this);
                 });
             }
-        });  
+        }); 
+
+        //for set date in calendar, on change selected month
         SE.$("cal-mounth").addEventListener("change", function(){
             SE.setDaysToCalendar();
             SE.$("list-zvit-wrap").innerHTML = "";
@@ -195,7 +197,7 @@ window.onload = function(){
             }
         });  
         
-        //for select day
+        //for select day from busy day list
         let v = document.getElementsByClassName("full-day");
         for(let i = 0; i < v.length; i++){
             v[i].addEventListener("click", function(){
