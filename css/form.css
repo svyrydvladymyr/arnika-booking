@@ -248,6 +248,58 @@ input[type=data]:invalid {
     text-shadow: 0px 0px 1px red;
 }
 
+.blok-zvit{
+    width: 200px;
+}
+
+.blok-zvit-point{
+    width: 100%;
+}
+.blokinput-wrap-zvit{
+    width: 100%;
+    display: flex;
+    margin: 3px 0px;
+}
+
+.blokinput-wrap-zvit label{
+    width: 15%;
+}
+
+.blokinput-wrap-zvit input{
+    width:83%;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url(https://static.thenounproject.com/png/404-200.png) no-repeat;
+    background-size: 22px 22px;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+}
+
+.zvit-radio{
+    outline: 0px solid red;
+    width: 60px;
+    height: 40px;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+[type="radio"]:not(:checked) {
+    width: 16px;
+    margin: 0px 20px;
+}
+
+[type="radio"]:checked{
+    width: 16px;
+    margin: 0px 20px;
+    color: red;
+}
 
 @media screen and (min-width:550px) and (max-width:780px){
     .send {

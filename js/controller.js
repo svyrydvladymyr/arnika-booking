@@ -34,7 +34,18 @@ window.onload = function(){
         });
     }
 
+    //set days to calendar 
     SE.setDaysToCalendar();
+
+    //set limitation to choice date zvit
+    document.getElementById("id-z").onchange = function () {
+        var input = document.getElementById("id-po");
+        input.setAttribute("min", this.value);
+    };
+    document.getElementById("id-po").onchange = function () {
+        var input = document.getElementById("id-z");
+        input.setAttribute("max", this.value);
+    };
 
     //addEventListener(s)+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             //change button in bloklogin and login    
