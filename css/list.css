@@ -72,8 +72,9 @@
 
 .edit-wrap{
     width: 100%;
+    min-width: 330px;
     height: 102%;
-    background: #0000009e;
+    background: #000000bf;
     position: absolute;
     top: -14px;
     flex-wrap: wrap;
@@ -83,11 +84,11 @@
 
 .edit-body{
     width: 330px;
-    max-height: 55%;
-    min-height: 55%;
+    /* max-height: 55%; */
+    /* min-height: 55%; */
     position: fixed;
-    top: 20%;
-    padding: 0px 15px 10px 15px;
+    top: 15%;
+    /* padding: 0px 15px 10px 15px; */
     overflow-Y: auto;
     overflow-X: hidden;
     background: #ffffff;
@@ -96,17 +97,18 @@
     box-shadow: 0px 0px 5px #ffffff;
 }
 
-.edit-body::-webkit-scrollbar{
+
+.edit-list-body::-webkit-scrollbar{
     width: 16px;
     height: 30px;
     border-radius: 7px;
 }
-.edit-body::-webkit-scrollbar-thumb{
+.edit-list-body::-webkit-scrollbar-thumb{
     background: #ffffff;
     border: 2px solid #585858;
     border-radius: 0px 20px 20px 0px;
 }
-.edit-body::-webkit-scrollbar-track{
+.edit-list-body::-webkit-scrollbar-track{
     background: #585858;
     width: 1px;
     border-radius: 0px 8px 8px 0px;
@@ -114,9 +116,9 @@
 
 .edit-header{
     width: 100%;
-    height: 20px;
+    height: 30px;
     position: relative;
-    margin-top:10px; 
+    padding: 5px;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
@@ -146,8 +148,13 @@
 .edit-list-body{
     outline: 0px solid red;
     width: 100%;
-    min-height: 50px;
-    margin-top: 15px;
+    max-height: 450px;
+    min-height: 200px;
+    padding: 0px 15px 10px 15px;
+    overflow-Y: auto;
+    overflow-X: hidden;
+    /* min-height: 50px; */
+    margin-top: 5px;
 }
 
 .edit-list-body-row{
@@ -188,8 +195,10 @@
     outline: 0px solid red;
     width: 60%;
     height: 20px;
+    font-weight: bold;
+    font-size: 14px;
     margin: 0px 3px;
-    padding: 0px 6px;
+    padding: 2px 6px;
     float: right;
 }
 
@@ -197,6 +206,9 @@
     outline: 0px solid red;
     width: 59%;
     min-height: 20px;
+    /* display: table; */
+    height: 50px;
+    overflow: overlay;
     margin: 0px 3px;
     padding: 1px 6px;
     float: right;
@@ -218,7 +230,7 @@
     margin: 22px auto 10px 30%;
     padding: 3px 5px;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     color: #ffffff;
     background: linear-gradient(to bottom right, #000000, #d3d3d3, #000000);
@@ -243,26 +255,92 @@
 }
 
 .edit-list-info-blok{
-    outline: 0px solid red;
     width: 100%;
     height: 16px;
-    position: relative;
     padding: 2px 0px;
+    display: block;
     border-bottom: 1px solid #d7d7d7;
 }
 
-.edit-list-info-label{
-    width: 23%;
-    float: left;
-    position: relative;
+.edit-list-info-blok1{
+    width: 35%;
+    margin: 0px;
+    padding: 0px;
+    float: left; 
+    display: flex;
+    flex-wrap: wrap;
+}
 
+.edit-list-info-blok2{
+    width: 65%;
+    margin: 0px;
+    padding: 0px;
+    float: right; 
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.edit-list-info-label{
+    width: 32%;
+    padding: 0px 6px;
+    color: #9e9e9e;
+}
+
+.edit-list-info-label2{
+    width: 20%;
+    padding: 0px 6px;
+    color: #9e9e9e;
 }
 
 .edit-list-info-value{
-    width: 77%;
-    float: right;
-    position: relative;
+    width: 68%;
+    padding: 0px 0px 0px 14px;
+    font-weight: bold;
+}
 
+.edit-list-info-value2{
+    width: 68%;
+    padding: 0px 0px 0px 6px;
+    font-weight: bold;
+}
+
+.activ-up {
+    background: linear-gradient(to right bottom, rgb(11, 56, 11), rgb(83, 187, 83), rgb(15, 72, 15));
+    cursor: pointer;
+}
+
+.edit-wrap-message{
+    width: 100%;
+    height: 102%;
+    background: #000000bf;
+    position: absolute;
+    top: -14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: none;
+}
+
+.edit-wrap-message-blok{
+    width: 300px;
+    height: 20%;
+    min-height: 150px;
+    position: fixed;
+    margin: 300px auto 0px auto;
+    padding: 60px 10px;
+    background: #ffffff;
+    border: 1px solid #898989;
+    border-radius: 9px;
+    box-shadow: 0px 0px 5px #ffffff;
+}
+
+.edit-wrap-message-blok p{
+    display: none;
+    font-size: 40px;
+    font-weight: bold;
+    color: #8e0000;
+    margin: -40px 0px 0px 0px;
+    text-align: center;
+    width: 100%;
 }
 
 
@@ -304,5 +382,52 @@
     .list-zvit-body p:nth-child(4) {
         width: 47px;
         padding: 5px 0px;
+    }
+    .edit-body {
+        width: 100%;
+        min-width: 330px;
+        /* max-height: 55%; */
+        /* min-height: 55%; */
+        height: 100%;
+        position: fixed;
+        top: 0%;
+        /* padding: 0px 15px 10px 15px; */
+        overflow-Y: auto;
+        overflow-X: hidden;
+        background: #ffffff;
+        border: 1px solid #898989;
+        border-radius: 9px;
+        box-shadow: 0px 0px 5px #ffffff;
+    }
+
+    .edit-list-body {
+        outline: 0px solid red;
+        width: 100%;
+        /* max-height: 450px; */
+        min-height: 200px;
+        display: table;
+        padding: 0px 15px 10px 15px;
+        overflow-Y: auto;
+        overflow-X: hidden;
+        /* min-height: 50px; */
+        margin-top: 5px;
+    }
+
+}
+
+@media screen and (max-height:549px){
+    .edit-body {
+        width: 330px;
+        max-height: 100%;
+        min-height: 200px;
+        position: fixed;
+        top: 0%;
+        /* padding: 0px 15px 10px 15px; */
+        overflow-Y: auto;
+        overflow-X: hidden;
+        background: #ffffff;
+        border: 1px solid #898989;
+        border-radius: 9px;
+        box-shadow: 0px 0px 5px #ffffff;
     }
 }

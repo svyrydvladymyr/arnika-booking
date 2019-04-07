@@ -3,7 +3,7 @@
 <?php
 $obj = json_decode($_GET["x"], false);
 $conn = new mysqli($servername, $username, $password, $dbname);
-$stmt = $conn->prepare("SELECT data_zaizdu FROM bookinggurt2 WHERE nomer_kimn = ? AND data_zaizdu = ?");
+$stmt = $conn->prepare("SELECT data_zaizdu FROM bookinggurt2 WHERE nomer_kimn = ? AND data_zaizdu = ? ORDER BY data_zaizdu");
 $stmt->bind_param("ss", $obj->room, $obj->date);
 $stmt->execute();
 $result = $stmt->get_result();

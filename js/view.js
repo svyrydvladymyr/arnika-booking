@@ -171,9 +171,7 @@ let VW = (function(){
 
     //for select day
     let selectDay = function(el){
-        // SE.$("list-zvit-wrap").innerHTML = "";
         let cell = el;
-        console.log(cell.id);
         let v = document.getElementsByClassName("full-day");
         for(let i = 0; i < v.length; i++){
             SE.$(v[i].id).classList.remove("cal-activ");
@@ -193,6 +191,7 @@ let VW = (function(){
         SE.$("edit-wrap").style.display = "flex";
         SE.$("edit-exit").addEventListener("click", function(){
             SE.$("edit-wrap").style.display = "none";
+            SE.clearInfoForm();
         });
         let upName, upSurname, upNomer, upTel, upKilk, upGuest;
         upName = el.getAttribute("editname");
@@ -200,14 +199,6 @@ let VW = (function(){
         upNomer = el.getAttribute("editnomer");
         upTel = el.getAttribute("edittel");
         upKilk = el.getAttribute("editkilk");
-        upGuest = el.getAttribute("editguest");
-        console.log(el);
-        console.log(upName);
-        console.log(upSurname);
-        console.log(upNomer);
-        console.log(upTel);
-        console.log(upKilk);
-        console.log(upGuest);
         if (sessionStorage.arnikatabs == "two"){
             AJAX.setToEdit(upSurname, upName, upNomer, upTel, upKilk, "php/getForUpdateTwo.php?x=");
         } else if (sessionStorage.arnikatabs == "three"){

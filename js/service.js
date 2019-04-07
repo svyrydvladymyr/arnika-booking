@@ -194,8 +194,6 @@ let SE = (function(){
         } else {
             let login = sessionStorage.arnikalogin; 
             let password = sessionStorage.arnikapassword; 
-            console.log(login);
-            console.log(password);
             SE.auditLogin(login, password, function(){
                 AJAX.checkUser(login, password, function(){
                     AJAX.addToDB(proto);        
@@ -286,6 +284,112 @@ let SE = (function(){
         VW.selectPresentDay();
     }    
 
+    //set info to form for updata
+    let setToUpdate = function(myObj){
+        SE.$("edit-list-surname").innerHTML = myObj[0].last_name;
+        SE.$("edit-list-name").innerHTML = myObj[0].first_name;
+        SE.$("edit-list-tel").innerHTML = `+380 ${myObj[0].telephone}`;
+        SE.$("edit-list-nomer").innerHTML = myObj[0].nomer_kimn;
+        SE.$("edit-list-kilk").innerHTML = myObj[0].kilk_dniv;
+        SE.$("edit-list-price").innerHTML = myObj[0].price;
+        let priceSum = myObj[0].kilk_dniv * myObj[0].price;
+        SE.$("edit-list-sum").innerHTML = priceSum;
+        if (myObj[0].tip == "guest"){
+            SE.$("edit-list-guest").innerHTML = "Відвідувач";
+        } else if (myObj[0].tip == "worker"){
+            SE.$("edit-list-guest").innerHTML = "Працівник";
+        }
+        let listDate = [];
+        SE.$("edit-list-date").innerHTML = "";
+        for (let i = 0; i < myObj.length; i++){
+            listDate.push(myObj[i].data_zaizdu);
+            SE.$("edit-list-date").innerHTML += `${myObj[i].data_zaizdu}<br>`;
+        }
+        SE.$("update-list").value = myObj[0].status;
+        SE.$("edit-admin").innerHTML = myObj[0].admin;
+        SE.$("edit-date-zapisu").innerHTML = myObj[0].data_zapisu;
+        if ((myObj[0].admin_updata != null) && (myObj[0].data_zmin != null)){
+            SE.$("info-date-up").style.display = "block";
+            SE.$("edit-admin-apdate").innerHTML = myObj[0].admin_updata;
+            SE.$("edit-date-update").innerHTML = myObj[0].data_zmin;
+        }
+    }
+
+    //clear info form
+    let clearInfoForm = function(){
+        SE.$("edit-list-surname").innerHTML = "";
+        SE.$("edit-list-name").innerHTML = "";
+        SE.$("edit-list-tel").innerHTML = "";
+        SE.$("edit-list-nomer").innerHTML = "";
+        SE.$("edit-list-kilk").innerHTML = "";
+        SE.$("edit-list-price").innerHTML = "";
+        SE.$("edit-list-sum").innerHTML = "";
+        SE.$("edit-list-guest").innerHTML = "";
+        SE.$("edit-list-date").innerHTML = "";
+        SE.$("edit-admin").innerHTML = "";
+        SE.$("edit-date-zapisu").innerHTML = "";
+        SE.$("info-date-up").style.display = "none";
+        SE.$("edit-admin-apdate").innerHTML = "";
+        SE.$("edit-date-update").innerHTML = "";
+    }
+
+    //function for add to prototype
+    let addToUpdareProto = function(protoUp){
+        toUpdate.prototype.lastname = protoUp[0].last_name;
+        toUpdate.prototype.firstname = protoUp[0].first_name;
+        toUpdate.prototype.telephone = protoUp[0].telephone;
+        toUpdate.prototype.nomerkimn = protoUp[0].nomer_kimn;
+        toUpdate.prototype.kilkdniv = protoUp[0].kilk_dniv;
+        toUpdate.prototype.datazapisu = protoUp[0].data_zapisu;
+        toUpdate.prototype.status = protoUp[0].status;
+        toUpdate.prototype.adminreg = SE.$("demo").innerHTML;
+        let toDay = new Date();
+        let resDateUp = toDay.getFullYear() + "-" + SE.readyMonth(toDay) + "-" + SE.readyDay(toDay);
+        toUpdate.prototype.datereg = resDateUp;
+    };    
+
+    //get variables from update prototype
+    let varUp = function(){
+        let protoUpdate = new toUpdate(); 
+        let nameUp = protoUpdate.__proto__.firstname;
+        let surnameUp = protoUpdate.__proto__.lastname;
+        let telUp = protoUpdate.__proto__.telephone;
+        let nomerUp = protoUpdate.__proto__.nomerkimn;
+        let kilkUp = protoUpdate.__proto__.kilkdniv;
+        let datazapisuUp = protoUpdate.__proto__.datazapisu;
+        let statusUp = protoUpdate.__proto__.status;
+        let adminregUp = protoUpdate.__proto__.adminreg;
+        let dateregUp = protoUpdate.__proto__.datereg;
+        return {
+            nameUp,
+            surnameUp,
+            telUp,
+            nomerUp,
+            kilkUp,
+            datazapisuUp,
+            statusUp,
+            adminregUp,
+            dateregUp
+        };
+    }
+
+    //update DB
+    let updateToDB = function(){
+        let Up = SE.varUp();
+        let login = sessionStorage.arnikalogin; 
+        let password = sessionStorage.arnikapassword;
+        //chack login and password 
+        SE.auditLogin(login, password, function(){
+            AJAX.checkUser(login, password, function(){
+                if (sessionStorage.arnikatabs == "two"){
+                    AJAX.upToDB(Up.nameUp, Up.surnameUp, Up.telUp, Up.nomerUp, Up.kilkUp, Up.datazapisuUp, Up.statusUp, Up.adminregUp, Up.dateregUp, "php/upToDBTwo.php?x=");
+                } else if (sessionStorage.arnikatabs == "three"){
+                    AJAX.upToDB(Up.nameUp, Up.surnameUp, Up.telUp, Up.nomerUp, Up.kilkUp, Up.datazapisuUp, Up.statusUp, Up.adminregUp, Up.dateregUp, "php/upToDBThree.php?x=");
+                }
+            });
+        });
+    }
+
     return {
         $:$, 
         setSettings:setSettings,
@@ -304,6 +408,11 @@ let SE = (function(){
         sendToDB:sendToDB,
         clearTabs:clearTabs,
         presentDate:presentDate,
-        setDaysToCalendar:setDaysToCalendar
+        setDaysToCalendar:setDaysToCalendar,
+        setToUpdate:setToUpdate,
+        clearInfoForm:clearInfoForm,
+        addToUpdareProto:addToUpdareProto,
+        varUp:varUp,
+        updateToDB:updateToDB
     };
 })();

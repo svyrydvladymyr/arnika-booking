@@ -268,11 +268,11 @@
             <div class="edit-list-body">
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Прізвище</p>
-                    <div class="edit-list-value" id="edit-list-name"></div>
+                    <div class="edit-list-value" id="edit-list-surname"></div>
                 </div>
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Імя</p>
-                    <div class="edit-list-value" id="edit-list-surname"></div>
+                    <div class="edit-list-value" id="edit-list-name"></div>
                 </div>
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Телефон</p>
@@ -300,9 +300,9 @@
                 </div>
                 <div class="edit-list-body-row">
                     <p class="edit-list-label">Дата</p>
-                    <div class="edit-list-value" id="edit-list-date"></div>
+                    <div class="edit-list-value" id="edit-list-date" style="font-size: 11px;"></div>
                 </div>     
-                <div class="edit-list-body-row">
+                <div class="edit-list-body-row" style="border: 1px solid red; background: #9c0000; color: #ffffff;">
                     <p class="edit-list-label">Статус зам.</p>
                     <div class="edit-list-value" id="edit-list-status">
                         <select name="update-list" id="update-list">
@@ -316,24 +316,36 @@
                 <!--info about update date and admin-->
                 <div class="edit-list-info">
                     <div class="edit-list-info-blok">
-                        <p class="edit-list-info-label">Дата бронюв.:</p>
-                        <p class="edit-list-info-value" id="edit-date-zapisu"></p>
+                        <div  class="edit-list-info-blok1">
+                            <p class="edit-list-info-label">Заброн.:</p>
+                            <p class="edit-list-info-value" id="edit-date-zapisu"></p>
+                        </div>
+                        <div  class="edit-list-info-blok2">
+                            <p class="edit-list-info-label2">Адмін:</p>
+                            <p class="edit-list-info-value2" id="edit-admin"></p>
+                        </div>
                     </div>
-                    <div class="edit-list-info-blok">
-                        <p class="edit-list-info-label">Адмін:</p>
-                        <p class="edit-list-info-value" id="edit-admin"></p>
-                    </div>
-                    <div class="edit-list-info-blok">
-                        <p class="edit-list-info-label">Дата зміни:</p>
-                        <p class="edit-list-info-value" id="edit-date-update"></p>
-                    </div>
-                    <div class="edit-list-info-blok">
-                        <p class="edit-list-info-label">Адмін:</p>
-                        <p class="edit-list-info-value" id="edit-admin-apdate"></p>
+                    <div class="edit-list-info-blok" id="info-date-up" style="display:none;"> 
+                        <div  class="edit-list-info-blok1">
+                            <p class="edit-list-info-label">Змінено:</p>
+                            <p class="edit-list-info-value" id="edit-date-update"></p>
+                        </div>    
+                        <div  class="edit-list-info-blok2">
+                            <p class="edit-list-info-label2">Адмін:</p>
+                            <p class="edit-list-info-value2" id="edit-admin-apdate"></p>
+                        </div>    
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="edit-wrap-message" id="edit-wrap-message">
+        <div class="edit-wrap-message-blok">
+            <i class="fa fa-spinner fa-spin" style="font-size:44px;  color: #696969; text-shadow: 0px 0px 2px #008700; margin: 5px 42%; display:none;" id="icon-send-up" ></i>                            
+            <p id="message-send-up" style="display:none;">Статус бронювання змінено!</p>
+        </div>
+
     </div>
 
     <script src="js/regexp.js"></script>

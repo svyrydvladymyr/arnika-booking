@@ -203,6 +203,13 @@ window.onload = function(){
             });
         }
 
+        //update
+        SE.$("update-list").addEventListener('change', function(){
+            toUpdate.prototype.status = SE.$("update-list").value; 
+            SE.$("send-update").classList.add("activ-up");
+            SE.$("send-update").addEventListener("click", SE.updateToDB);
+        });
+
 
 
     //addEventListener(s) end +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      
