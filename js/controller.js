@@ -223,6 +223,90 @@ window.onload = function(){
             SE.$("send-update").addEventListener("click", SE.updateToDB);
         });
 
+        //list for the period on change Z
+
+        let listStatus, sorts;
+        SE.$("id-z").addEventListener("change", function(){
+            let listZ = SE.$("id-z").value;
+            let listPO = SE.$("id-po").value;
+            let radios = document.getElementsByName('id-status');
+            for (let i = 0, length = radios.length; i < length; i++){
+                if (radios[i].checked){
+                    listStatus = radios[i].value;
+                    break;
+                }
+            }
+            let sort = document.getElementsByName('id-sort');
+            for (let i = 0; i < sort.length; i++){
+                if (sort[i].checked){
+                    sorts = sort[i].value;
+                }
+            }
+            if ((listZ != "") && (listPO != "")){
+                if (sessionStorage.arnikatabs == "two"){
+                    AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodTwo.php?x=");
+                } else if(sessionStorage.arnikatabs == "three"){
+                    AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodThree.php?x=");
+                } 
+            }  
+        });   
+
+        //list for the period on change PO
+        SE.$("id-po").addEventListener("change", function(){
+            let listZ = SE.$("id-z").value;
+            let listPO = SE.$("id-po").value;
+            let radios = document.getElementsByName('id-status');
+            for (let i = 0, length = radios.length; i < length; i++){
+                if (radios[i].checked){
+                    listStatus = radios[i].value;
+                    break;
+                }
+            }
+            let sort = document.getElementsByName('id-sort');
+            for (let i = 0; i < sort.length; i++){
+                if (sort[i].checked){
+                    sorts = sort[i].value;
+                }
+            }
+            if ((listZ != "") && (listPO != "")){
+                if (sessionStorage.arnikatabs == "two"){
+                    AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodTwo.php?x=");
+                } else if(sessionStorage.arnikatabs == "three"){
+                    AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodThree.php?x=");
+                } 
+            } 
+        });   
+        
+        //list for the period on change STATUS
+        let radioss = document.getElementsByName('id-status');
+        for(let i = 0; i < radioss.length; i++){
+            radioss[i].addEventListener("change", function(){
+                let listZ = SE.$("id-z").value;
+                let listPO = SE.$("id-po").value;
+                let radios = document.getElementsByName('id-status');
+                for (let i = 0; i < radios.length; i++){
+                    if (radios[i].checked){
+                        listStatus = radios[i].value;
+                    }
+                }
+                let sort = document.getElementsByName('id-sort');
+                for (let i = 0; i < sort.length; i++){
+                    if (sort[i].checked){
+                        sorts = sort[i].value;
+                    }
+                }
+                if ((listZ != "") && (listPO != "")){
+                    if (sessionStorage.arnikatabs == "two"){
+                        AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodTwo.php?x=");
+                    } else if(sessionStorage.arnikatabs == "three"){
+                        AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodThree.php?x=");
+                    } 
+                } 
+            });  
+
+        }
+        
+
 
 
     //addEventListener(s) end +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      

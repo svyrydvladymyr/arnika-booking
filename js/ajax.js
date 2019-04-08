@@ -437,6 +437,99 @@ let AJAX = (function(){
         xmlhttp.send();
     };    
 
+    //get rooms to list for period
+    let getRoomPeriod = function(listZ, listPO, listStatus, sorts, urlPeriod){
+        let obj, dbParam, xmlhttp, trimObg, myObj, sortReady;
+        console.log(listZ);
+        console.log(listPO);
+        console.log(listStatus);
+        console.log(sorts);
+        if (sorts == undefined){
+            sortReady = "nomer_kimn";
+        } else {
+            sortReady = sorts;
+        };
+        console.log(sortReady);
+        obj = { "listZ":listZ, "listPO":listPO, "listStatus":listStatus, "sortReady":sortReady};
+        console.log(obj);
+        SE.$("list-zvit-wrap-period").style.display = "table";
+        dbParam = JSON.stringify(obj);
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {    
+                if (this.responseText != "[]"){
+                    //trim obgect
+                    trimObg = this.responseText.trim();
+                    myObj = JSON.parse(trimObg);
+                    //if list not empty, push to calendar list
+                    if (myObj.length != 0){
+                        SE.$("list-zvit-wrap-period").innerHTML = `<div class="list-zvit-title-period">
+                                                            <p><input type="radio" name="id-sort" id="radio-sort-surname" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="last_name">Прізвище</p>
+                                                            <p>Імя</p>
+                                                            <p><input type="radio" name="id-sort" id="radio-sort-room" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="nomer_kimn" checked>Кім</p>
+                                                            <p><input type="radio" name="id-sort" id="radio-sort-date" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="data_zaizdu">Дата</p>
+                                                            <p>Ціна</p>
+                                                            <p>Гість</p>
+                                                            <p>Статус</p>
+                                                            <p></p></div>`;
+                        let v = document.getElementsByClassName("far fa-edit");
+                        //iteration for show booking list                        
+                        let status, guest;
+                        for(let i = 0; i < myObj.length; i++){
+                            //add color to message about status
+                            if (myObj[i].status == "rezerv"){
+                                status = `<span style="text-shadow: 0px 0px 2px yellow;">Резерв.</span>`;
+                            } else if (myObj[i].status == "pay"){
+                                status = `<span style="text-shadow: 0px 0px 1px #00a500; color:green;">Оплач.</span>`;
+                            } else if (myObj[i].status == "del"){
+                                status = `<span style="text-shadow: 0px 0px 1px #ff0000; color: #922c2c;">Видал.</span>`;
+                            }
+                            //add color to message about guest
+                            if (myObj[i].tip == "guest"){
+                                guest = `<span>Гість</span>`;
+                            } else if (myObj[i].tip == "worker"){
+                                guest = `<span style="text-shadow: 0px 0px 1px #111111; color:#111111;">Праців.</span>`;
+                            }
+                            //push to calendar list and to noda atributes 
+                            SE.$("list-zvit-wrap-period").innerHTML += `<div class="list-zvit-body-period">
+                                                                    <p>${myObj[i].last_name}</p>
+                                                                    <p>${myObj[i].first_name}</p>
+                                                                    <p>${myObj[i].nomer_kimn}</p>
+                                                                    <p>${myObj[i].data_zaizdu}</p>
+                                                                    <p>${myObj[i].price}</p>
+                                                                    <p>${guest}</p>
+                                                                    <p>${status}</p>
+                                                                    <p>
+                                                                        <i class='far fa-edit' 
+                                                                            style='font-size:18px; cursor:pointer;' 
+                                                                            editsurname="${myObj[i].last_name}" 
+                                                                            editname="${myObj[i].first_name}"
+                                                                            editnomer="${myObj[i].nomer_kimn}" 
+                                                                            edittel="${myObj[i].telephone}"
+                                                                            editkilk="${myObj[i].kilk_dniv}"
+                                                                            editguest="${myObj[i].tip}">
+                                                                        </i>
+                                                                    </p>
+                                                                </div>`;
+                        }
+                        //add listener to all edit button
+                        for(let i = 0; i < myObj.length; i++){
+                            v[i].addEventListener("click", function(){
+                                VW.getEditList(this);
+                            });
+                        }  
+                    } else {
+                        SE.$("list-zvit-wrap-period").style.display = "none";
+                        SE.$("list-zvit-wrap-period").innerHTML = "";
+                        console.log(this.responseText);
+                    }                 
+            }
+        }
+        };
+        xmlhttp.open("GET", urlPeriod + dbParam, true);
+        xmlhttp.send();
+    };    
+
     return {
         getJson:getJson,
         checkUser:checkUser,
@@ -447,6 +540,7 @@ let AJAX = (function(){
         getBusyRoom:getBusyRoom,
         getRoomCalendar:getRoomCalendar,
         setToEdit:setToEdit,
-        upToDB:upToDB
+        upToDB:upToDB,
+        getRoomPeriod:getRoomPeriod
     };
 })();
