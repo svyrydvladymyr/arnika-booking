@@ -65,6 +65,13 @@ let VW = (function(){
         SE.clearIcon();
         SE.setDaysToCalendar();
         SE.$("list-zvit-wrap").innerHTML = "";
+        //reload period list 
+            setTimeout(function(){
+                SE.reloadPeriod(); 
+            }, 1000);
+            setTimeout(function(){
+                SE.$("list-zvit-wrap").innerHTML = "";
+            }, 800); 
     };
 
     //change tab two and clear all for tab one
@@ -84,6 +91,13 @@ let VW = (function(){
         SE.clearIcon();
         SE.setDaysToCalendar();
         SE.$("list-zvit-wrap").innerHTML = "";
+        //reload period list 
+        setTimeout(function(){
+            SE.reloadPeriod();
+        }, 1000);
+        setTimeout(function(){
+            SE.$("list-zvit-wrap").innerHTML = "";
+        }, 800);
     };
 
     //chenge color background

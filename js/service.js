@@ -110,7 +110,6 @@ let SE = (function(){
             SE.$("send").style.background = "linear-gradient(to bottom right, #000000, #d3d3d3, #000000)";
             SE.$("send").style.cursor = "no-drop";
         }
-        console.log(readyObg);
     };
 
     //function for clear obgect prototype
@@ -332,6 +331,29 @@ let SE = (function(){
         });
     }
 
+    //reload period list
+    let reloadPeriod = function(){
+        let listZ = SE.$("id-z").value;
+        let listPO = SE.$("id-po").value;
+        //get status from radio
+        let radios = document.getElementsByName('id-status');
+        for (let i = 0, length = radios.length; i < length; i++){
+            if (radios[i].checked){
+                listStatus = radios[i].value;
+                break;
+            }
+        }
+        //get sort from session
+        let sorts = sessionStorage.sortuvannia;
+        if ((listZ != "") && (listPO != "")){
+            if (sessionStorage.arnikatabs == "two"){
+                AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodTwo.php?x=");
+            } else if(sessionStorage.arnikatabs == "three"){
+                AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodThree.php?x=");
+            } 
+        }  
+    };
+
     return {
         $:$, 
         setSettings:setSettings,
@@ -353,6 +375,7 @@ let SE = (function(){
         setDaysToCalendar:setDaysToCalendar,
         clearInfoForm:clearInfoForm,
         addToUpdareProto:addToUpdareProto,
-        updateToDB:updateToDB
+        updateToDB:updateToDB,
+        reloadPeriod:reloadPeriod
     };
 })();

@@ -422,6 +422,8 @@ let AJAX = (function(){
                         //clear and show message about update 
                         SE.$("icon-send-up").style.display = "none";
                         SE.$("message-send-up").style.display = "table";
+                        //reload period list 
+                        SE.reloadPeriod(); 
                     }, 2000);
                     //hidden all message about update
                     setTimeout(function(){
@@ -439,20 +441,12 @@ let AJAX = (function(){
 
     //get rooms to list for period
     let getRoomPeriod = function(listZ, listPO, listStatus, sorts, urlPeriod){
-        let obj, dbParam, xmlhttp, trimObg, myObj, sortReady;
-        console.log(listZ);
-        console.log(listPO);
-        console.log(listStatus);
-        console.log(sorts);
-        if (sorts == undefined){
-            sortReady = "nomer_kimn";
-        } else {
-            sortReady = sorts;
-        };
-        console.log(sortReady);
-        obj = { "listZ":listZ, "listPO":listPO, "listStatus":listStatus, "sortReady":sortReady};
-        console.log(obj);
+        let obj, dbParam, xmlhttp, trimObg, myObj;
+        obj = { "listZ":listZ, "listPO":listPO, "listStatus":listStatus};
+        //show period list
+        SE.$("list-zvit-wrap").innerHTML = "";
         SE.$("list-zvit-wrap-period").style.display = "table";
+        //parse obgect
         dbParam = JSON.stringify(obj);
         xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
@@ -461,20 +455,48 @@ let AJAX = (function(){
                     //trim obgect
                     trimObg = this.responseText.trim();
                     myObj = JSON.parse(trimObg);
-                    //if list not empty, push to calendar list
+                    //if list not empty, push to period list
                     if (myObj.length != 0){
                         SE.$("list-zvit-wrap-period").innerHTML = `<div class="list-zvit-title-period">
-                                                            <p><input type="radio" name="id-sort" id="radio-sort-surname" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="last_name">Прізвище</p>
+                                                            <p><input type="radio" name="id-sort" id="last_name" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="last_name">Прізвище</p>
                                                             <p>Імя</p>
-                                                            <p><input type="radio" name="id-sort" id="radio-sort-room" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="nomer_kimn" checked>Кім</p>
-                                                            <p><input type="radio" name="id-sort" id="radio-sort-date" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="data_zaizdu">Дата</p>
+                                                            <p><input type="radio" name="id-sort" id="nomer_kimn" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="nomer_kimn">Кім</p>
+                                                            <p><input type="radio" name="id-sort" id="data_zaizdu" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="data_zaizdu">Дата</p>
                                                             <p>Ціна</p>
                                                             <p>Гість</p>
                                                             <p>Статус</p>
                                                             <p></p></div>`;
                         let v = document.getElementsByClassName("far fa-edit");
-                        //iteration for show booking list                        
                         let status, guest;
+                        //sort obgect by "data_zaizdu"
+                        if (sorts == "data_zaizdu"){
+                            myObj.sort(function(a, b){
+                                let x = a.data_zaizdu.toLowerCase();
+                                let y = b.data_zaizdu.toLowerCase();
+                                if (x < y) {return -1;}
+                                if (x > y) {return 1;}
+                                return 0;
+                            });
+                        //sort obgect by "last_name"    
+                        } else if (sorts == "last_name"){
+                            myObj.sort(function(a, b){
+                                let x = a.last_name.toLowerCase();
+                                let y = b.last_name.toLowerCase();
+                                if (x < y) {return -1;}
+                                if (x > y) {return 1;}
+                                return 0;
+                            });
+                        //sort obgect by "nomer_kimn"    
+                        } else {
+                            myObj.sort(function(a, b){
+                                let x = a.nomer_kimn;
+                                let y = b.nomer_kimn;
+                                if (x < y) {return -1;}
+                                if (x > y) {return 1;}
+                                return 0;
+                            });
+                        };  
+                        //iteration for show booking list
                         for(let i = 0; i < myObj.length; i++){
                             //add color to message about status
                             if (myObj[i].status == "rezerv"){
@@ -490,7 +512,7 @@ let AJAX = (function(){
                             } else if (myObj[i].tip == "worker"){
                                 guest = `<span style="text-shadow: 0px 0px 1px #111111; color:#111111;">Праців.</span>`;
                             }
-                            //push to calendar list and to noda atributes 
+                            //push to periodlist and to node atributes 
                             SE.$("list-zvit-wrap-period").innerHTML += `<div class="list-zvit-body-period">
                                                                     <p>${myObj[i].last_name}</p>
                                                                     <p>${myObj[i].first_name}</p>
@@ -513,11 +535,42 @@ let AJAX = (function(){
                                                                 </div>`;
                         }
                         //add listener to all edit button
+                        let sumSum = 0;
                         for(let i = 0; i < myObj.length; i++){
                             v[i].addEventListener("click", function(){
                                 VW.getEditList(this);
                             });
-                        }  
+                            if (myObj[i].status == "pay"){
+                                sumSum += myObj[i].price;
+                            }
+                        } 
+                        //shoe message sum for period
+                        if (sumSum != 0){
+                            SE.$("sum-sum").innerHTML = `Сума за вибраний вами період`;
+                            SE.$("sum-sum-rez").innerHTML = `<span>${sumSum}грн.</span>`;
+
+                        } else {
+                            SE.$("sum-sum").innerHTML = "";
+                            SE.$("sum-sum-rez").innerHTML = "";
+                        }
+                        //iteration all sort radio and add eventListenet
+                        let radioss = document.getElementsByName('id-sort');
+                        for(let i = 0; i < radioss.length; i++){
+                            radioss[i].addEventListener("change", function(){
+                                //check sort radio and set value to sesion
+                                let sort = document.getElementsByName('id-sort');                                
+                                for (let i = 0; i < sort.length; i++){
+                                    if (sort[i].checked){
+                                        let sortID = sort[i].id;
+                                        sessionStorage.sortuvannia = sortID;
+                                        break;
+                                    }
+                                }
+                                SE.reloadPeriod();
+                            });               
+                        };
+                        //set radio to sort
+                        SE.$(sessionStorage.sortuvannia).checked = true;                        
                     } else {
                         SE.$("list-zvit-wrap-period").style.display = "none";
                         SE.$("list-zvit-wrap-period").innerHTML = "";

@@ -485,6 +485,14 @@
     width: 30px;
     padding: 5px 0px;
     border-right: 0px solid #111111;
+    color:green;
+}
+
+.list-zvit-body-period p:nth-child(8):hover {
+    width: 30px;
+    padding: 5px 0px;
+    border-right: 0px solid #111111;
+    color:red;
 }
 
 .radio-date{
@@ -492,6 +500,36 @@
     margin: 2px -17px;
     color: red;
     position: absolute;
+}
+
+
+.list-zvit-body p:last-child {
+    width: 30px;
+    color: green;
+    border-right: 0px solid #ffffff;
+}
+
+.list-zvit-body p:last-child:hover {
+    width: 30px;
+    color: red;
+    border-right: 0px solid #ffffff;
+}
+
+.sum-sum{
+    color: red;
+    text-align: center;
+    width: 200px;
+    margin: 10px auto 10px auto;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.sum-sum span{
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #111111;
+    border-radius: 5px;
+    padding: 1px 4px;  
 }
 
 @media screen and (max-width:549px){
