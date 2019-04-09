@@ -6,7 +6,7 @@ let REG = (function(){
             passwordCut:"[^0-9a-zA-Z]",
             loginTest:"^[a-zA-Z]+$",
             passwordTest:"^[0-9a-zA-Z]+$",
-            nameCut:"[^a-zA-Zа-яА-Я]",
+            nameCut:"[^a-zA-Zа-яА-Яі]",
             nameTest:"^[a-zA-Zа-яА-Я]+$",
             telCut:"[^0-9]",
             telTest:"[0-9]{9}",

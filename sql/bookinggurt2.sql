@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 09, 2019 at 12:31 PM
--- Server version: 5.7.20
--- PHP Version: 7.2.0
+-- Generation Time: Apr 09, 2019 at 11:35 PM
+-- Server version: 5.6.37
+-- PHP Version: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -51,34 +51,27 @@ CREATE TABLE `bookinggurt2` (
 --
 
 INSERT INTO `bookinggurt2` (`id`, `first_name`, `last_name`, `telephone`, `nomer_kimn`, `data_zaizdu`, `kilk_dniv`, `price`, `status`, `tip`, `coment`, `admin`, `data_zapisu`, `admin_updata`, `data_zmin`) VALUES
-(1, 'Hgjkjhk', 'Jkhjk', 786786786, 2, '2019-04-04', 7, 260, 'pay', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', 'Svyryd Volodymyr', '2019-04-09'),
-(2, 'Hgjkjhk', 'Jkhjk', 786786786, 2, '2019-04-05', 7, 260, 'pay', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', 'Svyryd Volodymyr', '2019-04-09'),
-(3, 'Hgjkjhk', 'Jkhjk', 786786786, 2, '2019-04-06', 7, 260, 'pay', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', 'Svyryd Volodymyr', '2019-04-09'),
-(4, 'Hgjkjhk', 'Jkhjk', 786786786, 2, '2019-04-07', 7, 260, 'pay', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', 'Svyryd Volodymyr', '2019-04-09'),
-(5, 'Hgjkjhk', 'Jkhjk', 786786786, 2, '2019-04-03', 7, 260, 'pay', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', 'Svyryd Volodymyr', '2019-04-09'),
-(6, 'Hgjkjhk', 'Jkhjk', 786786786, 2, '2019-04-02', 7, 260, 'pay', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', 'Svyryd Volodymyr', '2019-04-09'),
-(7, 'Hgjkjhk', 'Jkhjk', 786786786, 2, '2019-04-08', 7, 260, 'pay', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', 'Svyryd Volodymyr', '2019-04-09'),
-(8, 'Oooo', 'Oooo', 777777777, 9, '2019-04-10', 9, 260, 'rezerv', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', NULL, NULL),
-(9, 'Oooo', 'Oooo', 777777777, 9, '2019-04-13', 9, 260, 'rezerv', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', NULL, NULL),
-(10, 'Oooo', 'Oooo', 777777777, 9, '2019-04-12', 9, 260, 'rezerv', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', NULL, NULL),
-(11, 'Oooo', 'Oooo', 777777777, 9, '2019-04-14', 9, 260, 'rezerv', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', NULL, NULL),
-(12, 'Oooo', 'Oooo', 777777777, 9, '2019-04-16', 9, 260, 'rezerv', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', NULL, NULL),
-(13, 'Oooo', 'Oooo', 777777777, 9, '2019-04-18', 9, 260, 'rezerv', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', NULL, NULL),
-(14, 'Oooo', 'Oooo', 777777777, 9, '2019-04-15', 9, 260, 'rezerv', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', NULL, NULL),
-(15, 'Oooo', 'Oooo', 777777777, 9, '2019-04-11', 9, 260, 'rezerv', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', NULL, NULL),
-(16, 'Oooo', 'Oooo', 777777777, 9, '2019-04-17', 9, 260, 'rezerv', 'guest', NULL, 'Svyryd Volodymyr', '2019-04-01', NULL, NULL),
-(17, 'Pp', 'Pp', 777777777, 9, '2019-04-02', 4, 130, 'pay', 'worker', NULL, 'Svyryd Volodymyr', '2019-04-01', 'Svyryd Volodymyr', '2019-04-09'),
-(18, 'Pp', 'Pp', 777777777, 9, '2019-04-03', 4, 130, 'pay', 'worker', NULL, 'Svyryd Volodymyr', '2019-04-01', 'Svyryd Volodymyr', '2019-04-09'),
-(19, 'Pp', 'Pp', 777777777, 9, '2019-04-04', 4, 130, 'pay', 'worker', NULL, 'Svyryd Volodymyr', '2019-04-01', 'Svyryd Volodymyr', '2019-04-09'),
-(20, 'Pp', 'Pp', 777777777, 9, '2019-04-05', 4, 130, 'pay', 'worker', NULL, 'Svyryd Volodymyr', '2019-04-01', 'Svyryd Volodymyr', '2019-04-09'),
-(21, 'Hjkhjk', 'Hjkhjk', 575756756, 8, '2019-04-26', 8, 130, 'pay', 'worker', NULL, 'Svyryd Volodymyr', '2019-04-04', 'Svyryd Volodymyr', '2019-04-09'),
-(22, 'Hjkhjk', 'Hjkhjk', 575756756, 8, '2019-04-28', 8, 130, 'pay', 'worker', NULL, 'Svyryd Volodymyr', '2019-04-04', 'Svyryd Volodymyr', '2019-04-09'),
-(23, 'Hjkhjk', 'Hjkhjk', 575756756, 8, '2019-04-27', 8, 130, 'pay', 'worker', NULL, 'Svyryd Volodymyr', '2019-04-04', 'Svyryd Volodymyr', '2019-04-09'),
-(24, 'Hjkhjk', 'Hjkhjk', 575756756, 8, '2019-04-25', 8, 130, 'pay', 'worker', NULL, 'Svyryd Volodymyr', '2019-04-04', 'Svyryd Volodymyr', '2019-04-09'),
-(25, 'Hjkhjk', 'Hjkhjk', 575756756, 8, '2019-04-24', 8, 130, 'pay', 'worker', NULL, 'Svyryd Volodymyr', '2019-04-04', 'Svyryd Volodymyr', '2019-04-09'),
-(26, 'Hjkhjk', 'Hjkhjk', 575756756, 8, '2019-04-30', 8, 130, 'pay', 'worker', NULL, 'Svyryd Volodymyr', '2019-04-04', 'Svyryd Volodymyr', '2019-04-09'),
-(27, 'Hjkhjk', 'Hjkhjk', 575756756, 8, '2019-04-29', 8, 130, 'pay', 'worker', NULL, 'Svyryd Volodymyr', '2019-04-04', 'Svyryd Volodymyr', '2019-04-09'),
-(28, 'Hjkhjk', 'Hjkhjk', 575756756, 8, '2019-05-01', 8, 130, 'pay', 'worker', NULL, 'Svyryd Volodymyr', '2019-04-04', 'Svyryd Volodymyr', '2019-04-09');
+(52, 'Iван', 'Геник', 0, 1, '2019-03-09', 1, 200, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(53, 'Iван', 'Геник', 0, 2, '2019-03-09', 2, 130, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(54, 'Iван', 'Геник', 0, 2, '2019-03-08', 2, 130, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(55, 'Iван', 'Геник', 0, 3, '2019-03-08', 2, 150, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(56, 'Iван', 'Геник', 0, 3, '2019-03-09', 2, 150, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(57, 'Iван', 'Геник', 0, 4, '2019-03-08', 2, 150, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(58, 'Iван', 'Геник', 0, 4, '2019-03-09', 2, 150, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(59, 'Iван', 'Геник', 0, 5, '2019-03-08', 2, 160, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(60, 'Iван', 'Геник', 0, 5, '2019-03-09', 2, 160, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(61, 'Iван', 'Геник', 0, 6, '2019-03-08', 2, 180, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(62, 'Iван', 'Геник', 0, 6, '2019-03-09', 2, 180, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(63, 'Iгор', 'Козак', 0, 6, '2019-03-29', 2, 180, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(64, 'Iгор', 'Козак', 0, 6, '2019-03-28', 2, 180, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(66, 'Iван', 'Геник', 0, 7, '2019-03-09', 2, 200, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(67, 'Iван', 'Геник', 0, 8, '2019-03-09', 1, 130, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(68, 'Iван', 'Геник', 0, 9, '2019-03-09', 1, 130, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(69, 'Iван', 'Геник', 0, 10, '2019-03-09', 1, 130, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(70, 'Iван', 'Геник', 0, 11, '2019-03-09', 1, 130, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(71, 'Iван', 'Геник', 0, 12, '2019-03-09', 1, 150, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(72, 'Iван', 'Геник', 0, 14, '2019-03-09', 1, 90, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL),
+(73, 'Iван', 'Геник', 0, 15, '2019-03-09', 1, 90, 'pay', 'worker', NULL, 'Svyryd Volodimir', '2019-04-09', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -98,8 +91,7 @@ ALTER TABLE `bookinggurt2`
 -- AUTO_INCREMENT for table `bookinggurt2`
 --
 ALTER TABLE `bookinggurt2`
-  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-COMMIT;
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
