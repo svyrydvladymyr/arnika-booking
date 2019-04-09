@@ -32,5 +32,7 @@ INSERT INTO priceGurtTwo(id, room, price) VALUES ("15","15","180грн 2 міс�
 
 
 
+INSERT INTO users (id, login, password, name, surname) VALUES (3, 'bigus', 'bigus1988', 'Bidus', 'Yaroslav')
+
 
 INSERT INTO  bookinggurt1 (id, first_name, last_name, telephone, nomer_kimn, data_zaizdu, kilk_dniv, price, status, tip, coment, admin, data_zapisu, admin_updata, data_zmin) VALUES ("1", "", "", "00000000", "2", "2019-03-13", "4", "100", "", "", "", "", "2019-03-13", "", "2019-03-13")
