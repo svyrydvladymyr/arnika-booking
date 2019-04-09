@@ -25,44 +25,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `priceGurtThree`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `priceGurtThree` (
+CREATE TABLE `users` (
   `id` int(6) UNSIGNED NOT NULL,
-  `room` int(6) DEFAULT NULL,
-  `price` varchar(20) DEFAULT NULL
+  `login` varchar(30) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `surname` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `priceGurtThree`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `priceGurtThree` (`id`, `room`, `price`) VALUES
-(1, 1, '400грн 2 місця'),
-(2, 2, '260грн 2 місця'),
-(3, 3, '300грн 3 місця'),
-(4, 4, '300грн 3 місця'),
-(5, 5, '320грн 4 місця'),
-(6, 6, '360грн 2 місця'),
-(7, 7, '400грн 2 місця'),
-(8, 8, '260грн 2 місця'),
-(9, 9, '260грн 2 місць'),
-(10, 10, '260грн 2 місця'),
-(11, 11, '260грн 2 місця'),
-(12, 12, '300грн 2 місця'),
-(13, 13, 'Кімната відсутня'),
-(14, 14, '180грн 2 місця'),
-(15, 15, '180грн 2 місця');
+INSERT INTO `users` (`id`, `login`, `password`, `name`, `surname`) VALUES
+(1, 'kalcifer', 'kalcifer1988', 'Volodymyr', 'Svyryd');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `priceGurtThree`
+-- Indexes for table `users`
 --
-ALTER TABLE `priceGurtThree`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -70,10 +58,10 @@ ALTER TABLE `priceGurtThree`
 --
 
 --
--- AUTO_INCREMENT for table `priceGurtThree`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `priceGurtThree`
-  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+ALTER TABLE `users`
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

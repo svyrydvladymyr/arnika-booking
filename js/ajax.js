@@ -574,7 +574,6 @@ let AJAX = (function(){
                     } else {
                         SE.$("list-zvit-wrap-period").style.display = "none";
                         SE.$("list-zvit-wrap-period").innerHTML = "";
-                        console.log(this.responseText);
                     }                 
             }
         }

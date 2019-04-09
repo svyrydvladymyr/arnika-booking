@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 01, 2019 at 01:25 PM
+-- Generation Time: Apr 09, 2019 at 12:31 PM
 -- Server version: 5.7.20
 -- PHP Version: 7.2.0
 
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `priceGurtOne`
+-- Table structure for table `priceGurtTwo`
 --
 
 CREATE TABLE `priceGurtTwo` (
@@ -35,7 +35,7 @@ CREATE TABLE `priceGurtTwo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `priceGurtOne`
+-- Dumping data for table `priceGurtTwo`
 --
 
 INSERT INTO `priceGurtTwo` (`id`, `room`, `price`) VALUES
@@ -57,7 +57,7 @@ INSERT INTO `priceGurtTwo` (`id`, `room`, `price`) VALUES
 --
 
 --
--- Indexes for table `priceGurtOne`
+-- Indexes for table `priceGurtTwo`
 --
 ALTER TABLE `priceGurtTwo`
   ADD PRIMARY KEY (`id`);
@@ -67,7 +67,7 @@ ALTER TABLE `priceGurtTwo`
 --
 
 --
--- AUTO_INCREMENT for table `priceGurtOne`
+-- AUTO_INCREMENT for table `priceGurtTwo`
 --
 ALTER TABLE `priceGurtTwo`
   MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;

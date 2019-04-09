@@ -274,9 +274,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 1;
     display: block;
     background: url(https://static.thenounproject.com/png/404-200.png) no-repeat;
-    background-size: 22px 22px;
-    width: 20px;
-    height: 20px;
+    background-size: 20px 20px;
+    width: 18px;
+    height: 18px;
     border-width: thin;
 }
 
