@@ -21,8 +21,8 @@
         "add-nomer-label": "Номер:(1-12)",
         "add-start-data-label": "Заїзд:(12:00)",
         "add-kilk-label": "Кіл. ночей:",    
-        "add-status-gгest-label": "Стат. гостя:",
-        "add-status-zamovl-label": "Стат. замов:"
+        "add-status-gгest-label": "Стат. гост:",
+        "add-status-zamovl-label": "Стат. зам:"
     }
 
 }

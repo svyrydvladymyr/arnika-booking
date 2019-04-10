@@ -574,6 +574,8 @@ let AJAX = (function(){
                     } else {
                         SE.$("list-zvit-wrap-period").style.display = "none";
                         SE.$("list-zvit-wrap-period").innerHTML = "";
+                        SE.$("sum-sum").innerHTML = "";
+                        SE.$("sum-sum-rez").innerHTML = "";
                     }                 
             }
         }

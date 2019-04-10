@@ -58,6 +58,7 @@
     margin: 0px;
     width: 100px;
     font-size: 14px;
+    overflow: hidden;
     font-weight: bold;
     color: #111111;
     padding: 0px 1px;
@@ -710,13 +711,14 @@
     .list-zvit-title-period p:nth-child(4) {
         width: 55px;
         padding: 5px 20px;
-        font-size: 11px;
+        font-size: 12px;
     }
 
     .list-zvit-body-period p:nth-child(4) {
         width: 55px;
         padding: 5px 0px;
-        font-size: 11px;
+        font-size: 9px;
+        overflow: hidden;
     }
     
     .list-zvit-title-period p:nth-child(5) {

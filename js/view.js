@@ -120,6 +120,9 @@ let VW = (function(){
                 if(SE.$(idF).value == ""){
                     SE.iconON(errorF, trueF, "false");
                     SE.setMessage(`message-${idF}`, "table", "#111111", "Не може бути пустим!");
+                    SE.$("send").removeEventListener("click", SE.sendToDB);
+                    SE.$("send").style.background = "linear-gradient(to bottom right, #000000, #d3d3d3, #000000)";
+                    SE.$("send").style.cursor = "no-drop";
                     SE.readyToSend(idF, "");
                 } else {
                     //phone exclusion
@@ -135,7 +138,7 @@ let VW = (function(){
                         SE.iconON(errorF, trueF, "true");
                         SE.setMessage(`message-${idF}`, "none", "", "");
                         SE.readyToSend(idF, SE.$(idF).value);
-
+                        SE.$("send").addEventListener("click", SE.sendToDB);
                     }
                 }
             }); 
@@ -147,12 +150,19 @@ let VW = (function(){
         if (new RegExp(reg, "gi").test(SE.$(idF).value) == true){
             SE.iconON(errorF, trueF, "true");
             SE.setMessage(`message-${idF}`, "none", "", "");
+            SE.$("send").addEventListener("click", SE.sendToDB);
         } else {
             SE.iconON(errorF, trueF, "false");
             if (SE.$(idF).id == "add-tel"){
                 SE.setMessage(`message-${idF}`, "table", "#111111", "Тільки цифри!");
+                SE.$("send").removeEventListener("click", SE.sendToDB);
+                SE.$("send").style.background = "linear-gradient(to bottom right, #000000, #d3d3d3, #000000)";
+                SE.$("send").style.cursor = "no-drop";
             } else {
                 SE.setMessage(`message-${idF}`, "table", "#111111", "Тільки букви!");
+                SE.$("send").removeEventListener("click", SE.sendToDB);
+                SE.$("send").style.background = "linear-gradient(to bottom right, #000000, #d3d3d3, #000000)";
+                SE.$("send").style.cursor = "no-drop";
             }
         }
     };
