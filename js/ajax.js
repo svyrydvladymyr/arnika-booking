@@ -172,11 +172,9 @@ let AJAX = (function(){
                         //cut first and last symbol in Object
                         trimObg = this.responseText.trim();
                         getLength = trimObg.length-1; 
-                        res = trimObg.slice(1, getLength);               
-                        
+                        res = trimObg.slice(1, getLength);           
                         //parse Object
                         myObj = JSON.parse(res);
-                    
                         //get admin name and push to prototype
                         let price = `${myObj.price}`;
                         let priceParse = parseInt(price);
@@ -193,15 +191,15 @@ let AJAX = (function(){
 
   
     // function for add to DB
-    let addToDB = function(proto){
+    let addToDB = function(){
         SE.$("send").removeEventListener("click", SE.sendToDB);
         let obj, dbParam, xmlhttp, priseResult, priceOrigin, urlToDB;
             //st price for guest or worker
-            if (proto.statusgгestSend == "worker"){
-                priceOrigin = proto.priceSend;
+            if (sendReadyObg.addstatusgгest == "worker"){
+                priceOrigin = sendReadyObg.price;
                 priseResult = priceOrigin / 2;
             } else {
-                priseResult = proto.priceSend;
+                priseResult = sendReadyObg.price;
             }
             //set url for send
             if (sessionStorage.arnikatabs == "two"){
@@ -211,14 +209,15 @@ let AJAX = (function(){
             }
             //make iteration   
             let day = 0;
-            for(let i = 0; i < proto.kilkSend; i++){
-                let startdata = new Date(proto.startdataSend);
+            for(let i = 0; i < sendReadyObg.addkilk; i++){
+                let startdata = new Date(sendReadyObg.addstartdata);
                 //add day
                 let nextday = new Date(startdata.getFullYear(),startdata.getMonth(),startdata.getDate()+day);
                 day = day + 1;
                 //format date
                 let resDateDZ = nextday.getFullYear() + "-" + SE.readyMonth(nextday) + "-" + SE.readyDay(nextday);
-                obj = { "name":proto.nameSend, "surname":proto.surnameSend, "tel":proto.telSend, "number":proto.nomerSend, "dz":resDateDZ, "kilk":proto.kilkSend, "price":priseResult, "buking":proto.statuszamovlSend, "tip":proto.statusgгestSend, "admin":proto.adminSend, "datazapovn":proto.registrSend};
+                obj = { "name":sendReadyObg.addname, "surname":sendReadyObg.addsurname, "tel":sendReadyObg.addtel, "number":sendReadyObg.addnomer, "dz":resDateDZ, "kilk":sendReadyObg.addkilk, "price":priseResult, "buking":sendReadyObg.addstatuszamovl, "tip":sendReadyObg.addstatusgгest, "admin":sendReadyObg.admin, "datazapovn":sendReadyObg.registr};
+                console.log(obj);
                 dbParam = JSON.stringify(obj);
                 xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
@@ -373,18 +372,7 @@ let AJAX = (function(){
     //update DB
     let upToDB = function(urlUp){
         let obj, dbParam, xmlhttp;
-        //get variables from prototype
-        let protoUpdate = new toUpdate(); 
-        let nameUp = protoUpdate.__proto__.firstname;
-        let surnameUp = protoUpdate.__proto__.lastname;
-        let telUp = protoUpdate.__proto__.telephone;
-        let nomerUp = protoUpdate.__proto__.nomerkimn;
-        let kilkUp = protoUpdate.__proto__.kilkdniv;
-        let datazapisuUp = protoUpdate.__proto__.datazapisu;
-        let statusUp = protoUpdate.__proto__.status;
-        let adminregUp = protoUpdate.__proto__.adminreg;
-        let dateregUp = protoUpdate.__proto__.datereg;
-        obj = {"statusUp":statusUp, "adminregUp":adminregUp, "dateregUp":dateregUp, "surnameUp":surnameUp, "nameUp":nameUp, "telUp":telUp, "nomerUp":nomerUp, "kilkUp":kilkUp, "datazapisuUp":datazapisuUp};
+        obj = {"statusUp":protoUpdate.status, "adminregUp":protoUpdate.adminreg, "dateregUp":protoUpdate.datereg, "surnameUp":protoUpdate.lastname, "nameUp":protoUpdate.firstname, "telUp":protoUpdate.telephone, "nomerUp":protoUpdate.nomerkimn, "kilkUp":protoUpdate.kilkdniv, "datazapisuUp":protoUpdate.datazapisu};
         dbParam = JSON.stringify(obj);
         xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
@@ -395,7 +383,6 @@ let AJAX = (function(){
                     SE.$("send-update").classList.remove("activ-up");
                     SE.$("send-update").removeEventListener("click", SE.updateToDB);
                     SE.$("edit-wrap").style.display = "none";
-                    SE.clearInfoForm();
                     SE.$("edit-wrap-message").style.display = "flex";
                     SE.$("icon-send-up").style.display = "table";
                     //update calendar

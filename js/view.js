@@ -130,16 +130,19 @@ let VW = (function(){
                         if (SE.$(idF).value.length != 9) {
                             SE.iconON(errorF, trueF, "false");
                             SE.setMessage(`message-${idF}`, "table", "#11111", "Не коректний номер!");
+                            SE.$("send").removeEventListener("click", SE.sendToDB);
                             SE.readyToSend(idF, "");
                         } else {
                             SE.readyToSend(idF, SE.$(idF).value);
+                            SE.$("send").addEventListener("click", SE.sendToDB); 
                         }
                     } else {
                         SE.iconON(errorF, trueF, "true");
                         SE.setMessage(`message-${idF}`, "none", "", "");
                         SE.readyToSend(idF, SE.$(idF).value);
-                        SE.$("send").addEventListener("click", SE.sendToDB);
+                        SE.$("send").addEventListener("click", SE.sendToDB); 
                     }
+                    SE.$("send").addEventListener("click", SE.sendToDB); 
                 }
             }); 
         }
@@ -150,7 +153,6 @@ let VW = (function(){
         if (new RegExp(reg, "gi").test(SE.$(idF).value) == true){
             SE.iconON(errorF, trueF, "true");
             SE.setMessage(`message-${idF}`, "none", "", "");
-            SE.$("send").addEventListener("click", SE.sendToDB);
         } else {
             SE.iconON(errorF, trueF, "false");
             if (SE.$(idF).id == "add-tel"){
@@ -221,7 +223,6 @@ let VW = (function(){
         SE.$("edit-wrap").style.display = "flex";
         SE.$("edit-exit").addEventListener("click", function(){
             SE.$("edit-wrap").style.display = "none";
-            SE.clearInfoForm();
         });
         //get variables from attributes node
         let upName, upSurname, upNomer, upTel, upKilk, upGuest;

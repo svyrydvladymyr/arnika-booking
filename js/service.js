@@ -89,29 +89,6 @@ let SE = (function(){
         }
     };
 
-    //function for make prototype for send obgect
-    let readyToSend = function(idF, value){
-        let readyObg = new toSend();
-        //get date registration and push to prototype
-        let dateRegFull = new Date();
-        let dateReg = dateRegFull.getFullYear() + "-" + SE.readyMonth(dateRegFull) + "-" + SE.readyDay(dateRegFull);
-        toSend.prototype.registr = dateReg;
-
-        //replace (-) and push to prototype
-        let idReplace = idF.replace(/[\-]/gi, "");
-        toSend.prototype[idReplace] = value;
-        //for change button
-        let proto = SE.variablesProto();
-        if ((proto.nameSend != "") && (proto.surnameSend != "") && (proto.telSend != "") && (proto.nomerSend != "") && (proto.startdataSend != "") && (proto.kilkSend != "") && (proto.statusgгestSend != "") && (proto.statuszamovlSend != "")){
-            SE.$("send").style.background = "linear-gradient(to bottom right, #0b380b, #53bb53, #0f480f)";
-            SE.$("send").style.cursor = "pointer";
-            SE.setMessage("message-send", "none", "", "");
-        } else {
-            SE.$("send").style.background = "linear-gradient(to bottom right, #000000, #d3d3d3, #000000)";
-            SE.$("send").style.cursor = "no-drop";
-        }
-    };
-
     //function for clear obgect prototype
     let clearObg = function(){
         toSend.prototype.registr = "";
@@ -154,52 +131,6 @@ let SE = (function(){
         SE.$("status-zamovl-error").style.display = "none";
     };
 
-    //get variables from prototype
-    let variablesProto = function(){
-        let readyObg = new toSend();
-        let nameSend = readyObg.__proto__.addname;
-        let surnameSend = readyObg.__proto__.addsurname;
-        let telSend = readyObg.__proto__.addtel;
-        let nomerSend = readyObg.__proto__.addnomer;
-        let startdataSend = readyObg.__proto__.addstartdata;
-        let kilkSend = readyObg.__proto__.addkilk;
-        let statusgгestSend = readyObg.__proto__.addstatusgгest;
-        let statuszamovlSend = readyObg.__proto__.addstatuszamovl;
-        let registrSend = readyObg.__proto__.registr;
-        let priceSend = readyObg.__proto__.price;
-        let adminSend = readyObg.__proto__.admin;
-        return {
-            nameSend,
-            surnameSend,
-            telSend,
-            nomerSend,
-            startdataSend,
-            kilkSend,
-            statusgгestSend,
-            statuszamovlSend,
-            registrSend,
-            priceSend,
-            adminSend            
-        };
-    }
-
-    //function for send to database
-    let sendToDB = function(){
-        let proto =  SE.variablesProto();
-        if ((proto.nameSend == "") || (proto.surnameSend == "") || (proto.telSend == "") || (proto.nomerSend == "") || (proto.startdataSend == "") || (proto.kilkSend == "") || (proto.statusgгestSend == "") || (proto.statuszamovlSend == "")){
-            SE.setMessage("message-send", "table", "red", "Всі поля мають бути заповнені!!!");
-        } else {
-            let login = sessionStorage.arnikalogin; 
-            let password = sessionStorage.arnikapassword; 
-            //chack on true login and password
-            SE.auditLogin(login, password, function(){
-                AJAX.checkUser(login, password, function(){
-                    AJAX.addToDB(proto);        
-                });
-            });
-        }
-    }
-
     //function for clear tabs
     let clearTabs = function(){
         SE.setMessage("message-send", "none", "", "");
@@ -214,6 +145,43 @@ let SE = (function(){
         SE.setMessage("message-add-status-grest", "none", "", "");
         SE.setMessage("message-add-status-zamovl", "none", "", "");
     }
+
+    //function for make prototype for send obgect
+    let readyToSend = function(idF, value){
+        //get date registration and push to prototype
+        let dateRegFull = new Date();
+        let dateReg = dateRegFull.getFullYear() + "-" + SE.readyMonth(dateRegFull) + "-" + SE.readyDay(dateRegFull);
+        toSend.prototype.registr = dateReg;
+        //replace (-) and push to prototype
+        let idReplace = idF.replace(/[\-]/gi, "");
+        toSend.prototype[idReplace] = value;
+        //for change button
+        if ((sendReadyObg.addname != "") && (sendReadyObg.addsurname != "") && (sendReadyObg.addtel != "") && (sendReadyObg.addnomer != "") && (sendReadyObg.addstartdata != "") && (sendReadyObg.addkilk != "") && (sendReadyObg.addstatusgгest != "") && (sendReadyObg.addstatuszamovl != "")){
+            SE.$("send").style.background = "linear-gradient(to bottom right, #0b380b, #53bb53, #0f480f)";
+            SE.$("send").style.cursor = "pointer";
+            SE.setMessage("message-send", "none", "", "");
+            SE.$("send").addEventListener("click", SE.sendToDB); 
+        } else {
+            SE.$("send").style.background = "linear-gradient(to bottom right, #000000, #d3d3d3, #000000)";
+            SE.$("send").style.cursor = "no-drop";
+        }
+    };
+
+    //function for send to database
+    let sendToDB = function(){
+        if ((sendReadyObg.addname == "") || (sendReadyObg.addsurname == "") || (sendReadyObg.addtel == "") || (sendReadyObg.addnomer == "") || (sendReadyObg.addstartdata == "") || (sendReadyObg.addkilkSend == "") || (sendReadyObg.addstatusgгest == "") || (sendReadyObg.addstatuszamovl == "")){
+            SE.setMessage("message-send", "table", "red", "Всі поля мають бути заповнені!!!");
+        } else {
+            let login = sessionStorage.arnikalogin; 
+            let password = sessionStorage.arnikapassword; 
+            //chack on true login and password
+            SE.auditLogin(login, password, function(){
+                AJAX.checkUser(login, password, function(){
+                    AJAX.addToDB();        
+                });
+            });
+        }
+    };
 
     //for set present date
     let presentDate = function(){
@@ -281,24 +249,6 @@ let SE = (function(){
         }
         VW.selectPresentDay();
     }    
-
-    //clear info form
-    let clearInfoForm = function(){
-        SE.$("edit-list-surname").innerHTML = "";
-        SE.$("edit-list-name").innerHTML = "";
-        SE.$("edit-list-tel").innerHTML = "";
-        SE.$("edit-list-nomer").innerHTML = "";
-        SE.$("edit-list-kilk").innerHTML = "";
-        SE.$("edit-list-price").innerHTML = "";
-        SE.$("edit-list-sum").innerHTML = "";
-        SE.$("edit-list-guest").innerHTML = "";
-        SE.$("edit-list-date").innerHTML = "";
-        SE.$("edit-admin").innerHTML = "";
-        SE.$("edit-date-zapisu").innerHTML = "";
-        SE.$("info-date-up").style.display = "none";
-        SE.$("edit-admin-apdate").innerHTML = "";
-        SE.$("edit-date-update").innerHTML = "";
-    }
 
     //function for add variables to prototype
     let addToUpdareProto = function(protoUp){
@@ -368,12 +318,10 @@ let SE = (function(){
         clearObg:clearObg,
         clearValue:clearValue,
         clearIcon:clearIcon,
-        variablesProto:variablesProto,
         sendToDB:sendToDB,
         clearTabs:clearTabs,
         presentDate:presentDate,
         setDaysToCalendar:setDaysToCalendar,
-        clearInfoForm:clearInfoForm,
         addToUpdareProto:addToUpdareProto,
         updateToDB:updateToDB,
         reloadPeriod:reloadPeriod
