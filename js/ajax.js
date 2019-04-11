@@ -33,8 +33,6 @@ let AJAX = (function(){
     // function for autorisation
     let checkUser = function(login, password, funCall){
         let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res;
-        console.log(login);
-        console.log(password);
             let resLogin = login.replace(new RegExp(REG.exp().loginCut, "gi"), '');
             let resPassword = password.replace(new RegExp(REG.exp().passwordCut, "gi"), '');
             //check on true and create object for send to backend
@@ -122,7 +120,7 @@ let AJAX = (function(){
         } else if(sessionStorage.arnikatabs == "three"){
             urlGetRoom = "php/getroomThree.php?x=";
         }  
-            obj = { "room":room, "date":date};
+            obj = { "room":room, "date":date, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
             dbParam = JSON.stringify(obj);
             xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
@@ -162,7 +160,7 @@ let AJAX = (function(){
     // function for get price
     let getPrice = function(room){
         let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res, urlPrice;
-            obj = {"room":room};
+            obj = {"room":room, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
             //select get request
             if (sessionStorage.arnikatabs == "two"){
                 urlPrice = "php/priceTwo.php?x=";
@@ -225,8 +223,7 @@ let AJAX = (function(){
                 day = day + 1;
                 //format date
                 let resDateDZ = nextday.getFullYear() + "-" + SE.readyMonth(nextday) + "-" + SE.readyDay(nextday);
-                obj = { "name":sendReadyObg.addname, "surname":sendReadyObg.addsurname, "tel":sendReadyObg.addtel, "number":sendReadyObg.addnomer, "dz":resDateDZ, "kilk":sendReadyObg.addkilk, "price":priseResult, "buking":sendReadyObg.addstatuszamovl, "tip":sendReadyObg.addstatusgгest, "admin":sendReadyObg.admin, "datazapovn":sendReadyObg.registr};
-                console.log(obj);
+                obj = { "name":sendReadyObg.addname, "surname":sendReadyObg.addsurname, "tel":sendReadyObg.addtel, "number":sendReadyObg.addnomer, "dz":resDateDZ, "kilk":sendReadyObg.addkilk, "price":priseResult, "buking":sendReadyObg.addstatuszamovl, "tip":sendReadyObg.addstatusgгest, "admin":sendReadyObg.admin, "datazapovn":sendReadyObg.registr, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
                 dbParam = JSON.stringify(obj);
                 xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
@@ -267,7 +264,7 @@ let AJAX = (function(){
     //for get busy room
     let getBusyRoom = function(busyDte, urlBusy){
         let obj, dbParam, xmlhttp, trimObg, myObj;
-        obj = { "dz":busyDte};
+        obj = { "dz":busyDte, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
         dbParam = JSON.stringify(obj);
         xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
@@ -292,7 +289,7 @@ let AJAX = (function(){
     //get rooms to list for edit
     let getRoomCalendar = function(date, urlDate){
         let obj, dbParam, xmlhttp, trimObg, myObj;
-        obj = { "dz":date};
+        obj = { "dz":date, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
         dbParam = JSON.stringify(obj);
         xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
@@ -358,7 +355,7 @@ let AJAX = (function(){
     //for set to update form
     let setToEdit = function(upSurame, upName, upNomer, upTel, upKilk, urlUpdate){
         let obj, dbParam, xmlhttp, trimObg, myObj;
-        obj = { "lastname":upSurame, "firstname":upName, "nomerkimn":upNomer, "telephone":upTel, "kilkdniv":upKilk};
+        obj = { "lastname":upSurame, "firstname":upName, "nomerkimn":upNomer, "telephone":upTel, "kilkdniv":upKilk, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
         dbParam = JSON.stringify(obj);
         xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
@@ -381,7 +378,7 @@ let AJAX = (function(){
     //update DB
     let upToDB = function(urlUp){
         let obj, dbParam, xmlhttp;
-        obj = {"statusUp":protoUpdate.status, "adminregUp":protoUpdate.adminreg, "dateregUp":protoUpdate.datereg, "surnameUp":protoUpdate.lastname, "nameUp":protoUpdate.firstname, "telUp":protoUpdate.telephone, "nomerUp":protoUpdate.nomerkimn, "kilkUp":protoUpdate.kilkdniv, "datazapisuUp":protoUpdate.datazapisu};
+        obj = {"statusUp":protoUpdate.status, "adminregUp":protoUpdate.adminreg, "dateregUp":protoUpdate.datereg, "surnameUp":protoUpdate.lastname, "nameUp":protoUpdate.firstname, "telUp":protoUpdate.telephone, "nomerUp":protoUpdate.nomerkimn, "kilkUp":protoUpdate.kilkdniv, "datazapisuUp":protoUpdate.datazapisu, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
         dbParam = JSON.stringify(obj);
         xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
@@ -438,7 +435,7 @@ let AJAX = (function(){
     //get rooms to list for period
     let getRoomPeriod = function(listZ, listPO, listStatus, sorts, urlPeriod){
         let obj, dbParam, xmlhttp, trimObg, myObj;
-        obj = { "listZ":listZ, "listPO":listPO, "listStatus":listStatus};
+        obj = { "listZ":listZ, "listPO":listPO, "listStatus":listStatus, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
         //show period list
         SE.$("list-zvit-wrap").innerHTML = "";
         SE.$("list-zvit-wrap-period").style.display = "table";

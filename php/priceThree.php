@@ -2,11 +2,20 @@
 
 <?php
 $obj = json_decode($_GET["x"], false);
+$objs = json_decode($_GET["x"], false);
 $conn = new mysqli($servername, $username, $password, $dbname);
-$stmt = $conn->prepare("SELECT price FROM priceGurtThree WHERE room = ?");
-$stmt->bind_param("s", $obj->room);
+$stmt = $conn->prepare("SELECT login, password FROM users WHERE login = ? AND password = ?");
+$stmt->bind_param("ss", $obj->login, $obj->password);
 $stmt->execute();
 $result = $stmt->get_result();
 $outp = $result->fetch_all(MYSQLI_ASSOC);
-echo json_encode($outp);
+// echo json_encode($outp);
+if ($outp != []){
+    $stmts = $conn->prepare("SELECT price FROM priceGurtThree WHERE room = ?");
+    $stmts->bind_param("s", $objs->room);
+    $stmts->execute();
+    $results = $stmts->get_result();
+    $outps = $results->fetch_all(MYSQLI_ASSOC);
+    echo json_encode($outps);
+}
 ?>
