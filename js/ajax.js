@@ -33,6 +33,8 @@ let AJAX = (function(){
     // function for autorisation
     let checkUser = function(login, password, funCall){
         let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res;
+        console.log(login);
+        console.log(password);
             let resLogin = login.replace(new RegExp(REG.exp().loginCut, "gi"), '');
             let resPassword = password.replace(new RegExp(REG.exp().passwordCut, "gi"), '');
             //check on true and create object for send to backend
@@ -51,21 +53,22 @@ let AJAX = (function(){
                     trimObg = this.responseText.trim();
                     getLength = trimObg.length-1; 
                     res = trimObg.slice(1, getLength);               
-                    
                     //parse Object
-                    myObj = JSON.parse(res);
-                    SE.$("demo").innerHTML = `${myObj.surname} ${myObj.name}`;
-                    
-                    //get admin name and push to prototype
-                    let admin = `${myObj.surname} ${myObj.name}`;
-                    toSend.prototype.admin = admin;
-                    
-                    //if get accesses set session
-                    sessionStorage.arnikalogin = myObj.login;
-                    sessionStorage.arnikapassword = myObj.password;
-                    
-                    //if get accesses show hidden DOM
-                    funCall(); 
+                    if (res != ""){
+                        myObj = JSON.parse(res);
+                        SE.$("demo").innerHTML = `${myObj.surname} ${myObj.name}`;
+                        
+                        //get admin name and push to prototype
+                        let admin = `${myObj.surname} ${myObj.name}`;
+                        toSend.prototype.admin = admin;
+                        
+                        //if get accesses set session
+                        sessionStorage.arnikalogin = myObj.login;
+                        sessionStorage.arnikapassword = myObj.password;
+                        
+                        //if get accesses show hidden DOM
+                        funCall(); 
+                    }
                 }
             };
             xmlhttp.open("GET", "php/enter.php?x=" + dbParam, true);
@@ -78,21 +81,25 @@ let AJAX = (function(){
         let dateStart = SE.$("add-start-data").value;
         let kilkDay = SE.$("add-kilk").value;
         if ((numRoom != "") && (dateStart != "") & (kilkDay != "")){
-            let day = 0;
-            for(let i = 0; i < kilkDay; i++){
-                let result = new Date(dateStart);
-                //add day
-                let nextday = new Date(result.getFullYear(),result.getMonth(),result.getDate()+day);
-                day = day + 1;
-                //format date
-                let resDate = nextday.getFullYear() + "-" + SE.readyMonth(nextday) + "-" + SE.readyDay(nextday);
-                //run function for get room on this date
-                AJAX.getRoom(numRoom, resDate);
-            } 
+            SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                    let day = 0;
+                    for(let i = 0; i < kilkDay; i++){
+                        let result = new Date(dateStart);
+                        //add day
+                        let nextday = new Date(result.getFullYear(),result.getMonth(),result.getDate()+day);
+                        day = day + 1;
+                        //format date
+                        let resDate = nextday.getFullYear() + "-" + SE.readyMonth(nextday) + "-" + SE.readyDay(nextday);
+                        //run function for get room on this date
+                        AJAX.getRoom(numRoom, resDate);
+                    } 
+                    //show true on icon
+                    SE.iconON("room-error", "room-true", "true");
+                });
+            });
             //clear message
-            SE.setMessage("message-room", "none", "", "Кімната зайнята на:");
-            //show true on icon
-            SE.iconON("room-error", "room-true", "true");
+            SE.setMessage("message-room", "none", "", "Кімната зайнята на:");            
             //if all true, push to obgect prototype 
             SE.readyToSend("add-nomer", SE.$("add-nomer").value);
             SE.readyToSend("add-start-data", SE.$("add-start-data").value);
@@ -174,12 +181,14 @@ let AJAX = (function(){
                         getLength = trimObg.length-1; 
                         res = trimObg.slice(1, getLength);           
                         //parse Object
-                        myObj = JSON.parse(res);
-                        //get admin name and push to prototype
-                        let price = `${myObj.price}`;
-                        let priceParse = parseInt(price);
-                        toSend.prototype.price = priceParse;
-                        SE.setMessage("message-price", "table", "green", `${price}`);   
+                        if (res != ""){
+                            myObj = JSON.parse(res);
+                            //get admin name and push to prototype
+                            let price = `${myObj.price}`;
+                            let priceParse = parseInt(price);
+                            toSend.prototype.price = priceParse;
+                            SE.setMessage("message-price", "table", "green", `${price}`);  
+                        } 
                     }  else {
                         console.log(this.responseText);
                     }

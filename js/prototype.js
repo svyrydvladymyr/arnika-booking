@@ -2,12 +2,11 @@ class toSend{
     constructor(){
     }
 }
-let sendReadyObg = new toSend();
+const sendReadyObg = new toSend();
 
 class toUpdate{
     constructor(){
     }
 }
-
-let protoUpdate = new toUpdate(); 
+const protoUpdate = new toUpdate(); 
 

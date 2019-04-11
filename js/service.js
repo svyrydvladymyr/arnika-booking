@@ -190,7 +190,7 @@ let SE = (function(){
         let calYear = calDate.getFullYear();
         SE.$("cal-year").value = calYear;
         SE.$("cal-mounth").value = calMounth;
-    }
+    };
 
     //for set days in calendar
     let setDaysToCalendar  = function(){
@@ -220,8 +220,8 @@ let SE = (function(){
                 AJAX.getBusyRoom(busyDte, "php/busyRoomTwo.php?x=");
             } else if (sessionStorage.arnikatabs == "three"){
                 AJAX.getBusyRoom(busyDte, "php/busyRoomThree.php?x=");
-            }
-        }   
+            }               
+        }                   
         //add color for holidays     
         for (let i = 1; i <= kilkDay; i++){
             let getID = document.getElementsByClassName("full-day");
@@ -296,12 +296,16 @@ let SE = (function(){
         //get sort from session
         let sorts = sessionStorage.sortuvannia;
         if ((listZ != "") && (listPO != "")){
-            if (sessionStorage.arnikatabs == "two"){
-                AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodTwo.php?x=");
-            } else if(sessionStorage.arnikatabs == "three"){
-                AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodThree.php?x=");
-            } 
-        }  
+            SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                    if (sessionStorage.arnikatabs == "two"){
+                        AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodTwo.php?x=");
+                    } else if(sessionStorage.arnikatabs == "three"){
+                        AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodThree.php?x=");
+                    }                 
+                });
+            });
+        };  
     };
 
     return {

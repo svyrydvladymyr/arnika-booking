@@ -29,14 +29,12 @@ window.onload = function(){
         //check session and if true autorisation
         SE.auditLogin(login, password, function(){
             AJAX.checkUser(login, password, function(){
-                VW.makeDOM();
-
+                VW.makeDOM(function(){
+                    SE.setDaysToCalendar();
+                });
             });
         });
     }
-
-    //set days to calendar 
-    SE.setDaysToCalendar();
 
     //set limitation to choice date zvit
     document.getElementById("id-z").onchange = function () {
@@ -185,7 +183,11 @@ window.onload = function(){
         
         //for set date in calendar, on change selected year
         SE.$("cal-year").addEventListener("change", function(){
-            SE.setDaysToCalendar();
+            SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                    SE.setDaysToCalendar();
+                });
+            });
             SE.$("list-zvit-wrap").innerHTML = "";
             //for select day
             let v = document.getElementsByClassName("full-day");
@@ -198,7 +200,11 @@ window.onload = function(){
 
         //for set date in calendar, on change selected month
         SE.$("cal-mounth").addEventListener("change", function(){
-            SE.setDaysToCalendar();
+            SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                    SE.setDaysToCalendar();
+                });
+            });
             SE.$("list-zvit-wrap").innerHTML = "";
             //for select day
             let v = document.getElementsByClassName("full-day");
@@ -226,20 +232,16 @@ window.onload = function(){
 
 
         //list for the period on change Z
-        let listStatus, sorts;
         SE.$("id-z").addEventListener("change", SE.reloadPeriod);   
 
         //list for the period on change PO
         SE.$("id-po").addEventListener("change", SE.reloadPeriod);   
-        
+       
         //list for the period on change STATUS
         let radioss = document.getElementsByName('id-status');
-        for(let i = 0; i < radioss.length; i++){
-            radioss[i].addEventListener("change", SE.reloadPeriod);  
-
-        }
-        
-
+            for(let i = 0; i < radioss.length; i++){
+                radioss[i].addEventListener("change", SE.reloadPeriod);         
+            }
 
 
     //addEventListener(s) end +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      

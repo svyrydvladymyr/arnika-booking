@@ -19,7 +19,9 @@ let VW = (function(){
                 //chack access to DB
                 SE.auditLogin(inputLogin, inputPassword, function(){
                     AJAX.checkUser(inputLogin, inputPassword, function(){
-                        VW.makeDOM();
+                        VW.makeDOM(function(){
+                            SE.setDaysToCalendar();
+                        });
                     });
                 });
             }
@@ -35,7 +37,7 @@ let VW = (function(){
     };
 
     //function for create DOM
-    let makeDOM = function(){
+    let makeDOM = function(fun){
         let logIn = SE.$("send-login-close");
         logIn.classList = "click-login-exit";
         SE.setSettings("ВИХІД");
@@ -46,6 +48,7 @@ let VW = (function(){
             SE.$("demo-wrap").style.display = "flex";
         };
         setTimeout(timeOut, 1000);
+        fun();
     };
     
     //change tab one an clear all for tab two
@@ -63,7 +66,11 @@ let VW = (function(){
         SE.clearObg();
         SE.clearValue();
         SE.clearIcon();
-        SE.setDaysToCalendar();
+        SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+            AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                SE.setDaysToCalendar();
+            });
+        });
         SE.$("list-zvit-wrap").innerHTML = "";
         //reload period list 
             setTimeout(function(){
@@ -89,7 +96,11 @@ let VW = (function(){
         SE.clearObg();
         SE.clearValue();
         SE.clearIcon();
-        SE.setDaysToCalendar();
+        SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+            AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                SE.setDaysToCalendar();
+            });
+        });        
         SE.$("list-zvit-wrap").innerHTML = "";
         //reload period list 
         setTimeout(function(){
@@ -190,13 +201,17 @@ let VW = (function(){
             SE.$(presDayShow).style.border = "1px solid red";
             SE.$(presDayShow).style.backgroundColor = "#fffbd2";
             //set url for select present day
-            if (sessionStorage.arnikatabs == "two"){
-                SE.$("list-zvit-wrap").style.display = "table";
-                AJAX.getRoomCalendar(presDayShow, "php/getRoomCalTwo.php?x=");
-            } else if (sessionStorage.arnikatabs == "three"){
-                SE.$("list-zvit-wrap").style.display = "table";
-                AJAX.getRoomCalendar(presDayShow, "php/getRoomCalThree.php?x=");
-            }
+            SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                    if (sessionStorage.arnikatabs == "two"){
+                        SE.$("list-zvit-wrap").style.display = "table";
+                        AJAX.getRoomCalendar(presDayShow, "php/getRoomCalTwo.php?x=");
+                    } else if (sessionStorage.arnikatabs == "three"){
+                        SE.$("list-zvit-wrap").style.display = "table";
+                        AJAX.getRoomCalendar(presDayShow, "php/getRoomCalThree.php?x=");
+                    }
+                });
+            });
         }
     };
 
@@ -209,13 +224,17 @@ let VW = (function(){
         }
         SE.$(cell.id).classList.add("cal-activ");
         //set url for select day
-        if (sessionStorage.arnikatabs == "two"){
-            SE.$("list-zvit-wrap").style.display = "table";
-            AJAX.getRoomCalendar(cell.id, "php/getRoomCalTwo.php?x=");
-        } else if (sessionStorage.arnikatabs == "three"){
-            SE.$("list-zvit-wrap").style.display = "table";
-            AJAX.getRoomCalendar(cell.id, "php/getRoomCalThree.php?x=");
-        }
+        SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+            AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+                if (sessionStorage.arnikatabs == "two"){
+                    SE.$("list-zvit-wrap").style.display = "table";
+                    AJAX.getRoomCalendar(cell.id, "php/getRoomCalTwo.php?x=");
+                } else if (sessionStorage.arnikatabs == "three"){
+                    SE.$("list-zvit-wrap").style.display = "table";
+                    AJAX.getRoomCalendar(cell.id, "php/getRoomCalThree.php?x=");
+                }
+            });
+        });
     };   
     
     //show form for edit
