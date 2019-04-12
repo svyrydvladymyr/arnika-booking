@@ -183,11 +183,7 @@ window.onload = function(){
         
         //for set date in calendar, on change selected year
         SE.$("cal-year").addEventListener("change", function(){
-            SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-                AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-                    SE.setDaysToCalendar();
-                });
-            });
+            SE.setDaysToCalendar();
             SE.$("list-zvit-wrap").innerHTML = "";
             //for select day
             let v = document.getElementsByClassName("full-day");
@@ -200,11 +196,7 @@ window.onload = function(){
 
         //for set date in calendar, on change selected month
         SE.$("cal-mounth").addEventListener("change", function(){
-            SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-                AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-                    SE.setDaysToCalendar();
-                });
-            });
+            SE.setDaysToCalendar();
             SE.$("list-zvit-wrap").innerHTML = "";
             //for select day
             let v = document.getElementsByClassName("full-day");
@@ -230,7 +222,6 @@ window.onload = function(){
             SE.$("send-update").addEventListener("click", SE.updateToDB);
         });
 
-
         //list for the period on change Z
         SE.$("id-z").addEventListener("change", SE.reloadPeriod);   
 
@@ -243,9 +234,7 @@ window.onload = function(){
                 radioss[i].addEventListener("change", SE.reloadPeriod);         
             }
 
-
-    //addEventListener(s) end +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++      
-
+    //addEventListener(s) end +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   
 };
 
 

@@ -1,0 +1,35 @@
+1. секюріті 
+в тебе на головній сторінці ідуть ріквести на бекенд 
+1.1 вони проходять без авторизації
+http://arnika-booking.ifnmu.edu.ua/php/getRoomCalTwo.php?x={%22dz%22:%222019-04-12%22}
+1.2 заходжу під любим акаунтом:
+в консолі запускаю:
+sessionStorage.arnikalogin = 'jb'
+sessionStorage.arnikapassword = 'jb'
+Не впевнений шо ці дві навтіь потрібні а потім:
+VW.makeDOM() додає весь юай і всі дані показуються
+1.3 формочка не відсилається коли я хаком зайшов, але якшо теж напряму відсилаєтсья норм якшо з консолі AJAX.addToDB(proto)
+1.4 можу полазити по каталогах (не дуже критично думаю)
+http://arnika-booking.ifnmu.edu.ua/php/
+http://arnika-booking.ifnmu.edu.ua/css/
+http://arnika-booking.ifnmu.edu.ua/img/
+
+2. код
+2.1 в тебе тут є let і інтерполяція стрінгів. це ЕС6 воно не працює в ІЕ старіших. це ок? якшо так то можеш юзати і інгші фічі ЕС6 ))
+2.2 називай поля англійською і давай якісь імена які інші зрозуміють сходу, скорочувати немає сенсу)
+2.3 DontRepeaYourself(DRY). винеси те що повторяється 
+2.3.1 наприклад виклик апі метода. в якось функцію send (і їй передавай дані і колбек або проміс нехай вертає)
+2.3.2 сортування теж можеш одним винести в один метод
+arr.sort((a,b)=> {
+    let objectFields =  Object.keys(a);
+    if(objectFields.length === 0) return 0;
+    //TODO: use tolowercase for strings?
+    let sortField = field in a ? field : objectFields[0];
+    if(a[sortField] < b[sortField]) return -1;
+    if(a[sortField] > b[sortField]) return 1;
+    return 0;
+});
+
+
+2.4 старайся обходитися максимально без сетТаймауті, не використовуй їх для очікування чогось
+це те шо встиг глянути
