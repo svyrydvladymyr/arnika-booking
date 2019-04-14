@@ -65,7 +65,7 @@
                 <div class="tab-body-wrap">
                     <div class="tab-body1" id="tab-body1">
                         <!--form-->
-                        <div class="form-wrap">
+                        <div class="form-wrap" id="form-wrap" style="display: block;">
                             <h3 id="form-title-2"></h3>
                             <!--form name-->
                             <div class="form-blok">
@@ -177,7 +177,7 @@
                     <!--zvit wrap-->
                     <div class="tab-body1 zvit">                        
                         <!--report for a day-->
-                        <div class="form-wrap body-zvit1" id="body-zvit1">
+                        <div class="form-wrap2 body-zvit1"  id="form-wrap2" style="display: block;">
                             <h3 id="zvit-title"></h3>
                             <!--calendar-->
                             <div class="cal-wrap">
@@ -235,7 +235,7 @@
 
                     <!--report for the period-->
                     <div class="tab-body1 zvit"> 
-                        <div class="form-wrap body-zvit2" id="body-zvit2">
+                        <div class="form-wrap3 body-zvit2"  id="form-wrap3" style="display: block;">
                             <h3 id="zvit-title2" style="text-indent:0px;"></h3>
                             <!--form-->
                                 <!--Z-->
@@ -262,16 +262,22 @@
                                         <h5 style="width:100%; float:none; margin: 0px; text-align: center;">Виберіть статус:</h5>
                                         <div class="blokinput-wrap-zvit">
                                             <div class="zvit-radio">
+                                                <label for="radio-pay" class="container">Оплач.
                                                 <input type="radio" name="id-status" id="radio-pay" value="pay" checked>
-                                                <label for="radio-pay">Оплач.</label>
+                                                <span class="checkmark"></span>
+                                                </label>
                                             </div>
                                             <div class="zvit-radio">
+                                                <label for="radio-rezerv" class="container">Резерв.
                                                 <input type="radio" name="id-status" id="radio-rezerv" value="rezerv">
-                                                <label for="radio-rezerv">Резерв.</label>
+                                                <span class="checkmark"></span>
+                                                </label>
                                             </div>
                                             <div class="zvit-radio">
+                                                <label for="radio-del" class="container">Видал.
                                                 <input type="radio" name="id-status" id="radio-del" value="del">
-                                                <label for="radio-del">Видал.</label>
+                                                <span class="checkmark"></span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>

@@ -120,80 +120,80 @@ let AJAX = (function(){
         } else if(sessionStorage.arnikatabs == "three"){
             urlGetRoom = "php/getroomThree.php?x=";
         }  
-            obj = { "room":room, "date":date, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
-            dbParam = JSON.stringify(obj);
-            xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    if (this.responseText != "[]"){
-                        //trim obgect
-                        trimObg = this.responseText.trim();
-                        getLength = trimObg.length-1; 
-                        res = trimObg.slice(1, getLength); 
-                        //if result are not empty
-                        if (res != ""){
-                            myRoom = JSON.parse(res);
-                            //create new date from result
-                            let createDate = new Date(myRoom.data_zaizdu);
-                            let resulrDate = SE.readyDay(createDate) + " - " + SE.readyMonth(createDate) + " - " + createDate.getFullYear();
-                            //show message if room not free
-                            setTimeout(function(){
-                                SE.setMessage("message-price", "none", "", ""); 
-                            }, 100);
-                            SE.setMessage("message-price", "none", "", "");
-                            setTimeout(function(){
-                                SE.messageRoom("message-room", "table", "#111111", resulrDate);
-                            }, 200);
-                            SE.iconON("room-error", "room-true", "false");
-                            //clear points in prototype
-                            SE.readyToSend("add-nomer", "");
-                            SE.readyToSend("add-start-data", "");
-                            SE.readyToSend("add-kilk", "");
-                        } 
-                    }                            
-                }
-            };
-            xmlhttp.open("GET", urlGetRoom + dbParam, true);
-            xmlhttp.send();
+        obj = { "room":room, "date":date, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+        dbParam = JSON.stringify(obj);
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText != "[]"){
+                    //trim obgect
+                    trimObg = this.responseText.trim();
+                    getLength = trimObg.length-1; 
+                    res = trimObg.slice(1, getLength); 
+                    //if result are not empty
+                    if (res != ""){
+                        myRoom = JSON.parse(res);
+                        //create new date from result
+                        let createDate = new Date(myRoom.data_zaizdu);
+                        let resulrDate = SE.readyDay(createDate) + " - " + SE.readyMonth(createDate) + " - " + createDate.getFullYear();
+                        //show message if room not free
+                        setTimeout(function(){
+                            SE.setMessage("message-price", "none", "", ""); 
+                        }, 100);
+                        SE.setMessage("message-price", "none", "", "");
+                        setTimeout(function(){
+                            SE.messageRoom("message-room", "table", "#111111", resulrDate);
+                        }, 200);
+                        SE.iconON("room-error", "room-true", "false");
+                        //clear points in prototype
+                        SE.readyToSend("add-nomer", "");
+                        SE.readyToSend("add-start-data", "");
+                        SE.readyToSend("add-kilk", "");
+                    } 
+                }                            
+            }
+        };
+        xmlhttp.open("GET", urlGetRoom + dbParam, true);
+        xmlhttp.send();            
     }; 
 
     // function for get price
     let getPrice = function(room){
         let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res, urlPrice;
-            obj = {"room":room, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
-            //select get request
-            if (sessionStorage.arnikatabs == "two"){
-                urlPrice = "php/priceTwo.php?x=";
-            } else if(sessionStorage.arnikatabs == "three"){
-                urlPrice = "php/priceThree.php?x=";
-            }       
-            dbParam = JSON.stringify(obj);
-            xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    //check on true response
-                    // console.log(this.responseText);
-                    if (this.responseText != "[]"){
-                        //cut first and last symbol in Object
-                        trimObg = this.responseText.trim();
-                        getLength = trimObg.length-1; 
-                        res = trimObg.slice(1, getLength);           
-                        //parse Object
-                        if (res != ""){
-                            myObj = JSON.parse(res);
-                            //get admin name and push to prototype
-                            let price = `${myObj.price}`;
-                            let priceParse = parseInt(price);
-                            toSend.prototype.price = priceParse;
-                            SE.setMessage("message-price", "table", "green", `${price}`);  
-                        } 
-                    }  else {
-                        console.log(this.responseText);
-                    }
+        obj = {"room":room, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+        //select get request
+        if (sessionStorage.arnikatabs == "two"){
+            urlPrice = "php/priceTwo.php?x=";
+        } else if(sessionStorage.arnikatabs == "three"){
+            urlPrice = "php/priceThree.php?x=";
+        }       
+        dbParam = JSON.stringify(obj);
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                //check on true response
+                // console.log(this.responseText);
+                if (this.responseText != "[]"){
+                    //cut first and last symbol in Object
+                    trimObg = this.responseText.trim();
+                    getLength = trimObg.length-1; 
+                    res = trimObg.slice(1, getLength);           
+                    //parse Object
+                    if (res != ""){
+                        myObj = JSON.parse(res);
+                        //get admin name and push to prototype
+                        let price = `${myObj.price}`;
+                        let priceParse = parseInt(price);
+                        toSend.prototype.price = priceParse;
+                        SE.setMessage("message-price", "table", "green", `${price}`);  
+                    } 
+                }  else {
+                    console.log(this.responseText);
                 }
-            };
-            xmlhttp.open("GET", urlPrice + dbParam, true);
-            xmlhttp.send();
+            }
+        };
+        xmlhttp.open("GET", urlPrice + dbParam, true);
+        xmlhttp.send();            
     }; 
 
   
@@ -201,64 +201,64 @@ let AJAX = (function(){
     let addToDB = function(){
         SE.$("send").removeEventListener("click", SE.sendToDB);
         let obj, dbParam, xmlhttp, priseResult, priceOrigin, urlToDB;
-            //st price for guest or worker
-            if (sendReadyObg.addstatusgгest == "worker"){
-                priceOrigin = sendReadyObg.price;
-                priseResult = priceOrigin / 2;
-            } else {
-                priseResult = sendReadyObg.price;
-            }
-            //set url for send
-            if (sessionStorage.arnikatabs == "two"){
-                urlToDB = "php/addToDbTwo.php?x=";
-            } else if(sessionStorage.arnikatabs == "three"){
-                urlToDB = "php/addToDbThree.php?x=";
-            }
-            //make iteration   
-            let day = 0;
-            for(let i = 0; i < sendReadyObg.addkilk; i++){
-                let startdata = new Date(sendReadyObg.addstartdata);
-                //add day
-                let nextday = new Date(startdata.getFullYear(),startdata.getMonth(),startdata.getDate()+day);
-                day = day + 1;
-                //format date
-                let resDateDZ = nextday.getFullYear() + "-" + SE.readyMonth(nextday) + "-" + SE.readyDay(nextday);
-                obj = { "name":sendReadyObg.addname, "surname":sendReadyObg.addsurname, "tel":sendReadyObg.addtel, "number":sendReadyObg.addnomer, "dz":resDateDZ, "kilk":sendReadyObg.addkilk, "price":priseResult, "buking":sendReadyObg.addstatuszamovl, "tip":sendReadyObg.addstatusgгest, "admin":sendReadyObg.admin, "datazapovn":sendReadyObg.registr, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
-                dbParam = JSON.stringify(obj);
-                xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {    
-                        SE.setMessage("autoriz-message-wrap", "none", "", ""); 
-                        let trimRes = this.responseText.trim(); 
-                        //show information after add to DB                       
-                        if (trimRes == "") {
-                            SE.$("send").style.background = "linear-gradient(to bottom right, #000000, #d3d3d3, #000000)";
-                            SE.$("send").style.cursor = "no-drop";
-                            SE.$("icon-send").style.display = "table";
-                            //show message about add to DB
-                            setTimeout(function(){
-                                SE.$("icon-send").style.display = "none";
-                                SE.setMessage("message-send", "table", "green", "Запис додано!");
-                            }, 2000);
-                            //clear message about add to DB and clear form 
-                            setTimeout(function(){
-                                SE.$("send").addEventListener("click", SE.sendToDB);
-                                SE.setMessage("message-send", "none", "", "");
-                                SE.setMessage("message-price", "none", "", "");
-                                SE.clearObg();
-                                SE.clearValue();
-                                SE.clearIcon();
-                                //update calendar
-                                SE.setDaysToCalendar();
-                            }, 4000); 
-                        }  else {
-                            SE.setMessage("message-send", "table", "red", `${this.responseText}`);
-                        }       
-                    }
-                };
-            xmlhttp.open("GET", urlToDB + dbParam, true);
-            xmlhttp.send();
-            } 
+        //st price for guest or worker
+        if (sendReadyObg.addstatusgгest == "worker"){
+            priceOrigin = sendReadyObg.price;
+            priseResult = priceOrigin / 2;
+        } else {
+            priseResult = sendReadyObg.price;
+        }
+        //set url for send
+        if (sessionStorage.arnikatabs == "two"){
+            urlToDB = "php/addToDbTwo.php?x=";
+        } else if(sessionStorage.arnikatabs == "three"){
+            urlToDB = "php/addToDbThree.php?x=";
+        }
+        //make iteration   
+        let day = 0;
+        for(let i = 0; i < sendReadyObg.addkilk; i++){
+            let startdata = new Date(sendReadyObg.addstartdata);
+            //add day
+            let nextday = new Date(startdata.getFullYear(),startdata.getMonth(),startdata.getDate()+day);
+            day = day + 1;
+            //format date
+            let resDateDZ = nextday.getFullYear() + "-" + SE.readyMonth(nextday) + "-" + SE.readyDay(nextday);
+            obj = { "name":sendReadyObg.addname, "surname":sendReadyObg.addsurname, "tel":sendReadyObg.addtel, "number":sendReadyObg.addnomer, "dz":resDateDZ, "kilk":sendReadyObg.addkilk, "price":priseResult, "buking":sendReadyObg.addstatuszamovl, "tip":sendReadyObg.addstatusgгest, "admin":sendReadyObg.admin, "datazapovn":sendReadyObg.registr, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+            dbParam = JSON.stringify(obj);
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {    
+                    SE.setMessage("autoriz-message-wrap", "none", "", ""); 
+                    let trimRes = this.responseText.trim(); 
+                    //show information after add to DB                       
+                    if (trimRes == "") {
+                        SE.$("send").style.background = "linear-gradient(to bottom right, #000000, #d3d3d3, #000000)";
+                        SE.$("send").style.cursor = "no-drop";
+                        SE.$("icon-send").style.display = "table";
+                        //show message about add to DB
+                        setTimeout(function(){
+                            SE.$("icon-send").style.display = "none";
+                            SE.setMessage("message-send", "table", "green", "Запис додано!");
+                        }, 2000);
+                        //clear message about add to DB and clear form 
+                        setTimeout(function(){
+                            SE.$("send").addEventListener("click", SE.sendToDB);
+                            SE.setMessage("message-send", "none", "", "");
+                            SE.setMessage("message-price", "none", "", "");
+                            SE.clearObg();
+                            SE.clearValue();
+                            SE.clearIcon();
+                            //update calendar
+                            SE.setDaysToCalendar();
+                        }, 4000); 
+                    }  else {
+                        SE.setMessage("message-send", "table", "red", `${this.responseText}`);
+                    }       
+                }
+            };
+        xmlhttp.open("GET", urlToDB + dbParam, true);
+        xmlhttp.send();
+        }             
     };  
     
     //for get busy room
@@ -451,43 +451,23 @@ let AJAX = (function(){
                     //if list not empty, push to period list
                     if (myObj.length != 0){
                         SE.$("list-zvit-wrap-period").innerHTML = `<div class="list-zvit-title-period">
-                                                            <p><input type="radio" name="id-sort" id="last_name" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="last_name">Прізвище</p>
+                                                            <p><label for="last_name" class="container2" style="left:3px;">Прізвище<input type="radio" name="id-sort" id="last_name" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="last_name"><span class="checkmark2"></span></label></p>
                                                             <p>Імя</p>
-                                                            <p><input type="radio" name="id-sort" id="nomer_kimn" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="nomer_kimn">Кім</p>
-                                                            <p><input type="radio" name="id-sort" id="data_zaizdu" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="data_zaizdu">Дата</p>
+                                                            <p><label for="nomer_kimn" class="container2">Кім<input type="radio" name="id-sort" id="nomer_kimn" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="nomer_kimn"><span class="checkmark2"></span></label></p>
+                                                            <p><label for="data_zaizdu" class="container2">Дата<input type="radio" name="id-sort" id="data_zaizdu" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="data_zaizdu"><span class="checkmark2"></span></label></p>
                                                             <p>Ціна</p>
                                                             <p>Гість</p>
                                                             <p>Статус</p>
                                                             <p></p></div>`;
                         let v = document.getElementsByClassName("far fa-edit");
                         let status, guest;
-                        //sort obgect by "data_zaizdu"
+                        //sort obgect 
                         if (sorts == "data_zaizdu"){
-                            myObj.sort(function(a, b){
-                                let x = a.data_zaizdu.toLowerCase();
-                                let y = b.data_zaizdu.toLowerCase();
-                                if (x < y) {return -1;}
-                                if (x > y) {return 1;}
-                                return 0;
-                            });
-                        //sort obgect by "last_name"    
+                            SE.sortList(myObj, "data_zaizdu");
                         } else if (sorts == "last_name"){
-                            myObj.sort(function(a, b){
-                                let x = a.last_name.toLowerCase();
-                                let y = b.last_name.toLowerCase();
-                                if (x < y) {return -1;}
-                                if (x > y) {return 1;}
-                                return 0;
-                            });
-                        //sort obgect by "nomer_kimn"    
+                            SE.sortList(myObj, "last_name");
                         } else {
-                            myObj.sort(function(a, b){
-                                let x = a.nomer_kimn;
-                                let y = b.nomer_kimn;
-                                if (x < y) {return -1;}
-                                if (x > y) {return 1;}
-                                return 0;
-                            });
+                            SE.sortList(myObj, "nomer_kimn");
                         };  
                         //iteration for show booking list
                         for(let i = 0; i < myObj.length; i++){

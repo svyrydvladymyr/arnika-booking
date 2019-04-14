@@ -83,6 +83,49 @@ window.onload = function(){
             SE.$("tab1").addEventListener("click", VW.clikTabOne);
             SE.$("tab2").addEventListener("click", VW.clikTabTwo);
 
+            //create slider
+            SE.$("form-title-2").addEventListener("click", function(){
+                if (SE.$("form-wrap").style.display === "block"){
+                    SE.$("form-wrap").style.display = "table";
+                } else {
+                    SE.$("form-wrap").style.display = "block";
+                }
+            });
+            SE.$("zvit-title").addEventListener("click", function(){
+                if (SE.$("form-wrap2").style.display === "block"){
+                    SE.$("form-wrap2").style.display = "table";
+                } else {
+                    SE.$("form-wrap2").style.display = "block";
+                }
+            });
+            SE.$("zvit-title2").addEventListener("click", function(){
+                if (SE.$("form-wrap3").style.display === "block"){
+                    SE.$("form-wrap3").style.display = "table";
+                } else {
+                    SE.$("form-wrap3").style.display = "block";
+                }
+            });
+
+            //slider on hover
+            SE.$("form-title-2").addEventListener("mouseover", function(){
+                SE.$("form-wrap").style.boxShadow = "0px 0px 5px grey";
+            });
+            SE.$("form-title-2").addEventListener("mouseout", function(){
+                SE.$("form-wrap").style.boxShadow = "0px 0px 2px grey";  
+            });
+            SE.$("zvit-title").addEventListener("mouseover", function(){
+                SE.$("form-wrap2").style.boxShadow = "0px 0px 5px grey";
+            });
+            SE.$("zvit-title").addEventListener("mouseout", function(){
+                SE.$("form-wrap2").style.boxShadow = "0px 0px 2px grey";
+            });
+            SE.$("zvit-title2").addEventListener("mouseover", function(){
+                SE.$("form-wrap3").style.boxShadow = "0px 0px 5px grey";
+            });
+            SE.$("zvit-title2").addEventListener("mouseout", function(){
+                SE.$("form-wrap3").style.boxShadow = "0px 0px 2px grey";
+            });
+
             //check and cut incorrect symbol form
                 //name-----------------------------------------------------------------------------------
                 SE.$("add-name").addEventListener("change", function(){
