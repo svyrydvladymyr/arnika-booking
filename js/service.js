@@ -92,9 +92,6 @@ let SE = (function(){
     //function for clear obgect prototype
     let clearObg = function(){
         toSend.prototype.registr = "";
-        toSend.prototype.addname = "";
-        toSend.prototype.addsurname = "";
-        toSend.prototype.addtel = "";
         toSend.prototype.addnomer = "";
         toSend.prototype.addstartdata = "";
         toSend.prototype.addkilk = "";
@@ -105,9 +102,6 @@ let SE = (function(){
 
     //function for clear value in inputs
     let clearValue = function(){
-        SE.$("add-name").value = "";
-        SE.$("add-surname").value = "";
-        SE.$("add-tel").value = "";
         SE.$("add-nomer").value = "";
         SE.$("add-start-data").value = "";
         SE.$("add-kilk").value = "";
@@ -117,9 +111,6 @@ let SE = (function(){
 
     //function for clear true icon
     let clearIcon = function(){
-        SE.$("name-true").style.display = "none";
-        SE.$("surname-true").style.display = "none";
-        SE.$("tel-true").style.display = "none";
         SE.$("room-true").style.display = "none";
         SE.$("status-gгest-true").style.display = "none";
         SE.$("status-zamovl-true").style.display = "none";
