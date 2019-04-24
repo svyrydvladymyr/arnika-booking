@@ -31,6 +31,69 @@ let SE = (function(){
         SE.$(box).style.color = color;
     };
 
+    let send = function(objUrlSend){
+        let {obj, urlSend} = objUrlSend;
+        console.log(objUrlSend);
+        console.log(obj);
+        console.log(urlSend);
+        return new Promise(function(resolve, reject){
+            dbParam = JSON.stringify(obj);
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let responses = this.responseText;
+                    if (responses != "[]") {
+                        console.log(responses);
+                        if (responses != "[]") {
+                            console.log(responses);
+                            resolve(responses);
+                        } else {
+                            reject("Невівний логін або пароль...");
+                        }
+                    }
+                }
+            };
+            xmlhttp.open("GET", urlSend + dbParam, true);
+            xmlhttp.send();
+        });
+    };
+
+    //audit login
+    let auditLoginPromise = function(login, password){
+        console.log(login);
+        console.log(password);
+        return new Promise(function(resolve, reject){
+                if ((login != "") && (password != "")) {        
+                    console.log(login);
+                    console.log(password);
+                    
+                    resolve({"login":login, "password":password});
+                } else {
+                    reject("Логін або пароль пусті...");
+                }
+            }
+        );          
+    };
+
+    let checkUserPromise = function(LoginPassword){
+        let {login, password} = LoginPassword;
+        console.log(LoginPassword);
+        console.log(login);
+        console.log(password);
+        let resLogin = login.replace(new RegExp(REG.exp().loginCut, "gi"), '');
+        let resPassword = password.replace(new RegExp(REG.exp().passwordCut, "gi"), '');
+        return new Promise(function(resolve, reject){
+            //check on true and create object for send to backend
+            if ((new RegExp(REG.exp().loginTest, "gi").test(resLogin)) && (new RegExp(REG.exp().passwordTest, "gi").test(resPassword))) {
+                let obj = { "login":login, "password":password};
+                console.log(obj);
+                resolve({"obj":obj, "urlSend":"php/enter.php?x="});
+            } else {
+                reject("Невівний логін або пароль...");
+            }
+        });         
+    };
+
     //audit login
     let auditLogin = function(login, password, fun){
         if ((login != "") && (password != "")) {
@@ -375,6 +438,9 @@ let SE = (function(){
         updateToDB:updateToDB,
         reloadPeriod:reloadPeriod,
         sortList:sortList,
-        checkUser:checkUser
+        checkUser:checkUser,
+        auditLoginPromise:auditLoginPromise,
+        checkUserPromise:checkUserPromise,
+        send:send
     };
 })();

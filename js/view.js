@@ -17,13 +17,15 @@ let VW = (function(){
                 SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Пароль не може бути пустим!!!");
             } else{
                 //chack access to DB
-                SE.auditLogin(inputLogin, inputPassword, function(){
-                    AJAX.checkUser(inputLogin, inputPassword, function(){
-                        VW.makeDOM(function(){
-                            SE.setDaysToCalendar();
-                        });
+                SE.auditLoginPromise(inputLogin, inputPassword)
+                    .then(SE.checkUserPromise)
+                    .then(SE.send)
+                    .then(VW.viewAfterLogin)
+                    .then(VW.makeDOM)
+                    .then(SE.setDaysToCalendar)
+                    .catch(function(err){
+                        console.log(err);
                     });
-                });
             }
         } else if (logIn.classList == "click-login-exit"){
             logIn.classList = "click-login-close";
@@ -35,9 +37,41 @@ let VW = (function(){
             sessionStorage.arnikapassword = "";
         }
     };
+    
+    //function for create DOM after autorisation
+    let viewAfterLogin = function(responses){
+        //check on true response
+        if (responses == "[]"){
+            SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Не вірний логін або пароль");
+        } 
+        //cut first and last symbol in Object
+        trimObg = responses.trim();
+        getLength = trimObg.length-1; 
+        res = trimObg.slice(1, getLength);   
+        //parse Object
+        return new Promise(function(resolve, reject){
+            if (res != ""){
+                myObj = JSON.parse(res);
+                SE.$("demo").innerHTML = `${myObj.surname} ${myObj.name}`;
+                
+                //get admin name and push to prototype
+                let admin = `${myObj.surname} ${myObj.name}`;
+                toSend.prototype.admin = admin;
+                
+                //if get accesses set session
+                sessionStorage.arnikalogin = myObj.login;
+                sessionStorage.arnikapassword = myObj.password;
+                
+                //if get accesses show hidden DOM
+                resolve();
+            } else {
+                reject("Не вірний логін або пароль...");
+            }
+        });    
+    };
 
     //function for create DOM
-    let makeDOM = function(fun){
+    let makeDOM = function(){
         let logIn = SE.$("send-login-close");
         logIn.classList = "click-login-exit";
         SE.setSettings("ВИХІД");
@@ -48,7 +82,9 @@ let VW = (function(){
             SE.$("demo-wrap").style.display = "flex";
         };
         setTimeout(timeOut, 1000);
-        fun();
+        return new Promise(function(resolve){
+            resolve();
+        });
     };
     
     //change tab one an clear all for tab two
@@ -301,7 +337,8 @@ let VW = (function(){
         selectPresentDay:selectPresentDay,
         selectDay:selectDay,
         getEditList:getEditList,
-        setToUpdate:setToUpdate
+        setToUpdate:setToUpdate,
+        viewAfterLogin:viewAfterLogin
     };
 
 })();

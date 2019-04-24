@@ -30,48 +30,48 @@ let AJAX = (function(){
         file.send(null);
     };
 
-    // function for autorisation
-    let checkUser = function(login, password, funCall){
-        let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res;
-            let resLogin = login.replace(new RegExp(REG.exp().loginCut, "gi"), '');
-            let resPassword = password.replace(new RegExp(REG.exp().passwordCut, "gi"), '');
-            //check on true and create object for send to backend
-            if ((new RegExp(REG.exp().loginTest, "gi").test(resLogin)) && (new RegExp(REG.exp().passwordTest, "gi").test(resPassword))) {
-                obj = { "login":login, "password":password};
-            }
-            dbParam = JSON.stringify(obj);
-            xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    //check on true response
-                    if (this.responseText = "[]"){
-                        SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Не вірний логін або пароль");
-                    } 
-                    //cut first and last symbol in Object
-                    trimObg = this.responseText.trim();
-                    getLength = trimObg.length-1; 
-                    res = trimObg.slice(1, getLength);               
-                    //parse Object
-                    if (res != ""){
-                        myObj = JSON.parse(res);
-                        SE.$("demo").innerHTML = `${myObj.surname} ${myObj.name}`;
-                        
-                        //get admin name and push to prototype
-                        let admin = `${myObj.surname} ${myObj.name}`;
-                        toSend.prototype.admin = admin;
-                        
-                        //if get accesses set session
-                        sessionStorage.arnikalogin = myObj.login;
-                        sessionStorage.arnikapassword = myObj.password;
-                        
-                        //if get accesses show hidden DOM
-                        funCall(); 
-                    }
-                }
-            };
-            xmlhttp.open("GET", "php/enter.php?x=" + dbParam, true);
-            xmlhttp.send();
-    }; 
+                        // function for autorisation
+                        let checkUser = function(login, password, funCall){
+                            let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res;
+                                let resLogin = login.replace(new RegExp(REG.exp().loginCut, "gi"), '');
+                                let resPassword = password.replace(new RegExp(REG.exp().passwordCut, "gi"), '');
+                                //check on true and create object for send to backend
+                                if ((new RegExp(REG.exp().loginTest, "gi").test(resLogin)) && (new RegExp(REG.exp().passwordTest, "gi").test(resPassword))) {
+                                    obj = { "login":login, "password":password};
+                                }
+                                dbParam = JSON.stringify(obj);
+                                xmlhttp = new XMLHttpRequest();
+                                xmlhttp.onreadystatechange = function() {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        //check on true response
+                                        if (this.responseText = "[]"){
+                                            SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Не вірний логін або пароль");
+                                        } 
+                                        //cut first and last symbol in Object
+                                        trimObg = this.responseText.trim();
+                                        getLength = trimObg.length-1; 
+                                        res = trimObg.slice(1, getLength);               
+                                        //parse Object
+                                        if (res != ""){
+                                            myObj = JSON.parse(res);
+                                            SE.$("demo").innerHTML = `${myObj.surname} ${myObj.name}`;
+                                            
+                                            //get admin name and push to prototype
+                                            let admin = `${myObj.surname} ${myObj.name}`;
+                                            toSend.prototype.admin = admin;
+                                            
+                                            //if get accesses set session
+                                            sessionStorage.arnikalogin = myObj.login;
+                                            sessionStorage.arnikapassword = myObj.password;
+                                            
+                                            //if get accesses show hidden DOM
+                                            funCall(); 
+                                        }
+                                    }
+                                };
+                                xmlhttp.open("GET", "php/enter.php?x=" + dbParam, true);
+                                xmlhttp.send();
+                        }; 
 
     // function for check rooms
     let checkRoom = function(){

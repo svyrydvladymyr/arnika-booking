@@ -26,14 +26,15 @@ window.onload = function(){
         sessionStorage.arnikapassword = ""; 
         sessionStorage.arnikatabs = "two";
     } else {
-        //check session and if true autorisation
-        SE.auditLogin(login, password, function(){
-            AJAX.checkUser(login, password, function(){
-                VW.makeDOM(function(){
-                    SE.setDaysToCalendar();
-                });
+        SE.auditLoginPromise(login, password)
+            .then(SE.checkUserPromise)
+            .then(SE.send)
+            .then(VW.viewAfterLogin)
+            .then(VW.makeDOM)
+            .then(SE.setDaysToCalendar)
+            .catch(function(err){
+                console.log(err);
             });
-        });
     }
 
     //set limitation to choice date zvit
