@@ -53,15 +53,12 @@ let VW = (function(){
             if (res != ""){
                 myObj = JSON.parse(res);
                 SE.$("demo").innerHTML = `${myObj.surname} ${myObj.name}`;
-                
                 //get admin name and push to prototype
                 let admin = `${myObj.surname} ${myObj.name}`;
                 toSend.prototype.admin = admin;
-                
                 //if get accesses set session
                 sessionStorage.arnikalogin = myObj.login;
                 sessionStorage.arnikapassword = myObj.password;
-                
                 //if get accesses show hidden DOM
                 resolve();
             } else {

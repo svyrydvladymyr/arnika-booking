@@ -31,6 +31,7 @@ let SE = (function(){
         SE.$(box).style.color = color;
     };
 
+    //make AJAX request
     let send = function(objUrlSend){
         let {obj, urlSend} = objUrlSend;
         console.log(objUrlSend);
@@ -48,7 +49,7 @@ let SE = (function(){
                             console.log(responses);
                             resolve(responses);
                         } else {
-                            reject("Невівний логін або пароль...");
+                            reject("Невірний логін або пароль...");
                         }
                     }
                 }
@@ -58,7 +59,7 @@ let SE = (function(){
         });
     };
 
-    //audit login
+    //audit login and password
     let auditLoginPromise = function(login, password){
         console.log(login);
         console.log(password);
@@ -75,6 +76,7 @@ let SE = (function(){
         );          
     };
 
+    //create obgect for send to server
     let checkUserPromise = function(LoginPassword){
         let {login, password} = LoginPassword;
         console.log(LoginPassword);
@@ -94,12 +96,12 @@ let SE = (function(){
         });         
     };
 
-    //audit login
-    let auditLogin = function(login, password, fun){
-        if ((login != "") && (password != "")) {
-            fun();
-        }
-    };
+                        //audit login
+                        let auditLogin = function(login, password, fun){
+                            if ((login != "") && (password != "")) {
+                                fun();
+                            }
+                        };
 
     //cut incorrect symbol 
     let incorrectCheck = function(val, reg, fun){

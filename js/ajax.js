@@ -79,8 +79,9 @@ let AJAX = (function(){
         let dateStart = SE.$("add-start-data").value;
         let kilkDay = SE.$("add-kilk").value;
         if ((numRoom != "") && (dateStart != "") & (kilkDay != "")){
-            SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-                AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+            SE.auditLoginPromise(sessionStorage.arnikalogin, sessionStorage.arnikapassword)
+                .then(SE.checkUserPromise)
+                .then(function(){
                     let day = 0;
                     for(let i = 0; i < kilkDay; i++){
                         let result = new Date(dateStart);
@@ -94,8 +95,28 @@ let AJAX = (function(){
                     } 
                     //show true on icon
                     SE.iconON("room-error", "room-true", "true");
+                })
+                .catch(function(err){
+                    console.log(err);
                 });
-            });
+
+            // SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+            //     AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
+            //         let day = 0;
+            //         for(let i = 0; i < kilkDay; i++){
+            //             let result = new Date(dateStart);
+            //             //add day
+            //             let nextday = new Date(result.getFullYear(),result.getMonth(),result.getDate()+day);
+            //             day = day + 1;
+            //             //format date
+            //             let resDate = nextday.getFullYear() + "-" + SE.readyMonth(nextday) + "-" + SE.readyDay(nextday);
+            //             //run function for get room on this date
+            //             AJAX.getRoom(numRoom, resDate);
+            //         } 
+            //         //show true on icon
+            //         SE.iconON("room-error", "room-true", "true");
+            //     });
+            // });
             //clear message
             SE.setMessage("message-room", "none", "", "Кімната зайнята на:");            
             //if all true, push to obgect prototype 
