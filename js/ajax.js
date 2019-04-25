@@ -76,29 +76,29 @@ let AJAX = (function(){
     
     
     //for get busy room
-    let getBusyRoom = function(busyDte, urlBusy){
-        let obj, dbParam, xmlhttp, trimObg, myObj;
-        obj = { "dz":busyDte, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
-        dbParam = JSON.stringify(obj);
-        xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {    
-                if (this.responseText != "[]"){
-                    //trim obgect
-                    trimObg = this.responseText.trim();
-                    myObj = JSON.parse(trimObg);
-                    //seted label for all days about how many days are busy
-                    if (myObj.length != 0){
-                        SE.$(busyDte).innerHTML += `<span class="kilk-busy-room">${myObj.length}</span>`; 
-                    }
-                }  else {
-                    // console.log(this.responseText);
-                }                 
-            }
-        };
-        xmlhttp.open("GET", urlBusy + dbParam, true);
-        xmlhttp.send();
-    }; 
+    // let getBusyRoom = function(busyDte, urlBusy){
+    //     let obj, dbParam, xmlhttp, trimObg, myObj;
+    //     obj = { "dz":busyDte, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+    //     dbParam = JSON.stringify(obj);
+    //     xmlhttp = new XMLHttpRequest();
+    //     xmlhttp.onreadystatechange = function() {
+    //         if (this.readyState == 4 && this.status == 200) {    
+    //             if (this.responseText != "[]"){
+    //                 //trim obgect
+    //                 trimObg = this.responseText.trim();
+    //                 myObj = JSON.parse(trimObg);
+    //                 //seted label for all days about how many days are busy
+    //                 if (myObj.length != 0){
+    //                     SE.$(busyDte).innerHTML += `<span class="kilk-busy-room">${myObj.length}</span>`; 
+    //                 }
+    //             }  else {
+    //                 // console.log(this.responseText);
+    //             }                 
+    //         }
+    //     };
+    //     xmlhttp.open("GET", urlBusy + dbParam, true);
+    //     xmlhttp.send();
+    // }; 
 
     //get rooms to list for edit
     let getRoomCalendar = function(date, urlDate){
@@ -374,7 +374,7 @@ let AJAX = (function(){
     return {
         getJson:getJson,
         checkUser:checkUser,
-        getBusyRoom:getBusyRoom,
+        // getBusyRoom:getBusyRoom,
         getRoomCalendar:getRoomCalendar,
         setToEdit:setToEdit,
         upToDB:upToDB,

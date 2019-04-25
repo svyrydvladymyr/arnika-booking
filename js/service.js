@@ -250,15 +250,18 @@ let SE = (function(){
 
     //date format month
     let readyMonth = function(fullDate){    
-        let finMonth, createDate;
+        let createDate;
         createDate = new Date(fullDate);
-        if ((createDate.getMonth() >= 1) && (createDate.getMonth() <= 9)) {
-            finMonth = "0" + (createDate.getMonth()+1);
-            return finMonth;
-        } else {
-            finMonth = createDate.getMonth();
-            return finMonth;
+        if ((createDate.getMonth() >= 0) && (createDate.getMonth() <= 8)) {
+            return finMonth = "0" + (createDate.getMonth()+1);
+        } else if (createDate.getMonth() == 9){            
+            return finMonth = 10;
+        } else if (createDate.getMonth() == 10){            
+            return finMonth = 11;
+        } else if (createDate.getMonth() == 11){            
+            return finMonth = 12;
         }
+            
     };
 
     //function for clear obgect prototype
@@ -374,6 +377,7 @@ let SE = (function(){
                     "datazapovn":sendReadyObg.registr, 
                     "login":sessionStorage.arnikalogin, 
                     "password":sessionStorage.arnikapassword};
+                    console.log(obj);
             dbParam = JSON.stringify(obj);
             xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
@@ -408,6 +412,20 @@ let SE = (function(){
         SE.$("cal-mounth").value = SE.readyMonth(calDate);
     };
 
+    //for get busy room
+    let getBusyRoom = function(busyDte){
+        let urlBusy, obj;
+        obj = { "dz":busyDte, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword}; 
+        if (sessionStorage.arnikatabs == "two"){
+            urlBusy = "php/busyRoomTwo.php?x=";
+        } else if (sessionStorage.arnikatabs == "three"){
+            urlBusy = "php/busyRoomThree.php?x=";
+        } 
+        return new Promise((resolve) => {
+            resolve({"obj":obj,"urlSend":urlBusy});
+        });
+    };   
+
     //for set days in calendar
     let setDaysToCalendar  = function(){
         SE.$("cal-body").innerHTML = "";
@@ -432,11 +450,17 @@ let SE = (function(){
         for (let i=1; i <= kilkDay; i++){
             SE.$("cal-body").innerHTML += `<p class="full-day" id="${calYear}-${calMounth}-${i}"">${i}</p>`;
             let busyDte = `${calYear}-${calMounth}-${i}`;
-            if (sessionStorage.arnikatabs == "two"){
-                AJAX.getBusyRoom(busyDte, "php/busyRoomTwo.php?x=");
-            } else if (sessionStorage.arnikatabs == "three"){
-                AJAX.getBusyRoom(busyDte, "php/busyRoomThree.php?x=");
-            }               
+            SE.getBusyRoom(busyDte)
+                .then(SE.send)
+                .then((responses) => {
+                    return new Promise((resolve) => {
+                        resolve({"responses":responses, "busyDte":busyDte});
+                    });
+                })
+                .then(VW.getBusyRoom)
+                .catch((err) => {
+                    console.error(err);
+                })
         }                   
         //add color for holidays     
         for (let i = 1; i <= kilkDay; i++){
@@ -609,6 +633,7 @@ let SE = (function(){
         getRoom:getRoom,
         getPrice:getPrice,
         addToDB:addToDB,
-        persent:persent
+        persent:persent,
+        getBusyRoom:getBusyRoom
     };
 })();

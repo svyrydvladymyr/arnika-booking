@@ -220,7 +220,6 @@ let VW = (function(){
         }
     };
 
-
     //show busy room in booking form 
     let GetRoom = function(responses){
         if (responses != "[]"){
@@ -271,6 +270,20 @@ let VW = (function(){
             SE.clearValue();
             SE.clearIcon();
         }, 4000); 
+    };
+
+    //for get busy room
+    let getBusyRoom = function(resBusyRoom){
+        let {responses, busyDte} = resBusyRoom;
+        if (responses != "[]"){
+            //trim obgect
+            trimObg = responses.trim();
+            myObj = JSON.parse(trimObg);
+            //seted label for all days about how many days are busy
+            if (myObj.length != 0){
+                SE.$(busyDte).innerHTML += `<span class="kilk-busy-room">${myObj.length}</span>`; 
+            }
+        }  
     };
 
 
@@ -386,7 +399,8 @@ let VW = (function(){
         viewAfterLogin:viewAfterLogin,
         GetRoom:GetRoom,
         getPrice:getPrice,
-        addToDB:addToDB
+        addToDB:addToDB,
+        getBusyRoom:getBusyRoom
     };
 
 })();
