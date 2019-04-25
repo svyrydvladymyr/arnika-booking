@@ -167,7 +167,7 @@ window.onload = function(){
                                 SE.readyToSend("add-kilk", "");
                             } else {
                                 SE.setMessage("message-add-nomer", "none", "", "");
-                                AJAX.checkRoom();
+                                SE.checkRoom();
                             }
                         }
                     });
@@ -188,7 +188,7 @@ window.onload = function(){
                                 SE.readyToSend("add-kilk", "");
                             } else {
                                 SE.setMessage("message-add-start-data", "none", "", "");
-                                AJAX.checkRoom();
+                                SE.checkRoom();
                             }
                         }
                     });
@@ -209,7 +209,7 @@ window.onload = function(){
                                 SE.readyToSend("add-kilk", "");
                             } else {
                                 SE.setMessage("message-add-kilk", "none", "", "");
-                                AJAX.checkRoom();
+                                SE.checkRoom();
                             }
                         }                
                     });

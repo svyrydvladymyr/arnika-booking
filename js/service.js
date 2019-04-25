@@ -31,6 +31,15 @@ let SE = (function(){
         SE.$(box).style.color = color;
     };
 
+    //for cut [] in obgects
+    let cutSimbolInObgect = function(responses){
+        let trimObg, getLength, res;
+        trimObg = responses.trim();
+        getLength = trimObg.length-1; 
+        res = trimObg.slice(1, getLength);
+        return res;
+    }; 
+
     //make AJAX request
     let send = function(objUrlSend){
         let {obj, urlSend} = objUrlSend;
@@ -63,7 +72,7 @@ let SE = (function(){
     let auditLoginPromise = function(login, password){
         console.log(login);
         console.log(password);
-        return new Promise(function(resolve, reject){
+        return new Promise((resolve, reject) => {
                 if ((login != "") && (password != "")) {        
                     console.log(login);
                     console.log(password);
@@ -84,7 +93,7 @@ let SE = (function(){
         console.log(password);
         let resLogin = login.replace(new RegExp(REG.exp().loginCut, "gi"), '');
         let resPassword = password.replace(new RegExp(REG.exp().passwordCut, "gi"), '');
-        return new Promise(function(resolve, reject){
+        return new Promise((resolve, reject) => {
             //check on true and create object for send to backend
             if ((new RegExp(REG.exp().loginTest, "gi").test(resLogin)) && (new RegExp(REG.exp().passwordTest, "gi").test(resPassword))) {
                 let obj = { "login":login, "password":password};
@@ -95,6 +104,104 @@ let SE = (function(){
             }
         });         
     };
+
+    // function for check rooms
+    let checkRoom = function(){
+        let numRoom = SE.$("add-nomer").value;
+        let dateStart = SE.$("add-start-data").value;
+        let kilkDay = SE.$("add-kilk").value;
+        if ((numRoom != "") && (dateStart != "") & (kilkDay != "")){
+            SE.auditLoginPromise(sessionStorage.arnikalogin, sessionStorage.arnikapassword)
+                .then(SE.checkUserPromise)
+                .then(function(){
+                    let day = 0;
+                    for(let i = 0; i < kilkDay; i++){
+                        let result = new Date(dateStart);
+                        //add day
+                        let nextday = new Date(result.getFullYear(),result.getMonth(),result.getDate()+day);
+                        day = day + 1;
+                        //format date
+                        let resDate = nextday.getFullYear() + "-" + SE.readyMonth(nextday) + "-" + SE.readyDay(nextday);
+                        //run function for get room on this date
+                        SE.getRoom({"numRoom":numRoom, "resDate":resDate})
+                            .then(SE.send)
+                            .then(VW.GetRoom)
+                            .then((resulrDate) => {
+                                SE.messageRoom("message-room", "table", "#111111", resulrDate);
+                                SE.iconON("room-error", "room-true", "false");
+                                //clear points in prototype
+                                SE.readyToSend("add-nomer", "");
+                                SE.readyToSend("add-start-data", "");
+                                SE.readyToSend("add-kilk", "");
+                            })
+                            .then(() => {
+                                SE.setMessage("message-price", "none", "", "");
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            });
+                    } 
+                    //show true on icon
+                    SE.iconON("room-error", "room-true", "true");
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
+            //clear message
+            SE.setMessage("message-room", "none", "", "Кімната зайнята на:");            
+            //if all true, push to obgect prototype 
+            SE.readyToSend("add-nomer", SE.$("add-nomer").value);
+            SE.readyToSend("add-start-data", SE.$("add-start-data").value);
+            SE.readyToSend("add-kilk", SE.$("add-kilk").value);
+            //get price
+            SE.getPrice(SE.$("add-nomer").value)
+                .then(SE.send)
+                .then(VW.getPrice)
+                .catch((err) => {
+                    console.error(err);
+                });
+        } else {
+            //show false on icon
+            SE.iconON("room-error", "room-true", "false");
+            SE.getPrice(SE.$("add-nomer").value)
+                .then(SE.send)
+                .then(VW.getPrice)
+                .catch((err) => {
+                    console.error(err);
+                });
+        }
+    };
+
+    // function for get room on this date
+    let getRoom = function(roomDate){
+        let {numRoom, resDate} = roomDate;
+        (sessionStorage.arnikatabs == "two") ? urlGetRoom = "php/getroomTwo.php?x=" : 
+        sessionStorage.arnikatabs == "three" ? urlGetRoom = "php/getroomThree.php?x=" : 
+        console.error("Виникла помилка авторизації!!!");  
+        let obj = { "room":numRoom, "date":resDate, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+        return new Promise((resolve, reject) => {
+            ((sessionStorage.arnikalogin != "") && (sessionStorage.arnikapassword != "")) ? 
+            resolve({"obj":obj, "urlSend":urlGetRoom}) : 
+            reject("Помилка авторизації!!!");
+        });
+    };  
+
+    // function for get price
+    let getPrice = function(room){
+        let obj = {"room":room, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+        //select get request
+        (sessionStorage.arnikatabs == "two") ? urlPrice = "php/priceTwo.php?x=" : 
+        (sessionStorage.arnikatabs == "three") ? urlPrice = "php/priceThree.php?x=" : 
+        console.error("Виникла помилка авторизації!!!");        
+        return new Promise((resolve, reject) => {
+            ((sessionStorage.arnikalogin != "") && (sessionStorage.arnikapassword != "")) ? 
+            resolve({"obj":obj, "urlSend":urlPrice}) : 
+            reject("Помилка авторизації!!!");
+        });
+    };
+
+
+
 
                         //audit login
                         let auditLogin = function(login, password, fun){
@@ -228,24 +335,77 @@ let SE = (function(){
         if ((sendReadyObg.addname == "") || (sendReadyObg.addsurname == "") || (sendReadyObg.addtel == "") || (sendReadyObg.addnomer == "") || (sendReadyObg.addstartdata == "") || (sendReadyObg.addkilkSend == "") || (sendReadyObg.addstatusgгest == "") || (sendReadyObg.addstatuszamovl == "")){
             SE.setMessage("message-send", "table", "red", "Всі поля мають бути заповнені!!!");
         } else {
-            let login = sessionStorage.arnikalogin; 
-            let password = sessionStorage.arnikapassword; 
-            //chack on true login and password
-            SE.auditLogin(login, password, function(){
-                AJAX.checkUser(login, password, function(){
-                    AJAX.addToDB();        
-                });
-            });
+            SE.auditLoginPromise(sessionStorage.arnikalogin, sessionStorage.arnikapassword)
+                .then(SE.checkUserPromise)
+                .then(SE.addToDB)
+                .then(() => {setTimeout(() => {SE.setDaysToCalendar()}, 4000)})
+                .catch((err) => {console.log(err)});
+        }
+    };
+
+    // function for add to DB
+    let addToDB = function(){
+        SE.$("send").removeEventListener("click", SE.sendToDB);
+        let obj, priseResult, urlToDB, dbParam, xmlhttp, trimRes;
+        //set price for guest or worker
+        (sendReadyObg.addstatusgгest == "worker") ? priseResult = sendReadyObg.price / 2 : priseResult = sendReadyObg.price;
+        //set url for send
+        (sessionStorage.arnikatabs == "two") ? urlToDB = "php/addToDbTwo.php?x=" : 
+        (sessionStorage.arnikatabs == "three") ? urlToDB = "php/addToDbThree.php?x=" : console.error("Виникла помилка авторизації!!!");        
+        //make iteration 
+        let day = 0;
+        for(let i = 0; i < sendReadyObg.addkilk; i++){
+            let startdata = new Date(sendReadyObg.addstartdata);
+            //add day
+            let nextday = new Date(startdata.getFullYear(),startdata.getMonth(),startdata.getDate()+day);
+            day = day + 1;
+            //format date
+            let resDateDZ = nextday.getFullYear() + "-" + SE.readyMonth(nextday) + "-" + SE.readyDay(nextday);
+            obj = { "name":sendReadyObg.addname, 
+                    "surname":sendReadyObg.addsurname, 
+                    "tel":sendReadyObg.addtel, 
+                    "number":sendReadyObg.addnomer, 
+                    "dz":resDateDZ, 
+                    "kilk":sendReadyObg.addkilk, 
+                    "price":priseResult, 
+                    "buking":sendReadyObg.addstatuszamovl, 
+                    "tip":sendReadyObg.addstatusgгest, 
+                    "admin":sendReadyObg.admin, 
+                    "datazapovn":sendReadyObg.registr, 
+                    "login":sessionStorage.arnikalogin, 
+                    "password":sessionStorage.arnikapassword};
+            dbParam = JSON.stringify(obj);
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {                    
+                    SE.setMessage("autoriz-message-wrap", "none", "", ""); 
+                    (this.responseText.trim() == "") ? VW.addToDB() : SE.setMessage("message-send", "table", "red", `${this.responseText}`);
+                }
+            };
+            xmlhttp.open("GET", urlToDB + dbParam, true);
+            xmlhttp.send();
+        };            
+    };
+
+    //persent in load spiner
+    let persent = function(){
+        var start = 1;
+        var id = setInterval(frame, 10);
+        function frame() {
+            if (start >= 100) {
+                clearInterval(id);
+            } else {
+                start++; 
+                SE.$("send_persent").innerHTML = `${start}%...`;
+            }
         }
     };
 
     //for set present date
     let presentDate = function(){
         let calDate = new Date();
-        let calMounth = SE.readyMonth(calDate);
-        let calYear = calDate.getFullYear();
-        SE.$("cal-year").value = calYear;
-        SE.$("cal-mounth").value = calMounth;
+        SE.$("cal-year").value = calDate.getFullYear();
+        SE.$("cal-mounth").value = SE.readyMonth(calDate);
     };
 
     //for set days in calendar
@@ -423,6 +583,7 @@ let SE = (function(){
         setSettings:setSettings,
         setMessage:setMessage,
         messageRoom:messageRoom,
+        cutSimbolInObgect:cutSimbolInObgect,
         auditLogin:auditLogin,
         incorrectCheck:incorrectCheck,
         iconON:iconON,
@@ -443,6 +604,11 @@ let SE = (function(){
         checkUser:checkUser,
         auditLoginPromise:auditLoginPromise,
         checkUserPromise:checkUserPromise,
-        send:send
+        send:send,
+        checkRoom:checkRoom,
+        getRoom:getRoom,
+        getPrice:getPrice,
+        addToDB:addToDB,
+        persent:persent
     };
 })();

@@ -45,9 +45,7 @@ let VW = (function(){
             SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Не вірний логін або пароль");
         } 
         //cut first and last symbol in Object
-        trimObg = responses.trim();
-        getLength = trimObg.length-1; 
-        res = trimObg.slice(1, getLength);   
+        let res = SE.cutSimbolInObgect(responses);      
         //parse Object
         return new Promise(function(resolve, reject){
             if (res != ""){
@@ -147,11 +145,7 @@ let VW = (function(){
     //chenge color background
     let chengeBG = function(id, color){
         SE.$(id).style.backgroundColor = color;
-        if (color == "#2b2b2b"){
-            SE.$("footer").style.color = "#ffffff";
-        } else {
-            SE.$("footer").style.color = "#111111";
-        }
+        (color == "#2b2b2b") ? SE.$("footer").style.color = "#ffffff" : SE.$("footer").style.color = "#111111";
     };
     
     //check on true or error in input on change, cut all incorrect, show message
@@ -225,6 +219,60 @@ let VW = (function(){
             SE.readyToSend(idF, "");
         }
     };
+
+
+    //show busy room in booking form 
+    let GetRoom = function(responses){
+        if (responses != "[]"){
+            let res = SE.cutSimbolInObgect(responses); 
+            return new Promise(function(resolve, reject){
+                if (res != ""){
+                    myRoom = JSON.parse(res);
+                    let createDate = new Date(myRoom.data_zaizdu);
+                    let resulrDate = SE.readyDay(createDate) + " - " + SE.readyMonth(createDate) + " - " + createDate.getFullYear();
+                    resolve(resulrDate);
+                }
+            });
+        } 
+    };
+
+    //show price for rooms
+    let getPrice = function(responses){
+        if (responses != "[]"){
+            let res = SE.cutSimbolInObgect(responses);          
+            if (res != ""){
+                myObj = JSON.parse(res);
+                toSend.prototype.price = parseInt(`${myObj.price}`);
+                SE.setMessage("message-price", "table", "green", `${myObj.price}`);  
+            } 
+        }             
+    };
+
+    //show callback after add to DB
+    let addToDB = function(){
+        SE.setMessage("autoriz-message-wrap", "none", "", ""); 
+        SE.$("send").style.background = "linear-gradient(to bottom right, #000000, #d3d3d3, #000000)";
+        SE.$("send").style.cursor = "no-drop";
+        SE.$("icon-send").style.display = "table";
+        SE.$("send_persent").style.display = "table";        
+        SE.persent();
+        //show message about add to DB
+        setTimeout(function(){
+            SE.$("icon-send").style.display = "none";
+            SE.$("send_persent").style.display = "none";
+            SE.setMessage("message-send", "table", "green", "Запис додано!");
+        }, 2000);
+        //clear message about add to DB and clear form 
+        setTimeout(function(){
+            SE.$("send").addEventListener("click", SE.sendToDB);
+            SE.setMessage("message-send", "none", "", "");
+            SE.setMessage("message-price", "none", "", "");
+            SE.clearObg();
+            SE.clearValue();
+            SE.clearIcon();
+        }, 4000); 
+    };
+
 
     //for select present day
     let selectPresentDay = function(){
@@ -335,7 +383,10 @@ let VW = (function(){
         selectDay:selectDay,
         getEditList:getEditList,
         setToUpdate:setToUpdate,
-        viewAfterLogin:viewAfterLogin
+        viewAfterLogin:viewAfterLogin,
+        GetRoom:GetRoom,
+        getPrice:getPrice,
+        addToDB:addToDB
     };
 
 })();
