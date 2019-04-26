@@ -11,9 +11,9 @@ window.onload = function(){
     SE.presentDate();
 
     //clear obgect prototipe
-    SE.clearObg();
-    SE.clearValue();
-    SE.clearIcon();
+    CLEAR.clearObg();
+    CLEAR.clearValue();
+    CLEAR.clearIcon();
     
     //get session to variables 
     let login = sessionStorage.arnikalogin; 
@@ -233,7 +233,7 @@ window.onload = function(){
             let v = document.getElementsByClassName("full-day");
             for(let i = 0; i < v.length; i++){
                 v[i].addEventListener("click", function(){
-                    VW.selectDay(this);
+                    SE.selectDay(this);
                 });
             }
         }); 
@@ -246,7 +246,7 @@ window.onload = function(){
             let v = document.getElementsByClassName("full-day");
             for(let i = 0; i < v.length; i++){
                 v[i].addEventListener("click", function(){
-                    VW.selectDay(this);
+                    SE.selectDay(this);
                 });
             }
         });  
@@ -255,7 +255,7 @@ window.onload = function(){
         let v = document.getElementsByClassName("full-day");
         for(let i = 0; i < v.length; i++){
             v[i].addEventListener("click", function(){
-                VW.selectDay(this);
+                SE.selectDay(this);
             });
         }
 

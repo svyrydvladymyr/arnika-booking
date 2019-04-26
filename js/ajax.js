@@ -100,71 +100,71 @@ let AJAX = (function(){
     //     xmlhttp.send();
     // }; 
 
-    //get rooms to list for edit
-    let getRoomCalendar = function(date, urlDate){
-        let obj, dbParam, xmlhttp, trimObg, myObj;
-        obj = { "dz":date, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
-        dbParam = JSON.stringify(obj);
-        xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {    
-                if (this.responseText != "[]"){
-                    //trim obgect
-                    trimObg = this.responseText.trim();
-                    myObj = JSON.parse(trimObg);
-                    //if list not empty, push to calendar list
-                    if (myObj.length != 0){
-                        SE.$("list-zvit-wrap").innerHTML = `<div class="list-zvit-title">
-                                                            <p>Прізвище</p>
-                                                            <p>Імя</p>
-                                                            <p>Кімн.</p>
-                                                            <p>Статус</p>
-                                                            <p></p></div>`;
-                        let v = document.getElementsByClassName("far fa-edit");
-                        //iteration for show booking list                        
-                        let status;
-                        for(let i = 0; i < myObj.length; i++){
-                            //add color to message about status
-                            if (myObj[i].status == "rezerv"){
-                                status = `<span style="text-shadow: 0px 0px 2px yellow;">Резерв.</span>`;
-                            } else if (myObj[i].status == "pay"){
-                                status = `<span style="text-shadow: 0px 0px 1px #00a500; color:green;">Оплач.</span>`;
-                            }
-                            //push to calendar list and to noda atributes 
-                            SE.$("list-zvit-wrap").innerHTML += `<div class="list-zvit-body">
-                                                                    <p>${myObj[i].last_name}</p>
-                                                                    <p>${myObj[i].first_name}</p>
-                                                                    <p>${myObj[i].nomer_kimn}</p>
-                                                                    <p>${status}</p>
-                                                                    <p>
-                                                                        <i class='far fa-edit' 
-                                                                            style='font-size:18px; cursor:pointer;' 
-                                                                            editsurname="${myObj[i].last_name}" 
-                                                                            editname="${myObj[i].first_name}"
-                                                                            editnomer="${myObj[i].nomer_kimn}" 
-                                                                            edittel="${myObj[i].telephone}"
-                                                                            editkilk="${myObj[i].kilk_dniv}"
-                                                                            editguest="${myObj[i].tip}">
-                                                                        </i>
-                                                                    </p>
-                                                                </div>`;
-                        }
-                        //add listener to all edit button
-                        for(let i = 0; i < myObj.length; i++){
-                            v[i].addEventListener("click", function(){
-                                VW.getEditList(this);
-                            });
-                        }  
-                    } else {
-                        SE.$("list-zvit-wrap").style.display = "none";
-                        SE.$("list-zvit-wrap").innerHTML = "";
-                    }                 
-            }
-        }
-        };
-        xmlhttp.open("GET", urlDate + dbParam, true);
-        xmlhttp.send();
-    };     
+    // //get rooms to list for edit
+    // let getRoomCalendar = function(date, urlDate){
+    //     let obj, dbParam, xmlhttp, trimObg, myObj;
+    //     obj = { "dz":date, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+    //     dbParam = JSON.stringify(obj);
+    //     xmlhttp = new XMLHttpRequest();
+    //     xmlhttp.onreadystatechange = function() {
+    //         if (this.readyState == 4 && this.status == 200) {    
+    //             if (this.responseText != "[]"){
+    //                 //trim obgect
+    //                 trimObg = this.responseText.trim();
+    //                 myObj = JSON.parse(trimObg);
+    //                 //if list not empty, push to calendar list
+    //                 if (myObj.length != 0){
+    //                     SE.$("list-zvit-wrap").innerHTML = `<div class="list-zvit-title">
+    //                                                         <p>Прізвище</p>
+    //                                                         <p>Імя</p>
+    //                                                         <p>Кімн.</p>
+    //                                                         <p>Статус</p>
+    //                                                         <p></p></div>`;
+    //                     let v = document.getElementsByClassName("far fa-edit");
+    //                     //iteration for show booking list                        
+    //                     let status;
+    //                     for(let i = 0; i < myObj.length; i++){
+    //                         //add color to message about status
+    //                         if (myObj[i].status == "rezerv"){
+    //                             status = `<span style="text-shadow: 0px 0px 2px yellow;">Резерв.</span>`;
+    //                         } else if (myObj[i].status == "pay"){
+    //                             status = `<span style="text-shadow: 0px 0px 1px #00a500; color:green;">Оплач.</span>`;
+    //                         }
+    //                         //push to calendar list and to noda atributes 
+    //                         SE.$("list-zvit-wrap").innerHTML += `<div class="list-zvit-body">
+    //                                                                 <p>${myObj[i].last_name}</p>
+    //                                                                 <p>${myObj[i].first_name}</p>
+    //                                                                 <p>${myObj[i].nomer_kimn}</p>
+    //                                                                 <p>${status}</p>
+    //                                                                 <p>
+    //                                                                     <i class='far fa-edit' 
+    //                                                                         style='font-size:18px; cursor:pointer;' 
+    //                                                                         editsurname="${myObj[i].last_name}" 
+    //                                                                         editname="${myObj[i].first_name}"
+    //                                                                         editnomer="${myObj[i].nomer_kimn}" 
+    //                                                                         edittel="${myObj[i].telephone}"
+    //                                                                         editkilk="${myObj[i].kilk_dniv}"
+    //                                                                         editguest="${myObj[i].tip}">
+    //                                                                     </i>
+    //                                                                 </p>
+    //                                                             </div>`;
+    //                     }
+    //                     //add listener to all edit button
+    //                     for(let i = 0; i < myObj.length; i++){
+    //                         v[i].addEventListener("click", function(){
+    //                             VW.getEditList(this);
+    //                         });
+    //                     }  
+    //                 } else {
+    //                     SE.$("list-zvit-wrap").style.display = "none";
+    //                     SE.$("list-zvit-wrap").innerHTML = "";
+    //                 }                 
+    //         }
+    //     }
+    //     };
+    //     xmlhttp.open("GET", urlDate + dbParam, true);
+    //     xmlhttp.send();
+    // };     
 
     //for set to update form
     let setToEdit = function(upSurame, upName, upNomer, upTel, upKilk, urlUpdate){
@@ -193,6 +193,8 @@ let AJAX = (function(){
     let upToDB = function(urlUp){
         let obj, dbParam, xmlhttp;
         obj = {"statusUp":protoUpdate.status, "adminregUp":protoUpdate.adminreg, "dateregUp":protoUpdate.datereg, "surnameUp":protoUpdate.lastname, "nameUp":protoUpdate.firstname, "telUp":protoUpdate.telephone, "nomerUp":protoUpdate.nomerkimn, "kilkUp":protoUpdate.kilkdniv, "datazapisuUp":protoUpdate.datazapisu, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+        console.log(obj);
+
         dbParam = JSON.stringify(obj);
         xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
@@ -213,19 +215,12 @@ let AJAX = (function(){
                         let v = document.getElementsByClassName("full-day");
                         for(let i = 0; i < v.length; i++){
                             v[i].addEventListener("click", function(){
-                                VW.selectDay(this);
+                                SE.selectDay(this);
                             });
                         }
                         //clear update prototipe
-                        toUpdate.prototype.lastname = "";
-                        toUpdate.prototype.firstname = "";
-                        toUpdate.prototype.telephone = "";
-                        toUpdate.prototype.nomerkimn = "";
-                        toUpdate.prototype.kilkdniv = "";
-                        toUpdate.prototype.datazapisu = "";
-                        toUpdate.prototype.status = "";
-                        toUpdate.prototype.adminreg = "";
-                        toUpdate.prototype.datereg = "";
+                        CLEAR.clearUpdatePrototipe();
+                        console.log(protoUpdate);
                         //clear and show message about update 
                         SE.$("icon-send-up").style.display = "none";
                         SE.$("message-send-up").style.display = "table";
@@ -374,8 +369,6 @@ let AJAX = (function(){
     return {
         getJson:getJson,
         checkUser:checkUser,
-        // getBusyRoom:getBusyRoom,
-        getRoomCalendar:getRoomCalendar,
         setToEdit:setToEdit,
         upToDB:upToDB,
         getRoomPeriod:getRoomPeriod

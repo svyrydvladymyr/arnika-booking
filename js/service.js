@@ -1,4 +1,5 @@
 let SE = (function(){
+
     // function for get id node
     let $ = function(val) {
         let getid = document.getElementById(val);
@@ -40,6 +41,34 @@ let SE = (function(){
         return res;
     }; 
 
+    //date format day
+    let readyDay = function(fullDate){
+        let finDay, createDate;
+        createDate = new Date(fullDate);
+        if ((createDate.getDate() >= 1) && (createDate.getDate() <= 9)) {
+            finDay = "0" + createDate.getDate();
+            return finDay;
+        } else {
+            finDay = createDate.getDate();
+            return finDay;
+        }
+    };  
+
+    //date format month
+    let readyMonth = function(fullDate){    
+        let createDate;
+        createDate = new Date(fullDate);
+        if ((createDate.getMonth() >= 0) && (createDate.getMonth() <= 8)) {
+            return finMonth = "0" + (createDate.getMonth()+1);
+        } else if (createDate.getMonth() == 9){            
+            return finMonth = 10;
+        } else if (createDate.getMonth() == 10){            
+            return finMonth = 11;
+        } else if (createDate.getMonth() == 11){            
+            return finMonth = 12;
+        }            
+    };     
+
     //make AJAX request
     let send = function(objUrlSend){
         let {obj, urlSend} = objUrlSend;
@@ -68,19 +97,12 @@ let SE = (function(){
         });
     };
 
+//_CHACK_LOGIN_AND_PASSWORD_++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     //audit login and password
     let auditLoginPromise = function(login, password){
-        console.log(login);
-        console.log(password);
         return new Promise((resolve, reject) => {
-                if ((login != "") && (password != "")) {        
-                    console.log(login);
-                    console.log(password);
-                    
-                    resolve({"login":login, "password":password});
-                } else {
-                    reject("Логін або пароль пусті...");
-                }
+            ((login != "") && (password != "")) ? resolve({"login":login, "password":password}) : reject("Логін або пароль пусті...");
             }
         );          
     };
@@ -88,21 +110,45 @@ let SE = (function(){
     //create obgect for send to server
     let checkUserPromise = function(LoginPassword){
         let {login, password} = LoginPassword;
-        console.log(LoginPassword);
-        console.log(login);
-        console.log(password);
         let resLogin = login.replace(new RegExp(REG.exp().loginCut, "gi"), '');
         let resPassword = password.replace(new RegExp(REG.exp().passwordCut, "gi"), '');
         return new Promise((resolve, reject) => {
             //check on true and create object for send to backend
-            if ((new RegExp(REG.exp().loginTest, "gi").test(resLogin)) && (new RegExp(REG.exp().passwordTest, "gi").test(resPassword))) {
-                let obj = { "login":login, "password":password};
-                console.log(obj);
-                resolve({"obj":obj, "urlSend":"php/enter.php?x="});
-            } else {
-                reject("Невівний логін або пароль...");
-            }
+            let obj = { "login":login, "password":password};
+            ((new RegExp(REG.exp().loginTest, "gi").test(resLogin)) && (new RegExp(REG.exp().passwordTest, "gi").test(resPassword))) ?
+            resolve({"obj":obj, "urlSend":"php/enter.php?x="}) :
+            reject("Невівний логін або пароль...");
         });         
+    };
+
+//_CHACK_FORM_++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    // function for get room on this date
+    let getRoom = function(roomDate){
+        let {numRoom, resDate} = roomDate;
+        (sessionStorage.arnikatabs == "two") ? urlGetRoom = "php/getroomTwo.php?x=" : 
+        sessionStorage.arnikatabs == "three" ? urlGetRoom = "php/getroomThree.php?x=" : 
+        console.error("Виникла помилка авторизації!!!");  
+        let obj = { "room":numRoom, "date":resDate, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+        return new Promise((resolve, reject) => {
+            ((sessionStorage.arnikalogin != "") && (sessionStorage.arnikapassword != "")) ? 
+            resolve({"obj":obj, "urlSend":urlGetRoom}) : 
+            reject("Помилка авторизації!!!");
+        });
+    };  
+
+    // function for get price
+    let getPrice = function(room){
+        let obj = {"room":room, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+        //select get request
+        (sessionStorage.arnikatabs == "two") ? urlPrice = "php/priceTwo.php?x=" : 
+        (sessionStorage.arnikatabs == "three") ? urlPrice = "php/priceThree.php?x=" : 
+        console.error("Виникла помилка авторизації!!!");        
+        return new Promise((resolve, reject) => {
+            ((sessionStorage.arnikalogin != "") && (sessionStorage.arnikapassword != "")) ? 
+            resolve({"obj":obj, "urlSend":urlPrice}) : 
+            reject("Помилка авторизації!!!");
+        });
     };
 
     // function for check rooms
@@ -172,33 +218,7 @@ let SE = (function(){
         }
     };
 
-    // function for get room on this date
-    let getRoom = function(roomDate){
-        let {numRoom, resDate} = roomDate;
-        (sessionStorage.arnikatabs == "two") ? urlGetRoom = "php/getroomTwo.php?x=" : 
-        sessionStorage.arnikatabs == "three" ? urlGetRoom = "php/getroomThree.php?x=" : 
-        console.error("Виникла помилка авторизації!!!");  
-        let obj = { "room":numRoom, "date":resDate, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
-        return new Promise((resolve, reject) => {
-            ((sessionStorage.arnikalogin != "") && (sessionStorage.arnikapassword != "")) ? 
-            resolve({"obj":obj, "urlSend":urlGetRoom}) : 
-            reject("Помилка авторизації!!!");
-        });
-    };  
 
-    // function for get price
-    let getPrice = function(room){
-        let obj = {"room":room, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
-        //select get request
-        (sessionStorage.arnikatabs == "two") ? urlPrice = "php/priceTwo.php?x=" : 
-        (sessionStorage.arnikatabs == "three") ? urlPrice = "php/priceThree.php?x=" : 
-        console.error("Виникла помилка авторизації!!!");        
-        return new Promise((resolve, reject) => {
-            ((sessionStorage.arnikalogin != "") && (sessionStorage.arnikapassword != "")) ? 
-            resolve({"obj":obj, "urlSend":urlPrice}) : 
-            reject("Помилка авторизації!!!");
-        });
-    };
 
 
 
@@ -235,82 +255,7 @@ let SE = (function(){
         }
     };
 
-    //date format day
-    let readyDay = function(fullDate){
-        let finDay, createDate;
-        createDate = new Date(fullDate);
-        if ((createDate.getDate() >= 1) && (createDate.getDate() <= 9)) {
-            finDay = "0" + createDate.getDate();
-            return finDay;
-        } else {
-            finDay = createDate.getDate();
-            return finDay;
-        }
-    };  
-
-    //date format month
-    let readyMonth = function(fullDate){    
-        let createDate;
-        createDate = new Date(fullDate);
-        if ((createDate.getMonth() >= 0) && (createDate.getMonth() <= 8)) {
-            return finMonth = "0" + (createDate.getMonth()+1);
-        } else if (createDate.getMonth() == 9){            
-            return finMonth = 10;
-        } else if (createDate.getMonth() == 10){            
-            return finMonth = 11;
-        } else if (createDate.getMonth() == 11){            
-            return finMonth = 12;
-        }
-            
-    };
-
-    //function for clear obgect prototype
-    let clearObg = function(){
-        toSend.prototype.registr = "";
-        toSend.prototype.addnomer = "";
-        toSend.prototype.addstartdata = "";
-        toSend.prototype.addkilk = "";
-        toSend.prototype.addstatusgгest = "";
-        toSend.prototype.addstatuszamovl = "";
-        toSend.prototype.price = "";
-    };
-
-    //function for clear value in inputs
-    let clearValue = function(){
-        SE.$("add-nomer").value = "";
-        SE.$("add-start-data").value = "";
-        SE.$("add-kilk").value = "";
-        SE.$("add-status-gгest").value = "";
-        SE.$("add-status-zamovl").value = "";
-    };
-
-    //function for clear true icon
-    let clearIcon = function(){
-        SE.$("room-true").style.display = "none";
-        SE.$("status-gгest-true").style.display = "none";
-        SE.$("status-zamovl-true").style.display = "none";
-        SE.$("name-error").style.display = "none";
-        SE.$("surname-error").style.display = "none";
-        SE.$("tel-error").style.display = "none";
-        SE.$("room-error").style.display = "none";
-        SE.$("status-gгest-error").style.display = "none";
-        SE.$("status-zamovl-error").style.display = "none";
-    };
-
-    //function for clear tabs
-    let clearTabs = function(){
-        SE.setMessage("message-send", "none", "", "");
-        SE.setMessage("message-price", "none", "", ""); 
-        SE.setMessage("message-room", "none", "", "Кімната зайнята на:");
-        SE.setMessage("message-add-name", "none", "", "");
-        SE.setMessage("message-add-surname", "none", "", "");
-        SE.setMessage("message-add-tel", "none", "", "");
-        SE.setMessage("message-add-nomer", "none", "", "");
-        SE.setMessage("message-add-start-data", "none", "", "");
-        SE.setMessage("message-add-kilk", "none", "", "");
-        SE.setMessage("message-add-status-grest", "none", "", "");
-        SE.setMessage("message-add-status-zamovl", "none", "", "");
-    }
+//_ADD_TO_DB_++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     //function for make prototype for send obgect
     let readyToSend = function(idF, value){
@@ -391,6 +336,8 @@ let SE = (function(){
         };            
     };
 
+//_CALENDAR_++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
     //persent in load spiner
     let persent = function(){
         var start = 1;
@@ -412,6 +359,38 @@ let SE = (function(){
         SE.$("cal-mounth").value = SE.readyMonth(calDate);
     };
 
+    //for select present day
+    let selectPresentDay = function(){
+        let presDayShowNew = new Date();
+        let presDayShow = presDayShowNew.getFullYear() + "-" + SE.readyMonth(presDayShowNew) + "-" + presDayShowNew.getDate();
+        if (SE.$(presDayShow)){
+            SE.$(presDayShow).style.border = "1px solid red";
+            SE.$(presDayShow).style.backgroundColor = "#fffbd2";
+            //set url for select present day
+            SE.auditLoginPromise(sessionStorage.arnikalogin, sessionStorage.arnikapassword)
+                .then(SE.checkUserPromise)
+                .then(() => {
+                    let PresentDayUrl, obj;
+                    obj = { "dz":presDayShow, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+                    if (sessionStorage.arnikatabs == "two"){
+                        SE.$("list-zvit-wrap").style.display = "table";
+                        PresentDayUrl = "php/getRoomCalTwo.php?x=";
+                    } else if (sessionStorage.arnikatabs == "three"){
+                        SE.$("list-zvit-wrap").style.display = "table";
+                        PresentDayUrl =  "php/getRoomCalThree.php?x=";
+                    }
+                    return new Promise((resolve) => {
+                        resolve({"obj":obj, "urlSend":PresentDayUrl});
+                    });
+                })
+                .then(SE.send)
+                .then(VW.getRoomCalendar)
+                .catch((err) => {
+                    console.error(err);
+                });
+        }
+    };    
+
     //for get busy room
     let getBusyRoom = function(busyDte){
         let urlBusy, obj;
@@ -425,6 +404,37 @@ let SE = (function(){
             resolve({"obj":obj,"urlSend":urlBusy});
         });
     };   
+
+    //for select day
+    let selectDay = function(el){
+        let cell = el;
+        let v = document.getElementsByClassName("full-day");
+        for(let i = 0; i < v.length; i++){
+            SE.$(v[i].id).classList.remove("cal-activ");
+        }
+        SE.$(cell.id).classList.add("cal-activ");
+        SE.auditLoginPromise(sessionStorage.arnikalogin, sessionStorage.arnikapassword)
+            .then(SE.checkUserPromise)
+            .then(() => {
+                let PresentDayUrl, obj;
+                obj = { "dz":cell.id, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+                if (sessionStorage.arnikatabs == "two"){
+                    SE.$("list-zvit-wrap").style.display = "table";
+                    PresentDayUrl = "php/getRoomCalTwo.php?x=";
+                } else if (sessionStorage.arnikatabs == "three"){
+                    SE.$("list-zvit-wrap").style.display = "table";
+                    PresentDayUrl =  "php/getRoomCalThree.php?x=";
+                }
+                return new Promise((resolve) => {
+                    resolve({"obj":obj, "urlSend":PresentDayUrl});
+                });
+            })
+            .then(SE.send)
+            .then(VW.getRoomCalendar)
+            .catch((err) => {
+                console.error(err);
+            });
+    };  
 
     //for set days in calendar
     let setDaysToCalendar  = function(){
@@ -484,10 +494,10 @@ let SE = (function(){
         let v = document.getElementsByClassName("full-day");
         for(let i = 0; i < v.length; i++){
             v[i].addEventListener("click", function(){
-                VW.selectDay(this);
+                SE.selectDay(this);
             });
         }
-        VW.selectPresentDay();
+        SE.selectPresentDay();
     }    
 
     //function for add variables to prototype
@@ -503,7 +513,11 @@ let SE = (function(){
         let toDay = new Date();
         let resDateUp = toDay.getFullYear() + "-" + SE.readyMonth(toDay) + "-" + SE.readyDay(toDay);
         toUpdate.prototype.datereg = resDateUp;
+        console.log(protoUpdate);
+
     };    
+
+//_UPDATE_FORM_++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     //update DB
     let updateToDB = function(){
@@ -560,47 +574,7 @@ let SE = (function(){
         });   
     };
 
-    let checkUser = function(login, password, funCall){
-        let obj, dbParam, xmlhttp, myObj, trimObg, getLength, res;
-            let resLogin = login.replace(new RegExp(REG.exp().loginCut, "gi"), '');
-            let resPassword = password.replace(new RegExp(REG.exp().passwordCut, "gi"), '');
-            //check on true and create object for send to backend
-            if ((new RegExp(REG.exp().loginTest, "gi").test(resLogin)) && (new RegExp(REG.exp().passwordTest, "gi").test(resPassword))) {
-                obj = { "login":login, "password":password};
-            }
-            dbParam = JSON.stringify(obj);
-            xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    //check on true response
-                    if (this.responseText = "[]"){
-                        SE.setMessage("autoriz-message-wrap", "table", "#b62b2b", "Не вірний логін або пароль");
-                    } 
-                    //cut first and last symbol in Object
-                    trimObg = this.responseText.trim();
-                    getLength = trimObg.length-1; 
-                    res = trimObg.slice(1, getLength);               
-                    //parse Object
-                    if (res != ""){
-                        myObj = JSON.parse(res);
-                        SE.$("demo").innerHTML = `${myObj.surname} ${myObj.name}`;
-                        
-                        //get admin name and push to prototype
-                        let admin = `${myObj.surname} ${myObj.name}`;
-                        toSend.prototype.admin = admin;
-                        
-                        //if get accesses set session
-                        sessionStorage.arnikalogin = myObj.login;
-                        sessionStorage.arnikapassword = myObj.password;
-                        
-                        //if get accesses show hidden DOM
-                        funCall(); 
-                    }
-                }
-            };
-            xmlhttp.open("GET", "php/enter.php?x=" + dbParam, true);
-            xmlhttp.send();
-    };
+
 
     return {
         $:$, 
@@ -614,18 +588,13 @@ let SE = (function(){
         readyDay:readyDay,
         readyMonth:readyMonth,
         readyToSend:readyToSend,
-        clearObg:clearObg,
-        clearValue:clearValue,
-        clearIcon:clearIcon,
         sendToDB:sendToDB,
-        clearTabs:clearTabs,
         presentDate:presentDate,
         setDaysToCalendar:setDaysToCalendar,
         addToUpdareProto:addToUpdareProto,
         updateToDB:updateToDB,
         reloadPeriod:reloadPeriod,
         sortList:sortList,
-        checkUser:checkUser,
         auditLoginPromise:auditLoginPromise,
         checkUserPromise:checkUserPromise,
         send:send,
@@ -634,6 +603,8 @@ let SE = (function(){
         getPrice:getPrice,
         addToDB:addToDB,
         persent:persent,
-        getBusyRoom:getBusyRoom
+        getBusyRoom:getBusyRoom,
+        selectPresentDay:selectPresentDay,
+        selectDay:selectDay
     };
 })();

@@ -1,4 +1,5 @@
 let VW = (function(){
+
     //function for change login button
     let buttonLogin = function(){
         let logIn = SE.$("send-login-close");
@@ -93,15 +94,11 @@ let VW = (function(){
         AJAX.getJson("json/packageTwo.json");
         SE.$("add-nomer").max = 12;
         sessionStorage.arnikatabs = "two";
-        SE.clearTabs();
-        SE.clearObg();
-        SE.clearValue();
-        SE.clearIcon();
-        SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-            AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-                SE.setDaysToCalendar();
-            });
-        });
+        CLEAR.clearTabs();
+        CLEAR.clearObg();
+        CLEAR.clearValue();
+        CLEAR.clearIcon();
+        SE.setDaysToCalendar();    
         SE.$("list-zvit-wrap").innerHTML = "";
         //reload period list 
             setTimeout(function(){
@@ -123,15 +120,11 @@ let VW = (function(){
         AJAX.getJson("json/packageThree.json");
         SE.$("add-nomer").max = 15;
         sessionStorage.arnikatabs = "three";
-        SE.clearTabs();
-        SE.clearObg();
-        SE.clearValue();
-        SE.clearIcon();
-        SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-            AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-                SE.setDaysToCalendar();
-            });
-        });        
+        CLEAR.clearTabs();
+        CLEAR.clearObg();
+        CLEAR.clearValue();
+        CLEAR.clearIcon();
+        SE.setDaysToCalendar();      
         SE.$("list-zvit-wrap").innerHTML = "";
         //reload period list 
         setTimeout(function(){
@@ -266,9 +259,9 @@ let VW = (function(){
             SE.$("send").addEventListener("click", SE.sendToDB);
             SE.setMessage("message-send", "none", "", "");
             SE.setMessage("message-price", "none", "", "");
-            SE.clearObg();
-            SE.clearValue();
-            SE.clearIcon();
+            CLEAR.clearObg();
+            CLEAR.clearValue();
+            CLEAR.clearIcon();
         }, 4000); 
     };
 
@@ -286,50 +279,70 @@ let VW = (function(){
         }  
     };
 
-
-    //for select present day
-    let selectPresentDay = function(){
-        let presDayShowNew = new Date();
-        let presDayShow = presDayShowNew.getFullYear() + "-" + SE.readyMonth(presDayShowNew) + "-" + presDayShowNew.getDate();
-        if (SE.$(presDayShow)){
-            SE.$(presDayShow).style.border = "1px solid red";
-            SE.$(presDayShow).style.backgroundColor = "#fffbd2";
-            //set url for select present day
-            SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-                AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-                    if (sessionStorage.arnikatabs == "two"){
-                        SE.$("list-zvit-wrap").style.display = "table";
-                        AJAX.getRoomCalendar(presDayShow, "php/getRoomCalTwo.php?x=");
-                    } else if (sessionStorage.arnikatabs == "three"){
-                        SE.$("list-zvit-wrap").style.display = "table";
-                        AJAX.getRoomCalendar(presDayShow, "php/getRoomCalThree.php?x=");
+    //get rooms to list for edit
+    let getRoomCalendar = function(responses){
+        console.log(responses);
+        if (responses != "[]"){
+            //trim obgect
+            trimObg = responses.trim();
+            myObj = JSON.parse(trimObg);
+            //if list not empty, push to calendar list
+            if (myObj.length != 0){
+                SE.$("list-zvit-wrap").innerHTML = `<div class="list-zvit-title">
+                                                    <p>Прізвище</p>
+                                                    <p>Імя</p>
+                                                    <p>Кімн.</p>
+                                                    <p>Статус</p>
+                                                    <p></p></div>`;
+                let v = document.getElementsByClassName("far fa-edit");
+                //iteration for show booking list                        
+                let status;
+                for(let i = 0; i < myObj.length; i++){
+                    //add color to message about status
+                    if (myObj[i].status == "rezerv"){
+                        status = `<span style="text-shadow: 0px 0px 2px yellow;">Резерв.</span>`;
+                    } else if (myObj[i].status == "pay"){
+                        status = `<span style="text-shadow: 0px 0px 1px #00a500; color:green;">Оплач.</span>`;
                     }
-                });
-            });
-        }
-    };
-
-    //for select day
-    let selectDay = function(el){
-        let cell = el;
-        let v = document.getElementsByClassName("full-day");
-        for(let i = 0; i < v.length; i++){
-            SE.$(v[i].id).classList.remove("cal-activ");
-        }
-        SE.$(cell.id).classList.add("cal-activ");
-        //set url for select day
-        SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-            AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-                if (sessionStorage.arnikatabs == "two"){
-                    SE.$("list-zvit-wrap").style.display = "table";
-                    AJAX.getRoomCalendar(cell.id, "php/getRoomCalTwo.php?x=");
-                } else if (sessionStorage.arnikatabs == "three"){
-                    SE.$("list-zvit-wrap").style.display = "table";
-                    AJAX.getRoomCalendar(cell.id, "php/getRoomCalThree.php?x=");
+                    //push to calendar list and to noda atributes 
+                    SE.$("list-zvit-wrap").innerHTML += `<div class="list-zvit-body">
+                                                            <p>${myObj[i].last_name}</p>
+                                                            <p>${myObj[i].first_name}</p>
+                                                            <p>${myObj[i].nomer_kimn}</p>
+                                                            <p>${status}</p>
+                                                            <p>
+                                                                <i class='far fa-edit' 
+                                                                    style='font-size:18px; cursor:pointer;' 
+                                                                    editsurname="${myObj[i].last_name}" 
+                                                                    editname="${myObj[i].first_name}"
+                                                                    editnomer="${myObj[i].nomer_kimn}" 
+                                                                    edittel="${myObj[i].telephone}"
+                                                                    editkilk="${myObj[i].kilk_dniv}"
+                                                                    editguest="${myObj[i].tip}">
+                                                                </i>
+                                                            </p>
+                                                        </div>`;
                 }
-            });
-        });
-    };   
+                //add listener to all edit button
+                for(let i = 0; i < myObj.length; i++){
+                    v[i].addEventListener("click", function(){
+                        VW.getEditList(this);
+                    });
+                }  
+            } else {
+                SE.$("list-zvit-wrap").style.display = "none";
+                SE.$("list-zvit-wrap").innerHTML = "";
+            }                 
+        } 
+    };     
+
+
+
+
+
+    
+
+ 
     
     //show form for edit
     let getEditList = function(el){
@@ -392,15 +405,14 @@ let VW = (function(){
         checkCut:checkCut,
         checkTest:checkTest,
         checkTestS:checkTestS,
-        selectPresentDay:selectPresentDay,
-        selectDay:selectDay,
         getEditList:getEditList,
         setToUpdate:setToUpdate,
         viewAfterLogin:viewAfterLogin,
         GetRoom:GetRoom,
         getPrice:getPrice,
         addToDB:addToDB,
-        getBusyRoom:getBusyRoom
+        getBusyRoom:getBusyRoom,
+        getRoomCalendar:getRoomCalendar
     };
 
 })();
