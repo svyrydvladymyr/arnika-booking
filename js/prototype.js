@@ -1,12 +1,14 @@
-class toSend{
-    constructor(){
+//for send
+    class toSend{
+        constructor(){
+        }
     }
-}
-const sendReadyObg = new toSend();
+    const sendReadyObg = new toSend();
 
-class toUpdate{
-    constructor(){
+//for update
+    class toUpdate{
+        constructor(){
+        }
     }
-}
-const protoUpdate = new toUpdate(); 
+    const protoUpdate = new toUpdate(); 
 

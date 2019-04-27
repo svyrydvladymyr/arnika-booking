@@ -6,14 +6,38 @@ let SE = (function(){
         return getid;
     };
 
+    // function for get object from (*.json) file
+    let getJson = function(namefile) {
+        var file = new XMLHttpRequest();
+        file.onreadystatechange = function() {
+            if (file.readyState === 4 && file.status == "200") {
+                let data = JSON.parse(file.responseText);
+                //set innerHTML
+                for (let id in data) {
+                    (SE.$(id)) ? SE.$(id).innerHTML = data[id] : console.log();
+                }
+                //set placeholder
+                for (let id in data.placeholder) {  
+                    (SE.$(id)) ? SE.$(id).placeholder = data.placeholder[id] : console.log();
+                }
+                //set innerHTML to label
+                for (let id in data.label) {  
+                    (SE.$(id)) ? SE.$(id).innerHTML = data.label[id] : console.log();
+                }
+            }
+        };
+        file.open("GET", namefile, true);
+        file.send(null);
+    };    
+
     // function for set parametrs
     let setSettings = function(enter){
         SE.$("enter-open").innerHTML = enter;
         if (sessionStorage.arnikatabs == "two"){
-            AJAX.getJson("json/packageTwo.json");
+            SE.getJson("json/packageTwo.json");
             SE.$("add-nomer").max = 12;
         } else if (sessionStorage.arnikatabs == "three"){
-            AJAX.getJson("json/packageThree.json");
+            SE.getJson("json/packageThree.json");
             SE.$("add-nomer").max = 15;
         }
     };
@@ -72,24 +96,13 @@ let SE = (function(){
     //make AJAX request
     let send = function(objUrlSend){
         let {obj, urlSend} = objUrlSend;
-        console.log(objUrlSend);
-        console.log(obj);
-        console.log(urlSend);
         return new Promise(function(resolve, reject){
             dbParam = JSON.stringify(obj);
             xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     let responses = this.responseText;
-                    if (responses != "[]") {
-                        console.log(responses);
-                        if (responses != "[]") {
-                            console.log(responses);
-                            resolve(responses);
-                        } else {
-                            reject("Невірний логін або пароль...");
-                        }
-                    }
+                    (responses != "[]") ? resolve(responses) : reject("Помилка авторизації!!!");
                 }
             };
             xmlhttp.open("GET", urlSend + dbParam, true);
@@ -102,7 +115,7 @@ let SE = (function(){
     //audit login and password
     let auditLoginPromise = function(login, password){
         return new Promise((resolve, reject) => {
-            ((login != "") && (password != "")) ? resolve({"login":login, "password":password}) : reject("Логін або пароль пусті...");
+            ((login != "") && (password != "")) ? resolve({"login":login, "password":password}) : reject("Помилка авторизації!!!");
             }
         );          
     };
@@ -117,7 +130,7 @@ let SE = (function(){
             let obj = { "login":login, "password":password};
             ((new RegExp(REG.exp().loginTest, "gi").test(resLogin)) && (new RegExp(REG.exp().passwordTest, "gi").test(resPassword))) ?
             resolve({"obj":obj, "urlSend":"php/enter.php?x="}) :
-            reject("Невівний логін або пароль...");
+            reject("Помилка авторизації!!!");
         });         
     };
 
@@ -128,8 +141,11 @@ let SE = (function(){
         let {numRoom, resDate} = roomDate;
         (sessionStorage.arnikatabs == "two") ? urlGetRoom = "php/getroomTwo.php?x=" : 
         sessionStorage.arnikatabs == "three" ? urlGetRoom = "php/getroomThree.php?x=" : 
-        console.error("Виникла помилка авторизації!!!");  
-        let obj = { "room":numRoom, "date":resDate, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+        console.error("Помилка авторизації!!!");  
+        let obj = {"room":numRoom, 
+                    "date":resDate, 
+                    "login":sessionStorage.arnikalogin, 
+                    "password":sessionStorage.arnikapassword};
         return new Promise((resolve, reject) => {
             ((sessionStorage.arnikalogin != "") && (sessionStorage.arnikapassword != "")) ? 
             resolve({"obj":obj, "urlSend":urlGetRoom}) : 
@@ -139,11 +155,13 @@ let SE = (function(){
 
     // function for get price
     let getPrice = function(room){
-        let obj = {"room":room, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+        let obj = {"room":room, 
+                   "login":sessionStorage.arnikalogin, 
+                   "password":sessionStorage.arnikapassword};
         //select get request
         (sessionStorage.arnikatabs == "two") ? urlPrice = "php/priceTwo.php?x=" : 
         (sessionStorage.arnikatabs == "three") ? urlPrice = "php/priceThree.php?x=" : 
-        console.error("Виникла помилка авторизації!!!");        
+        console.error("Помилка авторизації!!!");        
         return new Promise((resolve, reject) => {
             ((sessionStorage.arnikalogin != "") && (sessionStorage.arnikapassword != "")) ? 
             resolve({"obj":obj, "urlSend":urlPrice}) : 
@@ -180,19 +198,13 @@ let SE = (function(){
                                 SE.readyToSend("add-start-data", "");
                                 SE.readyToSend("add-kilk", "");
                             })
-                            .then(() => {
-                                SE.setMessage("message-price", "none", "", "");
-                            })
-                            .catch((err) => {
-                                console.log(err);
-                            });
+                            .then(() => {SE.setMessage("message-price", "none", "", "")})
+                            .catch((err) => {console.error(err)});
                     } 
                     //show true on icon
                     SE.iconON("room-error", "room-true", "true");
                 })
-                .catch(function(err){
-                    console.log(err);
-                });
+                .catch((err) => {console.error(err)});
             //clear message
             SE.setMessage("message-room", "none", "", "Кімната зайнята на:");            
             //if all true, push to obgect prototype 
@@ -203,32 +215,16 @@ let SE = (function(){
             SE.getPrice(SE.$("add-nomer").value)
                 .then(SE.send)
                 .then(VW.getPrice)
-                .catch((err) => {
-                    console.error(err);
-                });
+                .catch((err) => {console.error(err)});
         } else {
             //show false on icon
             SE.iconON("room-error", "room-true", "false");
             SE.getPrice(SE.$("add-nomer").value)
                 .then(SE.send)
                 .then(VW.getPrice)
-                .catch((err) => {
-                    console.error(err);
-                });
+                .catch((err) => {console.error(err)});
         }
     };
-
-
-
-
-
-
-                        //audit login
-                        let auditLogin = function(login, password, fun){
-                            if ((login != "") && (password != "")) {
-                                fun();
-                            }
-                        };
 
     //cut incorrect symbol 
     let incorrectCheck = function(val, reg, fun){
@@ -287,7 +283,7 @@ let SE = (function(){
                 .then(SE.checkUserPromise)
                 .then(SE.addToDB)
                 .then(() => {setTimeout(() => {SE.setDaysToCalendar()}, 4000)})
-                .catch((err) => {console.log(err)});
+                .catch((err) => {console.error(err)});
         }
     };
 
@@ -322,7 +318,6 @@ let SE = (function(){
                     "datazapovn":sendReadyObg.registr, 
                     "login":sessionStorage.arnikalogin, 
                     "password":sessionStorage.arnikapassword};
-                    console.log(obj);
             dbParam = JSON.stringify(obj);
             xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
@@ -371,7 +366,9 @@ let SE = (function(){
                 .then(SE.checkUserPromise)
                 .then(() => {
                     let PresentDayUrl, obj;
-                    obj = { "dz":presDayShow, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+                    obj = { "dz":presDayShow, 
+                            "login":sessionStorage.arnikalogin, 
+                            "password":sessionStorage.arnikapassword};
                     if (sessionStorage.arnikatabs == "two"){
                         SE.$("list-zvit-wrap").style.display = "table";
                         PresentDayUrl = "php/getRoomCalTwo.php?x=";
@@ -379,45 +376,38 @@ let SE = (function(){
                         SE.$("list-zvit-wrap").style.display = "table";
                         PresentDayUrl =  "php/getRoomCalThree.php?x=";
                     }
-                    return new Promise((resolve) => {
-                        resolve({"obj":obj, "urlSend":PresentDayUrl});
-                    });
+                    return new Promise((resolve) => {resolve({"obj":obj, "urlSend":PresentDayUrl})});
                 })
                 .then(SE.send)
                 .then(VW.getRoomCalendar)
-                .catch((err) => {
-                    console.error(err);
-                });
+                .catch((err) => {console.error(err)});
         }
     };    
 
     //for get busy room
     let getBusyRoom = function(busyDte){
         let urlBusy, obj;
-        obj = { "dz":busyDte, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword}; 
-        if (sessionStorage.arnikatabs == "two"){
-            urlBusy = "php/busyRoomTwo.php?x=";
-        } else if (sessionStorage.arnikatabs == "three"){
-            urlBusy = "php/busyRoomThree.php?x=";
-        } 
-        return new Promise((resolve) => {
-            resolve({"obj":obj,"urlSend":urlBusy});
-        });
+        obj = { "dz":busyDte, 
+                "login":sessionStorage.arnikalogin, 
+                "password":sessionStorage.arnikapassword}; 
+        (sessionStorage.arnikatabs == "two") ? urlBusy = "php/busyRoomTwo.php?x=" : 
+        (sessionStorage.arnikatabs == "three") ? urlBusy = "php/busyRoomThree.php?x=" : console.log();
+        return new Promise((resolve) => {resolve({"obj":obj,"urlSend":urlBusy})});
     };   
 
     //for select day
     let selectDay = function(el){
         let cell = el;
         let v = document.getElementsByClassName("full-day");
-        for(let i = 0; i < v.length; i++){
-            SE.$(v[i].id).classList.remove("cal-activ");
-        }
+        for(let i = 0; i < v.length; i++){SE.$(v[i].id).classList.remove("cal-activ");}
         SE.$(cell.id).classList.add("cal-activ");
         SE.auditLoginPromise(sessionStorage.arnikalogin, sessionStorage.arnikapassword)
             .then(SE.checkUserPromise)
             .then(() => {
                 let PresentDayUrl, obj;
-                obj = { "dz":cell.id, "login":sessionStorage.arnikalogin, "password":sessionStorage.arnikapassword};
+                obj = { "dz":cell.id, 
+                        "login":sessionStorage.arnikalogin, 
+                        "password":sessionStorage.arnikapassword};
                 if (sessionStorage.arnikatabs == "two"){
                     SE.$("list-zvit-wrap").style.display = "table";
                     PresentDayUrl = "php/getRoomCalTwo.php?x=";
@@ -425,15 +415,11 @@ let SE = (function(){
                     SE.$("list-zvit-wrap").style.display = "table";
                     PresentDayUrl =  "php/getRoomCalThree.php?x=";
                 }
-                return new Promise((resolve) => {
-                    resolve({"obj":obj, "urlSend":PresentDayUrl});
-                });
+                return new Promise((resolve) => {resolve({"obj":obj, "urlSend":PresentDayUrl})});
             })
             .then(SE.send)
             .then(VW.getRoomCalendar)
-            .catch((err) => {
-                console.error(err);
-            });
+            .catch((err) => {console.error(err)});
     };  
 
     //for set days in calendar
@@ -445,32 +431,20 @@ let SE = (function(){
         let lastDay = new Date(calYear, calMounth, 0);
         //get first day of mounth
         let numFirstDayB = firstDay.getDay();
-        if (numFirstDayB == 0){
-            numFirstDay = 7;
-        } else {
-            numFirstDay = firstDay.getDay();
-        }
+        (numFirstDayB == 0) ? numFirstDay = 7 : numFirstDay = firstDay.getDay();
         //get last day of mounth
         let kilkDay = lastDay.getDate();
         //add empty cell       
-        for (let i=1; i < numFirstDay; i++){
-            SE.$("cal-body").innerHTML += `<p class="empty-day"></p>`;
-        }
+        for (let i=1; i < numFirstDay; i++){SE.$("cal-body").innerHTML += `<p class="empty-day"></p>`;}
         //add cell  
         for (let i=1; i <= kilkDay; i++){
             SE.$("cal-body").innerHTML += `<p class="full-day" id="${calYear}-${calMounth}-${i}"">${i}</p>`;
             let busyDte = `${calYear}-${calMounth}-${i}`;
             SE.getBusyRoom(busyDte)
                 .then(SE.send)
-                .then((responses) => {
-                    return new Promise((resolve) => {
-                        resolve({"responses":responses, "busyDte":busyDte});
-                    });
-                })
+                .then((responses) => {return new Promise((resolve) => {resolve({"responses":responses, "busyDte":busyDte})})})
                 .then(VW.getBusyRoom)
-                .catch((err) => {
-                    console.error(err);
-                })
+                .catch((err) => {console.error(err)})
         }                   
         //add color for holidays     
         for (let i = 1; i <= kilkDay; i++){
@@ -492,13 +466,30 @@ let SE = (function(){
         }
         //add eventListener to cell
         let v = document.getElementsByClassName("full-day");
-        for(let i = 0; i < v.length; i++){
-            v[i].addEventListener("click", function(){
-                SE.selectDay(this);
-            });
-        }
+        for(let i = 0; i < v.length; i++){v[i].addEventListener("click", function(){SE.selectDay(this)})}
         SE.selectPresentDay();
-    }    
+    };    
+
+//_UPDATE_FORM_++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    //show form for edit
+    let getEditList = function(el){
+        let obj, urlGtList;
+        SE.$("edit-wrap").style.display = "flex";
+        SE.$("edit-exit").addEventListener("click", () => {SE.$("edit-wrap").style.display = "none";});
+        //get variables from attributes node
+        obj = { "lastname":el.getAttribute("editsurname"), 
+                "firstname":el.getAttribute("editname"), 
+                "nomerkimn":el.getAttribute("editnomer"), 
+                "telephone":el.getAttribute("edittel"), 
+                "kilkdniv":el.getAttribute("editkilk"), 
+                "login":sessionStorage.arnikalogin, 
+                "password":sessionStorage.arnikapassword};
+        //set url for show form for edit
+        (sessionStorage.arnikatabs == "two") ? urlGtList = "php/getForUpdateTwo.php?x=" :
+        (sessionStorage.arnikatabs == "three") ? urlGtList = "php/getForUpdateThree.php?x=" : console.log();
+        return new Promise((resolve) => {resolve({"obj":obj, "urlSend":urlGtList})});
+    };
 
     //function for add variables to prototype
     let addToUpdareProto = function(protoUp){
@@ -513,53 +504,63 @@ let SE = (function(){
         let toDay = new Date();
         let resDateUp = toDay.getFullYear() + "-" + SE.readyMonth(toDay) + "-" + SE.readyDay(toDay);
         toUpdate.prototype.datereg = resDateUp;
-        console.log(protoUpdate);
-
     };    
-
-//_UPDATE_FORM_++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-    //update DB
-    let updateToDB = function(){
-        let login = sessionStorage.arnikalogin; 
-        let password = sessionStorage.arnikapassword;
-        //chack login and password 
-        SE.auditLogin(login, password, function(){
-            AJAX.checkUser(login, password, function(){
-                if (sessionStorage.arnikatabs == "two"){
-                    AJAX.upToDB("php/upToDBTwo.php?x=");
-                } else if (sessionStorage.arnikatabs == "three"){
-                    AJAX.upToDB("php/upToDBThree.php?x=");
-                }
-            });
-        });
-    }
 
     //reload period list
     let reloadPeriod = function(){
-        let listZ = SE.$("id-z").value;
-        let listPO = SE.$("id-po").value;
+        let listZ, listPO, listStatus, urlPeriodSend, obj;
+        listZ = SE.$("id-z").value;
+        listPO = SE.$("id-po").value;
         //get status from radio
         let radios = document.getElementsByName('id-status');
         for (let i = 0, length = radios.length; i < length; i++){
             if (radios[i].checked){
-                listStatus = radios[i].value;
+                listStatus = radios[i].value; 
                 break;
             }
-        }
-        //get sort from session
-        let sorts = sessionStorage.sortuvannia;
+        };
+        //show period list
+        SE.$("list-zvit-wrap").innerHTML = "";
+        SE.$("list-zvit-wrap-period").style.display = "table";
+        obj = { "listZ":listZ, 
+                "listPO":listPO, 
+                "listStatus":listStatus, 
+                "login":sessionStorage.arnikalogin, 
+                "password":sessionStorage.arnikapassword};
+        (sessionStorage.arnikatabs == "two") ? urlPeriodSend = "php/listPeriodTwo.php?x=" :
+        (sessionStorage.arnikatabs == "three") ? urlPeriodSend = "php/listPeriodThree.php?x=" : console.log();
         if ((listZ != "") && (listPO != "")){
-            SE.auditLogin(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-                AJAX.checkUser(sessionStorage.arnikalogin, sessionStorage.arnikapassword, function(){
-                    if (sessionStorage.arnikatabs == "two"){
-                        AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodTwo.php?x=");
-                    } else if(sessionStorage.arnikatabs == "three"){
-                        AJAX.getRoomPeriod(listZ, listPO, listStatus, sorts, "php/listPeriodThree.php?x=");
-                    }                 
-                });
-            });
+            SE.auditLoginPromise(sessionStorage.arnikalogin, sessionStorage.arnikapassword)
+                .then(SE.checkUserPromise)
+                .then(() => {return new Promise((resolve) => {resolve({"obj":obj,"urlSend":urlPeriodSend})})})
+                .then(SE.send)
+                .then(VW.showRoomPeriod)
+                .catch((err) => {console.error(err)});
         };  
+    };
+
+    //update DB
+    let updateToDB = function(){
+        let obj, urlUpdateToDB;
+        (sessionStorage.arnikatabs == "two") ? urlUpdateToDB = "php/upToDBTwo.php?x=" :
+        (sessionStorage.arnikatabs == "three") ? urlUpdateToDB = ("php/upToDBThree.php?x=") : console.log();
+        obj = {"statusUp":protoUpdate.status, 
+               "adminregUp":protoUpdate.adminreg, 
+               "dateregUp":protoUpdate.datereg, 
+               "surnameUp":protoUpdate.lastname, 
+               "nameUp":protoUpdate.firstname, 
+               "telUp":protoUpdate.telephone, 
+               "nomerUp":protoUpdate.nomerkimn, 
+               "kilkUp":protoUpdate.kilkdniv, 
+               "datazapisuUp":protoUpdate.datazapisu, 
+               "login":sessionStorage.arnikalogin, 
+               "password":sessionStorage.arnikapassword};
+        SE.auditLoginPromise(sessionStorage.arnikalogin, sessionStorage.arnikapassword)
+            .then(SE.checkUserPromise)
+            .then(() => {return new Promise((resolve) => {resolve({"obj":obj,"urlSend":urlUpdateToDB})})})
+            .then(SE.send)
+            .then(VW.updateToDB)
+            .catch((err) => {console.error(err)});
     };
 
     //function for sort
@@ -574,37 +575,36 @@ let SE = (function(){
         });   
     };
 
-
-
     return {
-        $:$, 
-        setSettings:setSettings,
-        setMessage:setMessage,
-        messageRoom:messageRoom,
-        cutSimbolInObgect:cutSimbolInObgect,
-        auditLogin:auditLogin,
-        incorrectCheck:incorrectCheck,
-        iconON:iconON,
-        readyDay:readyDay,
-        readyMonth:readyMonth,
-        readyToSend:readyToSend,
-        sendToDB:sendToDB,
-        presentDate:presentDate,
-        setDaysToCalendar:setDaysToCalendar,
-        addToUpdareProto:addToUpdareProto,
-        updateToDB:updateToDB,
-        reloadPeriod:reloadPeriod,
-        sortList:sortList,
-        auditLoginPromise:auditLoginPromise,
-        checkUserPromise:checkUserPromise,
-        send:send,
-        checkRoom:checkRoom,
-        getRoom:getRoom,
-        getPrice:getPrice,
-        addToDB:addToDB,
-        persent:persent,
-        getBusyRoom:getBusyRoom,
-        selectPresentDay:selectPresentDay,
-        selectDay:selectDay
+        $, 
+        getJson,
+        setSettings,
+        setMessage,
+        messageRoom,
+        cutSimbolInObgect,
+        incorrectCheck,
+        iconON,
+        readyDay,
+        readyMonth,
+        readyToSend,
+        sendToDB,
+        presentDate,
+        setDaysToCalendar,
+        addToUpdareProto,
+        updateToDB,
+        reloadPeriod,
+        sortList,
+        auditLoginPromise,
+        checkUserPromise,
+        send,
+        checkRoom,
+        getRoom,
+        getPrice,
+        addToDB,
+        persent,
+        getBusyRoom,
+        selectPresentDay,
+        selectDay,
+        getEditList
     };
 })();

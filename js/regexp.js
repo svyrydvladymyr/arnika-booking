@@ -15,7 +15,7 @@ let REG = (function(){
     };
 
     return {
-        exp:exp
+        exp
     };
 
 })();

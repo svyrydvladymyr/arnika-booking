@@ -486,14 +486,14 @@
 
 .list-zvit-body-period p:nth-child(8) {
     width: 30px;
-    padding: 5px 0px;
+    padding: 1px 0px;
     border-right: 0px solid #111111;
     color:green;
 }
 
 .list-zvit-body-period p:nth-child(8):hover {
     width: 30px;
-    padding: 5px 0px;
+    padding: 1px 0px;
     border-right: 0px solid #111111;
     color:red;
 }
@@ -851,7 +851,7 @@
 
     .list-zvit-body-period p:nth-child(4) {
         width: 55px;
-        padding: 5px 0px;
+        padding: 7px 0px;
         font-size: 9px;
         overflow: hidden;
     }
@@ -896,14 +896,14 @@
 
     .list-zvit-body-period p:nth-child(8){
         width: 25px;
-        padding: 5px 0px;
+        padding: 1px 0px;
         border-right: 0px solid #111111;
         color:green;
     }
 
     .list-zvit-body-period p:nth-child(8):hover{
         width: 25px;
-        padding: 5px 0px;
+        padding: 1px 0px;
         border-right: 0px solid #111111;
         color:red;
     }
