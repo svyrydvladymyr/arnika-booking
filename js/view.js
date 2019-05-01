@@ -116,6 +116,7 @@ let VW = (function(){
 
     //chenge color background
     let chengeBG = function(id, color){
+        localStorage.bgColor = color;
         SE.$(id).style.backgroundColor = color;
         (color == "#2b2b2b") ? SE.$("footer").style.color = "#ffffff" : SE.$("footer").style.color = "#111111";
     };
@@ -196,7 +197,7 @@ let VW = (function(){
     let GetRoom = function(responses){
         if (responses != "[]"){
             let res = SE.cutSimbolInObgect(responses); 
-            return new Promise(function(resolve, reject){
+            return new Promise(function(resolve){
                 if (res != ""){
                     let myRoom = JSON.parse(res);
                     let createDate = new Date(myRoom.data_zaizdu);
@@ -218,6 +219,28 @@ let VW = (function(){
             } 
         }             
     };
+
+    //show message after check nomer, date and kilk inputs
+    let chackNomDateKilk = function(blok){
+        if ((SE.$(blok).validity) && (!SE.$(blok).validity.valid)){
+            SE.setMessage(`message-${blok}`, "table", "#111111", "Не коректне значення!");
+            SE.setMessage("message-room", "none", "", "");
+            SE.iconON("room-error", "room-true", "false");
+            SE.readyToSend(blok, "");
+        } else {
+            if ((SE.$(blok).value == "")) {
+                SE.setMessage(`message-${blok}`, "table", "#111111", "Не може бути пустим!");
+                SE.setMessage("message-room", "none", "", "");
+                SE.iconON("room-error", "room-true", "false");
+                SE.readyToSend("add-nomer", "");
+                SE.readyToSend("add-start-data", "");
+                SE.readyToSend("add-kilk", "");
+            } else {
+                SE.setMessage(`message-${blok}`, "none", "", "");
+                SE.checkRoom();
+            }
+        }
+    };    
 
     //show callback after add to DB
     let addToDB = function(){
@@ -328,8 +351,7 @@ let VW = (function(){
         SE.$("edit-list-price").innerHTML = myObj[0].price;
         let priceSum = myObj[0].kilk_dniv * myObj[0].price;
         SE.$("edit-list-sum").innerHTML = priceSum;
-        (myObj[0].tip == "guest") ? SE.$("edit-list-guest").innerHTML = "Відвідувач" :
-        (myObj[0].tip == "worker") ? SE.$("edit-list-guest").innerHTML = "Працівник": console.log();
+        (myObj[0].tip == "guest") ? SE.$("edit-list-guest").innerHTML = "Відвідувач" : SE.$("edit-list-guest").innerHTML = "Працівник";
         let listDate = [];
         SE.$("edit-list-date").innerHTML = "";
         for (let i = 0; i < myObj.length; i++){
@@ -355,10 +377,34 @@ let VW = (function(){
             //if list not empty, push to period list
             if (myObj.length != 0){
                 SE.$("list-zvit-wrap-period").innerHTML = `<div class="list-zvit-title-period">
-                                                    <p><label for="last_name" class="container2" style="left:3px;">Прізвище<input type="radio" name="id-sort" id="last_name" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="last_name"><span class="checkmark2"></span></label></p>
+                                                    <p><label for="last_name" class="container2" style="left:3px;">
+                                                        Прізвище <input type="radio" 
+                                                                name="id-sort" 
+                                                                id="last_name" 
+                                                                style="width: 16px; margin: 2px -17px; color: red; position: absolute;" 
+                                                                value="last_name">
+                                                            <span class="checkmark2"></span>
+                                                        </label>
+                                                    </p>
                                                     <p>Імя</p>
-                                                    <p><label for="nomer_kimn" class="container2">Кім<input type="radio" name="id-sort" id="nomer_kimn" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="nomer_kimn"><span class="checkmark2"></span></label></p>
-                                                    <p><label for="data_zaizdu" class="container2">Дата<input type="radio" name="id-sort" id="data_zaizdu" style="width: 16px; margin: 2px -17px; color: red; position: absolute;" value="data_zaizdu"><span class="checkmark2"></span></label></p>
+                                                    <p><label for="nomer_kimn" class="container2">
+                                                        Кім <input type="radio" 
+                                                                name="id-sort" 
+                                                                id="nomer_kimn" 
+                                                                style="width: 16px; margin: 2px -17px; color: red; position: absolute;" 
+                                                                value="nomer_kimn">
+                                                            <span class="checkmark2"></span>
+                                                        </label>
+                                                    </p>
+                                                    <p><label for="data_zaizdu" class="container2">
+                                                        Дата<input type="radio" 
+                                                                name="id-sort" 
+                                                                id="data_zaizdu" 
+                                                                style="width: 16px; margin: 2px -17px; color: red; position: absolute;" 
+                                                                value="data_zaizdu">
+                                                            <span class="checkmark2"></span>
+                                                        </label>
+                                                    </p>
                                                     <p>Ціна</p>
                                                     <p>Гість</p>
                                                     <p>Статус</p>
@@ -375,10 +421,9 @@ let VW = (function(){
                     //add color to message about status
                     (myObj[i].status == "rezerv") ? status = `<span style="text-shadow: 0px 0px 2px yellow;">Резерв.</span>` :
                     (myObj[i].status == "pay") ? status = `<span style="text-shadow: 0px 0px 1px #00a500; color:green;">Оплач.</span>` :
-                    (myObj[i].status == "del") ? status = `<span style="text-shadow: 0px 0px 1px #ff0000; color: #922c2c;">Видал.</span>` : console.log();
+                    status = `<span style="text-shadow: 0px 0px 1px #ff0000; color: #922c2c;">Видал.</span>`;
                     //add color to message about guest
-                    (myObj[i].tip == "guest") ? guest = `<span>Гість</span>` :
-                    (myObj[i].tip == "worker") ? guest = `<span style="text-shadow: 0px 0px 1px #111111; color:#111111;">Праців.</span>` : console.log();
+                    (myObj[i].tip == "guest") ? guest = `<span>Гість</span>` : guest = `<span style="text-shadow: 0px 0px 1px #111111; color:#111111;">Праців.</span>`;
                     //push to periodlist and to node atributes 
                     SE.$("list-zvit-wrap-period").innerHTML += `<div class="list-zvit-body-period">
                                                             <p>${myObj[i].last_name}</p>
@@ -471,9 +516,8 @@ let VW = (function(){
             setTimeout(function(){
                 SE.setDaysToCalendar();
                 SE.$("list-zvit-wrap").innerHTML = "";
-                //for select day
-                let v = document.getElementsByClassName("full-day");
-                for(let i = 0; i < v.length; i++){v[i].addEventListener("click", function(){SE.selectDay(this);});}
+                //add listener for select day
+                SE.listenerToCalendar();
                 //clear update prototipe
                 CLEAR.clearUpdatePrototipe();
                 //clear and show message about update 
@@ -509,7 +553,8 @@ let VW = (function(){
         getBusyRoom,
         getRoomCalendar,
         showRoomPeriod,
-        updateToDB
+        updateToDB,
+        chackNomDateKilk
     };
 
 })();

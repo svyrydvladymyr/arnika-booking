@@ -10,6 +10,7 @@ window.onload = function(){
     sessionStorage.arnikatabs = "two";
     sessionStorage.sortuvannia = "nomer_kimn";
     SE.presentDate();
+    SE.listenerToCalendar();
 
     //clear obgect prototipe
     CLEAR.clearObg();
@@ -38,11 +39,11 @@ window.onload = function(){
 
 //set limitation to choice date zvit
     document.getElementById("id-z").onchange = function () {
-        var input = document.getElementById("id-po");
+        let input = document.getElementById("id-po");
         input.setAttribute("min", this.value);
     };
     document.getElementById("id-po").onchange = function () {
-        var input = document.getElementById("id-z");
+        let input = document.getElementById("id-z");
         input.setAttribute("max", this.value);
     };
 
@@ -50,14 +51,8 @@ window.onload = function(){
     SE.$("click").addEventListener("click", () => {VW.buttonLogin()});
 
 //chenge bgcolor
-    SE.$("dark").addEventListener("click", () => {
-        VW.chengeBG("body", "#2b2b2b");
-        localStorage.bgColor = "#2b2b2b";
-    });
-    SE.$("light").addEventListener("click", () => {
-        VW.chengeBG("body", "#ffffff");
-        localStorage.bgColor = "#ffffff";
-    });
+    SE.$("dark").addEventListener("click", () => {VW.chengeBG("body", "#2b2b2b")});
+    SE.$("light").addEventListener("click", () => {VW.chengeBG("body", "#ffffff")});
     
 //check and cut incorrect symbol in login and password
     SE.$("login").addEventListener("input", () => {
@@ -79,19 +74,13 @@ window.onload = function(){
 
 //create slider
     SE.$("form-title-2").addEventListener("click", () => {
-        (SE.$("form-wrap").style.display === "block") ? 
-        SE.$("form-wrap").style.display = "table" : 
-        SE.$("form-wrap").style.display = "block";
+        (SE.$("form-wrap").style.display === "block") ? SE.$("form-wrap").style.display = "table" : SE.$("form-wrap").style.display = "block";
     });
     SE.$("zvit-title").addEventListener("click", () => {
-        (SE.$("form-wrap2").style.display === "block") ?
-        SE.$("form-wrap2").style.display = "table" :
-        SE.$("form-wrap2").style.display = "block";
+        (SE.$("form-wrap2").style.display === "block") ? SE.$("form-wrap2").style.display = "table" : SE.$("form-wrap2").style.display = "block";
     });
     SE.$("zvit-title2").addEventListener("click", () => {
-        (SE.$("form-wrap3").style.display === "block") ?
-        SE.$("form-wrap3").style.display = "table" :
-        SE.$("form-wrap3").style.display = "block";
+        (SE.$("form-wrap3").style.display === "block") ? SE.$("form-wrap3").style.display = "table" : SE.$("form-wrap3").style.display = "block";
     });
 
 //slider on hover
@@ -117,104 +106,24 @@ window.onload = function(){
 //chack rooms 
               
     //number-----------------------------------------------------------------------------
-    SE.$("add-nomer").addEventListener("change", () => {
-        if ((SE.$("add-nomer").validity) && (!SE.$("add-nomer").validity.valid)){
-            SE.setMessage("message-add-nomer", "table", "#111111", "Не коректне значення!");
-            SE.setMessage("message-room", "none", "", "");
-            SE.iconON("room-error", "room-true", "false");
-            SE.readyToSend("add-nomer", "");
-        } else {
-            if ((SE.$("add-nomer").value == "")) {
-                SE.setMessage("message-add-nomer", "table", "#111111", "Не може бути пустим!");
-                SE.setMessage("message-room", "none", "", "");
-                SE.iconON("room-error", "room-true", "false");
-                SE.readyToSend("add-nomer", "");
-                SE.readyToSend("add-start-data", "");
-                SE.readyToSend("add-kilk", "");
-            } else {
-                SE.setMessage("message-add-nomer", "none", "", "");
-                SE.checkRoom();
-            }
-        }
-    });
-
+    SE.$("add-nomer").addEventListener("change", () => {VW.chackNomDateKilk("add-nomer")});
     //date-----------------------------------------------------------------------------
-    SE.$("add-start-data").addEventListener("change", () => {
-        if(!isNaN(SE.$("add-start-data").value)){
-            SE.setMessage("message-add-start-data", "table", "#111111", "Не коректне значення!");
-            SE.setMessage("message-room", "none", "", "");
-            SE.iconON("room-error", "room-true", "false");
-            SE.readyToSend("add-start-data", "");
-        } else {
-            if ((SE.$("add-start-data").value == "")) {
-                SE.setMessage("message-add-start-data", "table", "#111111", "Не може бути пустим!");
-                SE.setMessage("message-room", "none", "", "");
-                SE.iconON("room-error", "room-true", "false");
-                SE.readyToSend("add-nomer", "");
-                SE.readyToSend("add-start-data", "");
-                SE.readyToSend("add-kilk", "");
-            } else {
-                SE.setMessage("message-add-start-data", "none", "", "");
-                SE.checkRoom();
-            }
-        }
-    });
-
+    SE.$("add-start-data").addEventListener("change", () => {VW.chackNomDateKilk("add-start-data")});
     //kilk-----------------------------------------------------------------------------
-    SE.$("add-kilk").addEventListener("change", () => {
-        if ((SE.$("add-kilk").validity) && (!SE.$("add-kilk").validity.valid)){
-            SE.setMessage("message-add-kilk", "table", "#111111", "Не коректне значення!");
-            SE.setMessage("message-room", "none", "", "");
-            SE.iconON("room-error", "room-true", "false");
-            SE.readyToSend("add-kilk", "");
-        } else {
-            if ((SE.$("add-kilk").value == "")) {
-                SE.setMessage("message-add-kilk", "table", "#111111", "Не може бути пустим!");
-                SE.setMessage("message-room", "none", "", "");
-                SE.iconON("room-error", "room-true", "false");
-                SE.readyToSend("add-nomer", "");
-                SE.readyToSend("add-start-data", "");
-                SE.readyToSend("add-kilk", "");
-            } else {
-                SE.setMessage("message-add-kilk", "none", "", "");
-                SE.checkRoom();
-            }
-        }                
-    });                                        
-
+    SE.$("add-kilk").addEventListener("change", () => {VW.chackNomDateKilk("add-kilk")});                                    
     //guest--------------------------------------------------------------------------------
-    SE.$("add-status-gгest").addEventListener("change", () => {
-        VW.checkTestS("add-status-gгest", "status-gгest-error", "status-gгest-true");
-    });    
+    SE.$("add-status-gгest").addEventListener("change", () => {VW.checkTestS("add-status-gгest", "status-gгest-error", "status-gгest-true")});    
     //guest--------------------------------------------------------------------------------
-    SE.$("add-status-zamovl").addEventListener("change", () => {
-        VW.checkTestS("add-status-zamovl", "status-zamovl-error", "status-zamovl-true");
-    });                 
+    SE.$("add-status-zamovl").addEventListener("change", () => {VW.checkTestS("add-status-zamovl", "status-zamovl-error", "status-zamovl-true")});                 
 
 //send
     SE.$("send").addEventListener("click", SE.sendToDB);    
         
 //for set date in calendar, on change selected year
-    SE.$("cal-year").addEventListener("change", function(){
-        SE.setDaysToCalendar();
-        SE.$("list-zvit-wrap").innerHTML = "";
-        //for select day
-        let v = document.getElementsByClassName("full-day");
-        for(let i = 0; i < v.length; i++){v[i].addEventListener("click", function(){SE.selectDay(this)})}
-    }); 
+    SE.$("cal-year").addEventListener("change", SE.changeYearOrMounth); 
 
 //for set date in calendar, on change selected month
-    SE.$("cal-mounth").addEventListener("change", function(){
-        SE.setDaysToCalendar();
-        SE.$("list-zvit-wrap").innerHTML = "";
-        //for select day
-        let v = document.getElementsByClassName("full-day");
-        for(let i = 0; i < v.length; i++){v[i].addEventListener("click", function(){SE.selectDay(this)})}
-    });  
-
-//for radio select day from busy day list
-    let v = document.getElementsByClassName("full-day");
-    for(let i = 0; i < v.length; i++){v[i].addEventListener("click", function(){SE.selectDay(this)})}
+    SE.$("cal-mounth").addEventListener("change", SE.changeYearOrMounth);  
 
 //list for the period on change STATUS
     let radioss = document.getElementsByName('id-status');
