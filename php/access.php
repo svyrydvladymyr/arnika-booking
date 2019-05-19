@@ -1,8 +1,8 @@
 <?php
     $servername = "localhost";
-    $username = "root";
+    $username = "";
     $password = "";
-    $dbname = "kalcifer";
+    $dbname = "";
     $tableOne = "bookinggurt1";
     $tableTwo = "bookinggurt2";
     $users = "users";
